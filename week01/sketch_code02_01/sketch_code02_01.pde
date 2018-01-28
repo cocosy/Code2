@@ -35,10 +35,13 @@ void draw() {
     noStroke();
     p1.ballCollision();
     p2.ballCollision();
+
     b.paddleCollision(p1);
     b.paddleCollision(p2);
+
     b.update();
     b.display();
+
     p1.laserCollision();
     p1.update();
     p1.display();  
@@ -90,8 +93,6 @@ class Ball {
 
   void update() {
 
-    //   if (pos.x < s/2 || pos.x > width - s/2) {
-
     if (p2Score >=11) {
       text("Win!", width/2 + 100, 100);
     } else if ( p1Score >=11) {
@@ -119,7 +120,7 @@ class Ball {
 
   void display() {
     noStroke();
-    fill(255);
+    fill(random(255), random(255), random(255));
     rectMode(CENTER);
     rect(pos.x, pos.y, s, s);
   } 
@@ -131,16 +132,6 @@ class Ball {
       // vel.y *= -1;
     }
   }
-
-  //void ballCollision(Paddle p) {
-  //  if (pos.x > p1.laserPos && pos.x <p1.laserPos+10 && pos.y == p1.laserPosY) {
-  //    p2Score ++;
-  //    p1Laser = false;
-  //  } else if(pos.x > p2.laserPos && pos.x <p2.laserPos+10 && pos.y == p2.laserPosY){
-  //        p1Score++;
-  //        p2Laser = false;
-  //}
-  //}
 }
 
 
@@ -152,6 +143,7 @@ class Paddle {
   float laserPosY;
   float w;
   float h;
+  int rgB = 0;
   int playerNum;
 
 
@@ -186,12 +178,22 @@ class Paddle {
       }
       if (p1Laser) {
         laserPosY = pos.y;
-        stroke(255);
-        strokeWeight(10);
+        if ( rgB>-1 && rgB<256) {
+          rgB ++;
+        } else {
+          rgB=0;
+        }
+        stroke(255, 0, rgB);
+        strokeWeight(8);
         line(laserPos, laserPosY, laserPos+10, laserPosY);
+        stroke(255, 255, 0);
+        strokeWeight(3);
+        line(laserPos-3, laserPosY-8, laserPos-3, laserPosY-10);
+        line(laserPos-13, laserPosY, laserPos-11, laserPosY);
+        line(laserPos-3, laserPosY+8, laserPos-3, laserPosY+10);
         laserPos -= 5;
         noStroke();
-        if (laserPos < -10) {
+        if (laserPos < -10|| p2Score >= 11 ||p1Score >=11) {
           p1Laser = false;
           laserPos =pos.x;
           //laserPosY = pos.y;
@@ -211,12 +213,23 @@ class Paddle {
       }
       if (p2Laser) {
         laserPosY = pos.y;
-        stroke(255);
-        strokeWeight(10);
+            laserPosY = pos.y;
+        if ( rgB>-1 && rgB<256) {
+          rgB ++;
+        } else {
+          rgB=0;
+        }
+        stroke(0, rgB, 255);
+        strokeWeight(8);
         line(laserPos, laserPosY, laserPos+10, laserPosY);
+        stroke(255, 255, 0);
+        strokeWeight(3);
+        line(laserPos+9, laserPosY-8, laserPos+9, laserPosY-10);
+        line(laserPos+19, laserPosY, laserPos+21, laserPosY);
+        line(laserPos+9, laserPosY+8, laserPos+9, laserPosY+10);
         laserPos += 5;
         noStroke();
-        if (laserPos > width+10) {
+        if (laserPos > width+10 || p1Score >= 11|| p2Score >= 11) {
           p2Laser = false;
           laserPos =pos.x;
           //laserPosY = pos.y;
@@ -299,30 +312,3 @@ void keyReleased() {
     p2Down = false;
   }
 }
-
-
-//class ball
-//float x;
-//float y;
-//float dx;
-//float dy;
-
-//Ball(){
-// x = width/2;
-// y = height/2;
-// dx = 0.2;
-// dy = random(-5,5);
-//}
-
-//void display(){
-//  rect(x,y,10,10); 
-//}
-
-//void update(){
-//  x+=dx;
-//  if(x<0 || x>width){
-//    dx=-dx;
-
-//  }
-
-//}
