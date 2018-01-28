@@ -29,21 +29,26 @@ void setup() {
 void draw() {
   background(0);
   int m = millis();
-  if (m<7500) {
+  if (m<1500) {
     drawIntro();
   } else {
+    noStroke();
+    p1.ballCollision();
+    p2.ballCollision();
     b.paddleCollision(p1);
     b.paddleCollision(p2);
     b.update();
     b.display();
+    p1.laserCollision();
     p1.update();
-    p1.display();
+    p1.display();  
+    p2.laserCollision();
     p2.update();
     p2.display();
-    
+
     for (int i = 0; i < 501; i = i+20) {
-  rect(width/2, i, 12, 12);
-}
+      rect(width/2, i, 12, 12);
+    }
 
     textSize(36);
     fill(255);
@@ -61,10 +66,9 @@ void  drawIntro() {
 
   text("Laser Pong", 30, 100);
   text("Player 1 : [W]/[S] to move,[D] to fire", 30, 130);
-  text("Player 2 : [UP]/[DOWN] to move,[LEFT] to fire",30, 160);
+  text("Player 2 : [UP]/[DOWN] to move,[LEFT] to fire", 30, 160);
   text("Avoid missing ball for high score", 30, 190);
   text("Don't shoot the ball", 30, 220);
-  
 }
 
 
@@ -127,13 +131,17 @@ class Ball {
       // vel.y *= -1;
     }
   }
+
+  //void ballCollision(Paddle p) {
+  //  if (pos.x > p1.laserPos && pos.x <p1.laserPos+10 && pos.y == p1.laserPosY) {
+  //    p2Score ++;
+  //    p1Laser = false;
+  //  } else if(pos.x > p2.laserPos && pos.x <p2.laserPos+10 && pos.y == p2.laserPosY){
+  //        p1Score++;
+  //        p2Laser = false;
+  //}
+  //}
 }
-
-//canvas
-
-
-
-//laser
 
 
 
@@ -141,6 +149,7 @@ class Ball {
 class Paddle {
   PVector pos;
   float laserPos;
+  float laserPosY;
   float w;
   float h;
   int playerNum;
@@ -151,36 +160,41 @@ class Paddle {
     if (whichPlayer == 0) {
       pos = new PVector(width-15-w, height/2); 
       laserPos = pos.x;
+      laserPosY =pos.y;
       w = 20;
       h =100;
     } else if (whichPlayer == 1) {
       pos = new PVector(15, height/2);
       laserPos = pos.x;
+      laserPosY = pos.y;
       w =20;
       h=100;
     }
   }
+
   void update() {
     if (playerNum == 0) {
       if (p1Up) {
         if (pos.y-h/2>0) {
-          pos.y -= 7;
+          pos.y -= 10;
         }
       }
       if (p1Down) {
         if (pos.y+h/2< width) {
-          pos.y +=7;
+          pos.y +=10;
         }
       }
-      if(p1Laser){
+      if (p1Laser) {
+        laserPosY = pos.y;
         stroke(255);
         strokeWeight(10);
-        line(laserPos,pos.y,laserPos+10,pos.y);
+        line(laserPos, laserPosY, laserPos+10, laserPosY);
         laserPos -= 5;
         noStroke();
-        if(laserPos == 0){
-            p1Laser = false;
-            laserPos =pos.x;
+        if (laserPos < -10) {
+          p1Laser = false;
+          laserPos =pos.x;
+          //laserPosY = pos.y;
         }
       }
     }
@@ -195,6 +209,19 @@ class Paddle {
           pos.y +=7;
         }
       }
+      if (p2Laser) {
+        laserPosY = pos.y;
+        stroke(255);
+        strokeWeight(10);
+        line(laserPos, laserPosY, laserPos+10, laserPosY);
+        laserPos += 5;
+        noStroke();
+        if (laserPos > width+10) {
+          p2Laser = false;
+          laserPos =pos.x;
+          //laserPosY = pos.y;
+        }
+      }
     }
   }
 
@@ -203,7 +230,27 @@ class Paddle {
     rectMode(CENTER);
     rect(pos.x, pos.y, w, h);
   }
- 
+
+  void laserCollision () {
+    if (p1.laserPos == p2.pos.x && p1.laserPosY > p2.pos.y - p2.h/2 
+      && p1.laserPosY < p2.pos.y + p2.h/2) {
+      p2Score ++;
+    }
+    if (p2.laserPos == p1.pos.x && p2.laserPosY > p1.pos.y - p1.h/2 
+      && p2.laserPosY < p1.pos.y + p1.h/2) {
+      p1Score++;
+    }
+  }
+
+  void ballCollision() {
+    if (p1.laserPos > b.pos.x - b.s/2 && p1.laserPos < b.pos.x + b.s/2 
+      && p1.laserPosY > b.pos.y - b.s/2 && p1.laserPosY < b.pos.y + b.s/2) {
+      p1Score ++;
+    } else if (p2.laserPos + 10 > b.pos.x - b.s/2 && p2.laserPos + 10 < b.pos.x + b.s/2 
+      && p2.laserPosY > b.pos.y - b.s/2 && p2.laserPosY < b.pos.y + b.s/2) {
+      p2Score ++;
+    }
+  }
 }
 
 
@@ -217,7 +264,7 @@ void keyPressed() {
     if (keyCode == DOWN) {
       p1Down = true;
     }
-    if(keyCode == LEFT){
+    if (keyCode == LEFT) {
       p1Laser = true;
     }
   }
@@ -229,7 +276,7 @@ void keyPressed() {
   if (key == 's') {
     p2Down = true;
   }
-  if (key == 'd'){
+  if (key == 'd') {
     p2Laser = true;
   }
 }
