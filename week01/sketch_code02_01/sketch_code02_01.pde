@@ -9,7 +9,7 @@ SoundFile[] file;
 
 int numsounds = 5;
 
-int value[] = {0,0,0};
+int value[] = {0, 0, 0};
 
 int p1Score;
 int p2Score;
@@ -32,11 +32,12 @@ void setup() {
   b = new Ball();
   p1 = new Paddle(0);
   p2 = new Paddle(1);
-  
+
   device = new AudioDevice(this, 48000, 32);
   file = new SoundFile[numsounds];
-   for (int i = 0; i < numsounds; i++){
-    file[i] = new SoundFile(this, (i+1) + ".wav");}
+  for (int i = 0; i < numsounds; i++) {
+    file[i] = new SoundFile(this, (i+1) + ".wav");
+  }
 }
 
 void draw() {
@@ -58,7 +59,7 @@ void draw() {
     p1.laserCollision();
     p1.update();
     p1.display();
-    
+
     p2.laserCollision();
     p2.update(); 
     p2.display();
@@ -68,12 +69,12 @@ void draw() {
     }
 
     textSize(36);
-    
+
     textAlign(CENTER, CENTER);
-    
-    fill(0,0,255);
+
+    fill(0, 0, 255);
     text(p1Score, width/2 - 100, 50);
-    fill(255,0,0);
+    fill(255, 0, 0);
     text(p2Score, width/2 + 100, 50);
   }
 }
@@ -100,6 +101,7 @@ class Ball {
   float s = 15;
 
 
+
   Ball() {
     pos = new PVector(width/2, height/2);
     vel = new PVector(0, 0);
@@ -111,50 +113,62 @@ class Ball {
   void update() {
 
     if (p2Score >=11) {
+      for (int i = 20; i < 502; i = i+35) {
+        for (int j = 0; j < 503; j = j+35) {
+          fill(random(255), random(255), random(255));
+          rect(i, j, 20, 20);
+        }
+      }
+      fill(255);
       text("Win!", width/2 + 100, 100);
+    } else if ( p1Score >=11) {
+       for (int i = 20; i < 502; i = i+35) {
+        for (int j = 0; j < 503; j = j+35) {
+          fill(random(255), random(255), random(255));
+          ellipse(i, j, 20, 20);}}
+        fill(255);
+        text("Win!", width/2 - 100, 100);
       
-     } else if ( p1Score >=11) {
-      text("Win!", width/2 - 100, 100);
- 
-    } else if (p2Score <11) {
-      if (pos.x<s/2) {
-        p2Score++;
-        file[3].play(0.5, 1.0);
-        pos = new PVector(width/2, height/2);
-        //vel.x =random(30);
-        //vel.y =random(30);
-      } else if (pos.x>width-s/2) {
-        p1Score++;
-        file[3].play(0.5, 1.0);
-        pos = new PVector(width/2, height/2);
-        //vel.x =random(30);
-        //vel.y =random(30);
-      }
-
-      if (pos.y < s/2 || pos.y > height - s/2) {
-        vel.y *= -1;
-        file[2].play(0.5, 1.0);
-        //vel.x *= -1;
-      }
-      pos.add(vel);
+    
+  } else if (p2Score <11) {
+    if (pos.x<s/2) {
+      p2Score++;
+      file[3].play(0.5, 1.0);
+      pos = new PVector(width/2, height/2);
+      //vel.x =random(30);
+      //vel.y =random(30);
+    } else if (pos.x>width-s/2) {
+      p1Score++;
+      file[3].play(0.5, 1.0);
+      pos = new PVector(width/2, height/2);
+      //vel.x =random(30);
+      //vel.y =random(30);
     }
-  }
 
-  void display() {
-    noStroke();
-    fill(random(255), random(255), random(255));
-    rectMode(CENTER);
-    rect(pos.x, pos.y, s, s);
-  } 
-
-  void paddleCollision(Paddle p) {
-    if (pos.x+s/2> p.pos.x-p.w/2 && pos.x-s/2<p.pos.x+p.w/2 && 
-      pos.y+s/2> p.pos.y-p.h/2 && pos.y-s/2<p.pos.y+p.h/2) {
-      vel.x *= -1;
-      file[1].play(0.5, 1.0);
-      // vel.y *= -1;
+    if (pos.y < s/2 || pos.y > height - s/2) {
+      vel.y *= -1;
+      file[2].play(0.5, 1.0);
+      //vel.x *= -1;
     }
+    pos.add(vel);
   }
+}
+
+void display() {
+  noStroke();
+  fill(random(255), random(255), random(255));
+  rectMode(CENTER);
+  rect(pos.x, pos.y, s, s);
+} 
+
+void paddleCollision(Paddle p) {
+  if (pos.x+s/2> p.pos.x-p.w/2 && pos.x-s/2<p.pos.x+p.w/2 && 
+    pos.y+s/2> p.pos.y-p.h/2 && pos.y-s/2<p.pos.y+p.h/2) {
+    vel.x *= -1;
+    file[1].play(0.5, 1.0);
+    // vel.y *= -1;
+  }
+}
 }
 
 //paddle
@@ -234,7 +248,7 @@ class Paddle {
       }
       if (p2Laser) {
         laserPosY = pos.y;
-            laserPosY = pos.y;
+        laserPosY = pos.y;
         if ( rgB>-1 && rgB<256) {
           rgB ++;
         } else {
@@ -260,17 +274,15 @@ class Paddle {
   }
 
   void display() {
-    if(p1Score == p2Score){
+    if (p1Score == p2Score) {
       fill(255);
-    }
-    else if(p1Score > p2Score){
-      fill(0,0,255);
-    }else{
-      fill(255,0,0,200);
+    } else if (p1Score > p2Score) {
+      fill(0, 0, 255);
+    } else {
+      fill(255, 0, 0, 200);
     }
     rectMode(CENTER);
     rect(pos.x, pos.y, w, h);
-    
   }
 
   void laserCollision () {
