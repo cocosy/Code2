@@ -357,3 +357,13 @@ void keyReleased() {
     p2Down = false;
   }
 }
+
+//laser laser or ArrayList <Laser>
+//outside paddle not collide with the paddle -- \n press return -- \t tab 
+
+
+
+// arraylist for paddle1 and 2
+//void check collisonwith paddle(){}
+
+//void checkcollisionwithball(){}
