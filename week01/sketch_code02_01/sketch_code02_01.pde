@@ -39,14 +39,15 @@ void draw() {
     b.paddleCollision(p1);
     b.paddleCollision(p2);
 
-    b.update();
+    b.update();   
     b.display();
 
     p1.laserCollision();
     p1.update();
-    p1.display();  
+    p1.display();
+    
     p2.laserCollision();
-    p2.update();
+    p2.update(); 
     p2.display();
 
     for (int i = 0; i < 501; i = i+20) {
@@ -54,10 +55,12 @@ void draw() {
     }
 
     textSize(36);
-    fill(255);
+    
     textAlign(CENTER, CENTER);
-
+    
+    fill(0,0,255);
     text(p1Score, width/2 - 100, 50);
+    fill(255,0,0);
     text(p2Score, width/2 + 100, 50);
   }
 }
@@ -92,7 +95,6 @@ class Ball {
   }
 
   void update() {
-
     if (p2Score >=11) {
       text("Win!", width/2 + 100, 100);
     } else if ( p1Score >=11) {
@@ -133,8 +135,6 @@ class Ball {
     }
   }
 }
-
-
 
 //paddle
 class Paddle {
@@ -239,9 +239,17 @@ class Paddle {
   }
 
   void display() {
-    fill(255);
+    if(p1Score == p2Score){
+      fill(255);
+    }
+    else if(p1Score > p2Score){
+      fill(0,0,255);
+    }else{
+      fill(255,0,0,200);
+    }
     rectMode(CENTER);
     rect(pos.x, pos.y, w, h);
+    
   }
 
   void laserCollision () {
