@@ -2,6 +2,14 @@
 //work together
 //drawing api  -- visual 
 //w1003
+import processing.sound.*;
+
+AudioDevice device;
+SoundFile[] file;
+
+int numsounds = 5;
+
+int value[] = {0,0,0};
 
 int p1Score;
 int p2Score;
@@ -24,12 +32,17 @@ void setup() {
   b = new Ball();
   p1 = new Paddle(0);
   p2 = new Paddle(1);
+  
+  device = new AudioDevice(this, 48000, 32);
+  file = new SoundFile[numsounds];
+   for (int i = 0; i < numsounds; i++){
+    file[i] = new SoundFile(this, (i+1) + ".wav");}
 }
 
 void draw() {
   background(0);
   int m = millis();
-  if (m<1500) {
+  if (m<7500) {
     drawIntro();
   } else {
     noStroke();
@@ -86,6 +99,7 @@ class Ball {
   float speed = 3;
   float s = 15;
 
+
   Ball() {
     pos = new PVector(width/2, height/2);
     vel = new PVector(0, 0);
@@ -95,18 +109,23 @@ class Ball {
   }
 
   void update() {
+
     if (p2Score >=11) {
       text("Win!", width/2 + 100, 100);
-    } else if ( p1Score >=11) {
+      
+     } else if ( p1Score >=11) {
       text("Win!", width/2 - 100, 100);
+ 
     } else if (p2Score <11) {
       if (pos.x<s/2) {
         p2Score++;
+        file[3].play(0.5, 1.0);
         pos = new PVector(width/2, height/2);
         //vel.x =random(30);
         //vel.y =random(30);
       } else if (pos.x>width-s/2) {
         p1Score++;
+        file[3].play(0.5, 1.0);
         pos = new PVector(width/2, height/2);
         //vel.x =random(30);
         //vel.y =random(30);
@@ -114,6 +133,7 @@ class Ball {
 
       if (pos.y < s/2 || pos.y > height - s/2) {
         vel.y *= -1;
+        file[2].play(0.5, 1.0);
         //vel.x *= -1;
       }
       pos.add(vel);
@@ -131,6 +151,7 @@ class Ball {
     if (pos.x+s/2> p.pos.x-p.w/2 && pos.x-s/2<p.pos.x+p.w/2 && 
       pos.y+s/2> p.pos.y-p.h/2 && pos.y-s/2<p.pos.y+p.h/2) {
       vel.x *= -1;
+      file[1].play(0.5, 1.0);
       // vel.y *= -1;
     }
   }
@@ -256,10 +277,12 @@ class Paddle {
     if (p1.laserPos == p2.pos.x && p1.laserPosY > p2.pos.y - p2.h/2 
       && p1.laserPosY < p2.pos.y + p2.h/2) {
       p2Score ++;
+      file[1].play(0.5, 1.0);
     }
     if (p2.laserPos == p1.pos.x && p2.laserPosY > p1.pos.y - p1.h/2 
       && p2.laserPosY < p1.pos.y + p1.h/2) {
       p1Score++;
+      file[1].play(0.5, 1.0);
     }
   }
 
@@ -267,9 +290,11 @@ class Paddle {
     if (p1.laserPos > b.pos.x - b.s/2 && p1.laserPos < b.pos.x + b.s/2 
       && p1.laserPosY > b.pos.y - b.s/2 && p1.laserPosY < b.pos.y + b.s/2) {
       p1Score ++;
+      file[3].play(0.5, 1.0);
     } else if (p2.laserPos + 10 > b.pos.x - b.s/2 && p2.laserPos + 10 < b.pos.x + b.s/2 
       && p2.laserPosY > b.pos.y - b.s/2 && p2.laserPosY < b.pos.y + b.s/2) {
       p2Score ++;
+      file[3].play(0.5, 1.0);
     }
   }
 }
