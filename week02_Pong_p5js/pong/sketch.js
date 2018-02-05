@@ -1,12 +1,12 @@
 var p1Score = 0;
 var p2Score = 0;
 
-Boolean p1Up = false;
-Boolean p1Down =false;
-Boolean p2Up = false;
-Boolean p2Down =false;
-Boolean p1Laser = false;
-Boolean p2Laser =false;
+var p1Up = false;
+var p1Down =false;
+var p2Up = false;
+var p2Down =false;
+var p1Laser = false;
+var p2Laser =false;
 
 var ball;
 var p1;
