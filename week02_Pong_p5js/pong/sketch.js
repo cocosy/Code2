@@ -75,20 +75,20 @@ function Ball() {
 	this.update = function () {
 
 		if (p2Score >= 11) {
-			for (var i = 20; i < 502; i = i + 35) {
-				for (var j = 0; j < 503; j = j + 35) {
-					fill(0);
-					rect(i, j, 20, 20);
-				}
-			}
+			// for (var i = 20; i < 502; i = i + 35) {
+			// 	for (var j = 0; j < 503; j = j + 35) {
+			// 		fill(0);
+			// 		rect(i, j, 20, 20);
+			// 	}
+			// }
 			fill(255);
 			text('Win!', width / 2 + 100, 100);
 		} else if (p1Score >= 11) {
-			for (var i = 20; i < 502; i = i + 35) {
-				for (var j = 0; j < 503; j = j + 35) {
-					ellipse(i, j, 20, 20);
-				}
-			}
+			// for (var i = 20; i < 502; i = i + 35) {
+			// 	for (var j = 0; j < 503; j = j + 35) {
+			// 		ellipse(i, j, 20, 20);
+			// 	}
+			// }
 			fill(255);
 			text('Win!', width / 2 - 100, 100);
 		} else if (p2Score < 11) {
@@ -134,10 +134,13 @@ function Ball() {
 
 function Paddle(whichPlayer) {
 	playerNum = whichPlayer;
+	// this.pos = createVector(0,0);
+	// this.vel = createVector(0,0);
 	var laserPos;
 	var laserPosY;
 	var w = 20;
 	var h = 100;
+	//this.num = whichPlayer;
 
 	if (whichPlayer == 0) {
 		this.pos = createVector(width - 15, height / 2);
@@ -174,6 +177,7 @@ function Paddle(whichPlayer) {
 					laserPosY = this.pos.y;
 				}
 			}
+			//this. pos. add(this.vel);
 		}
 
 		if (whichPlayer == 1) {
