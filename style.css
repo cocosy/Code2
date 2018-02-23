@@ -1,0 +1,99 @@
+
+
+/******************************************
+/* BASE STYLES                   
+/*******************************************/
+
+body {
+     color: #000;
+     font-size: .5rem;
+     line-height: 1.4;
+     background-color: #ffb3b3; /*0b0e2f*/
+}
+
+
+/******************************************
+/* LAYOUT                   
+/*******************************************/
+
+/* Center the container */
+#container {
+    width:100%;
+}
+
+h1{
+    width:40%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #ffffff;
+    margin-top: 15%;
+    padding: 5px;
+    font-family: 'Courier New';
+    font-weight: 700;
+    font-size: 1.5rem;
+    z-index: 1;
+}
+
+/*HEADER*/
+header {
+}
+
+nav{
+    padding: 5px;
+    width:40%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    font-family: 'Courier New';
+    font-weight: 700;
+    font-size: 1rem;
+}
+nav li{
+    display: block;
+    background-color: #ffffff;
+    padding: 5px;
+}
+
+/*DROPDOWN MENU*/
+li{
+    font-family: 'Courier New';
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: left;
+}
+/*li:hover{
+    background-color: #C3D7E4;
+}*/
+.content{
+      font-family: 'Courier New';
+      font-size: 1rem;
+      padding: 8px 6px;
+      font-weight: 400;
+       cursor: pointer;
+}
+/*.listelement{
+   
+}*/
+
+/*LINKS*/
+a{
+    color:#000000;
+    text-decoration: none;
+}
+a:hover{
+     background-color:#0b0e2f;
+     color: white;
+ /*   text-decoration: line-through;*/
+}
+
+/*FOOTER*/
+footer {
+    font-size:.5rem;
+}
+
+/******************************************
+/* ADDITIONAL STYLES                   
+/*******************************************/
+
+
+
