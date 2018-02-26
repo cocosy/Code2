@@ -29,8 +29,7 @@ var sceneState = {
   LEVEL03: 4,
   LEVEL04: 5,
   LEVEL05: 6,
-  p1WIN: 7,
-  p1LOSE: 8,
+ END:7
 };
 const timeForTutorial = 3000;
 var currentState = sceneState.INTRO;
@@ -139,19 +138,27 @@ function Ball() {
 
   this.update = function() {
     if (this.pos.x < -this.width) {
+      if(p2Score > 14){ 
+      fill(255);
+      p2Score = 15;
+    }else{
       p2Score++;
       this.resetAfterPoint(0);
-    } else if (this.pos.x > width) {
+    }} else if (this.pos.x > width) {
+      if(p1Score > 14){ 
+      fill(255);
+      p1Score =15;
+    }else{
       p1Score++;
       this.resetAfterPoint(1);
-    }
+    }}
 
     if (this.pos.y < margin || 
         this.pos.y > height - margin - this.height) {
       this.vel.y *= -1;
     }
-
-    this.pos.add(this.vel);
+if(p1Score != 15 && p2Score != 15 ){
+    this.pos.add(this.vel);}
   };
 
   this.display = function() {
@@ -345,6 +352,7 @@ function drawScene(whichScene) {
       break;
     case sceneState.LEVEL03:
      if (keyOn) {
+      
       colliders.push(new MaddyRed());
       colliders.push(new MaddyGreen());
       colliders.push(new MaddyBlue());}
@@ -357,36 +365,20 @@ function drawScene(whichScene) {
      if (keyOn) {
       colliders.push(new Yanwen());}
       break;
-    case sceneState.p1WIN:
-
-    background(255, 179, 179);
+    case sceneState.END:
+      // background(255, 179, 179);
+    
       textSize(64);
       textAlign(CENTER, CENTER);
       fill(100 + sin(frameCount * 0.05) * 50, 100 + sin(frameCount * 0.06) * 50, 100 + sin(frameCount * 0.07) * 50)
-      text("p1 WIN!",width/2, height/2);
-      fill(0);
-      text(p1Score, width/2-50, 70);
-      text(p2Score, width/2+50, 70);
-      text(p1Score, width/2-50, 70);
-      text(p2Score, width/2+50, 70);
-      textSize(24);
-      text("Press any key to try again", width/2, height - 100);
-      if(p1Score++){
-        p1Score --;
-      }else if(p2Score++){
-        p2Score--;
+      if(p1Score>p2Score){text('Win!', width / 2 - 100, 150);
+    }else{
+        text('Win!', width / 2 + 100, 150);
       }
-      break;
-    case sceneState.p1LOSE:
-
-      background(255, 179, 179);
-      textSize(64);
+      // text(p1Score, width/2-50, 70);
+      // text(p2Score, width/2+50, 70);
       textAlign(CENTER, CENTER);
-      fill(100 + sin(frameCount * 0.05) * 50, 100 + sin(frameCount * 0.06) * 50, 100 + sin(frameCount * 0.07) * 50)
-      text("p2 WIN!", width/2, height/2);
-      fill(255);
-      text(p1Score, width/2-50, 70);
-      text(p2Score, width/2+50, 70);
+      fill(0);
       textSize(24);
       text("Press any key to try again", width/2, height - 100);
     default:
@@ -401,6 +393,8 @@ function checkTransition(whichScene) {
       if (keyOn) {
         currentState++;
         setUpScene(currentState);
+            p1Score=0;
+            p2Score=0;
       }
       break;
     case sceneState.TUTORIAL:
@@ -408,9 +402,9 @@ function checkTransition(whichScene) {
          if (keyOn) {
           
            currentState+=1;
-           setUpScene(currentState);   
-          p1Score = 0;
-          p2Score = 0;   
+           setUpScene(currentState);
+          p1Score=0;
+          p2Score=0;     
          }
        }
       break;
@@ -449,28 +443,16 @@ function checkTransition(whichScene) {
       }
       break;
     case sceneState.LEVEL05:
-      if (p1Score>=15) { 
+      if (p1Score == 15 || p2Score ==15) { 
         currentState+=1;
-        setUpScene(currentState);
-      }else if(p2Score>=15){
-        currentState+=2;
         setUpScene(currentState);
       }
       
       break;
-    case sceneState.p1WIN:
-    setUpScene(currentState);
-      if (keyOn) {
-        currentState = sceneState.TUTORIAL;
-        
-        
-      }
-      break;
-    case sceneState.p1LOSE:
+    case sceneState.END:
  setUpScene(currentState);
       if (keyOn) {
         currentState = sceneState.TUTORIAL;
-       
 
       }
     default:
@@ -485,8 +467,9 @@ function setUpScene(whichScene) {
       break;
     case sceneState.TUTORIAL:
       tutorialTimer = millis();
+
       break;
-    case sceneState.LEVELS:
+    case sceneState.LEVELs:
        break;
     // case sceneState.LEVEL02:
     //   break;
