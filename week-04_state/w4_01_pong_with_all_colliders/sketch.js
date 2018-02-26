@@ -336,7 +336,10 @@ function drawScene(whichScene) {
       break;
     case sceneState.LEVEL02:
      if (keyOn) {
-      colliders.push(new AlyssaForrest());}
+      colliders.shift();
+      colliders.push(new AlyssaForrest());
+      }
+      
       // background(127 + sin(frameCount * 0.05) * 127, 127 + sin(frameCount * 0.06) * 127, 127 + sin(frameCount * 0.07) * 127);
       // fill(0);
       // textSize(64);
@@ -351,23 +354,32 @@ function drawScene(whichScene) {
       // text("Press any key to return to title", width/2 + 2, height - 102);
       break;
     case sceneState.LEVEL03:
+    
      if (keyOn) {
-      
+      colliders.shift();
       colliders.push(new MaddyRed());
       colliders.push(new MaddyGreen());
       colliders.push(new MaddyBlue());}
+      
       break;
     case sceneState.LEVEL04:
+
      if (keyOn) {
-      colliders.push(new Jackie());}
+      colliders.shift();
+      colliders.push(new Jackie());
+     
+
+    }
       break;
     case sceneState.LEVEL05:
      if (keyOn) {
-      colliders.push(new Yanwen());}
+      colliders.shift();
+      colliders.push(new Yanwen());
+    }
       break;
     case sceneState.END:
       // background(255, 179, 179);
-    
+    colliders.shift();
       textSize(64);
       textAlign(CENTER, CENTER);
       fill(100 + sin(frameCount * 0.05) * 50, 100 + sin(frameCount * 0.06) * 50, 100 + sin(frameCount * 0.07) * 50)
