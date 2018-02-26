@@ -317,7 +317,7 @@ function AlyssaForrest() {
   }
 
   this.display = function() {
-    fill(255,0,0);
+    fill(255,0,0,20);
     ellipse(this.pos.x, this.pos.y, this.width, this.height);
   }
 
