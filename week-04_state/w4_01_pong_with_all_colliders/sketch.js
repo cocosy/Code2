@@ -29,8 +29,8 @@ var sceneState = {
   LEVEL03: 4,
   LEVEL04: 5,
   LEVEL05: 6,
-  WIN: 7,
-  LOSE: 8,
+  p1WIN: 7,
+  p1LOSE: 8,
 };
 const timeForTutorial = 3000;
 var currentState = sceneState.INTRO;
@@ -293,10 +293,10 @@ function drawScene(whichScene) {
         textAlign(CENTER, CENTER);
         text("HOW TO PLAY...", width/2, height/2 - 100);
         textSize(32);
-        text("try to hit a key exactly when\nthe counter hits zero", width/2, height/2);
+        text("Everytime you press KEYs\nCollider number increases", width/2, height/2);
 
         textSize(24);
-        text("notice that this screen progresses\nwhen hitting a key only after a\ntimer has been completed", width/2, height/2 + 120);
+        text("Different Collider appears every 3 points\nPlayer who first reaches 15 points will be the WINNER!", width/2, height/2 + 120);
         text("OK now you can hit a key", width/2, height/2 + 190);
       } else {
         background(150, 200, 250);
@@ -305,10 +305,10 @@ function drawScene(whichScene) {
         textAlign(CENTER, CENTER);
         text("HOW TO PLAY...", width/2, height/2 - 100);
         textSize(32);
-        text("try to hit a key exactly when\nthe counter hits zero", width/2, height/2);
+        text("Everytime you press KEYs\nCollider number increases", width/2, height/2);
 
         textSize(24);
-        text("notice that this screen progresses\nwhen hitting a key only after a\ntimer has been completed", width/2, height/2 + 120);
+        text("Different Collider appears every 3 points\nPlayer who first reaches 15 points will be the WINNER!", width/2, height/2 + 120);
       }
       
       break;
@@ -352,19 +352,27 @@ function drawScene(whichScene) {
      if (keyOn) {
       colliders.push(new Yanwen());}
       break;
-    case sceneState.WIN:
-      fill(0);
+    case sceneState.p1WIN:
+
+    background(10, 10, 10);
       textSize(64);
       textAlign(CENTER, CENTER);
-      text("You WIN!",width/2, height/2);
+      fill(100 + sin(frameCount * 0.05) * 50, 100 + sin(frameCount * 0.06) * 50, 100 + sin(frameCount * 0.07) * 50)
+      text("p1 WIN!",width/2, height/2);
+      fill(0);
+      text(p1Score, width/2-50, 70);
+      text(p2Score, width/2+50, 70);
       break;
-    case sceneState.LOSE:
+    case sceneState.p1LOSE:
 
       background(10, 10, 10);
-      fill(255);
       textSize(64);
       textAlign(CENTER, CENTER);
-      text("You lose...", width/2, height/2);
+      fill(100 + sin(frameCount * 0.05) * 50, 100 + sin(frameCount * 0.06) * 50, 100 + sin(frameCount * 0.07) * 50)
+      text("p2 WIN!", width/2, height/2);
+      fill(255);
+      text(p1Score, width/2-50, 70);
+      text(p2Score, width/2+50, 70);
       textSize(24);
       text("Press any key to try again", width/2, height - 100);
     default:
@@ -384,13 +392,16 @@ function checkTransition(whichScene) {
     case sceneState.TUTORIAL:
        if (millis() > tutorialTimer + timeForTutorial) {
          if (keyOn) {
+          
            currentState+=1;
-           setUpScene(currentState);      
+           setUpScene(currentState);   
+          p1Score = 0;
+          p2Score = 0;   
          }
        }
       break;
     case sceneState.LEVEL01:
-      if (p1Score>5 || p2Score>5) {
+      if (p1Score>3 || p2Score>3) {
        // gameTimePressed = (timeForGame - (millis() - gameTimer))/1000;
        // gameTimePressed = gameTimePressed.toFixed(3);
 
@@ -399,47 +410,54 @@ function checkTransition(whichScene) {
       //  } else {
       //    currentState = sceneState.LOSE;
       //  }
-      currentState=3;
+      currentState++;
         setUpScene(currentState);
       }
       break;
     case sceneState.LEVEL02:
-    setUpScene(currentState);
-      if (p1Score>10 || p2Score>10) { 
+    
+      if (p1Score>6 || p2Score>6) { 
         currentState++;
+        setUpScene(currentState);
       
       }
       break;
     case sceneState.LEVEL03:
-      if (p1Score>15 || p2Score>15) { 
+      if (p1Score>9 || p2Score>9) { 
         currentState++;
         setUpScene(currentState);
       }
       break;
     case sceneState.LEVEL04:
-      if (p1Score>20 || p2Score>20) { 
+      if (p1Score>12 || p2Score>12) { 
         currentState++;
         setUpScene(currentState);
       }
       break;
     case sceneState.LEVEL05:
-      if (p1Score>25) { 
+      if (p1Score>=15) { 
         currentState+=1;
         setUpScene(currentState);
-      }else if(p2Score>25){
+      }else if(p2Score>=15){
         currentState+=2;
-      }
-      break;
-    case sceneState.WIN:
-      if (keyOn) {
-        currentState = sceneState.LEVEL01;
         setUpScene(currentState);
       }
+      
       break;
-    case sceneState.LOSE:
+    case sceneState.p1WIN:
+    setUpScene(currentState);
       if (keyOn) {
         currentState = sceneState.TUTORIAL;
-        setUpScene(currentState);
+        
+        
+      }
+      break;
+    case sceneState.p1LOSE:
+ setUpScene(currentState);
+      if (keyOn) {
+        currentState = sceneState.TUTORIAL;
+       
+
       }
     default:
       break;
@@ -455,7 +473,7 @@ function setUpScene(whichScene) {
       tutorialTimer = millis();
       break;
     case sceneState.LEVELS:
-    //   break;
+       break;
     // case sceneState.LEVEL02:
     //   break;
     // case sceneState.LEVEL03:
@@ -471,5 +489,8 @@ function setUpScene(whichScene) {
       break;
   }
 }
+
+
+
 
 
