@@ -62,7 +62,7 @@ function setup() {
 }
 
 function draw() {
-  background(0);
+  background(255, 179, 179);
   drawField();
   drawScene(currentState);
   checkTransition(currentState);
@@ -98,7 +98,7 @@ function draw() {
 }
 
 function drawField() {
-  stroke(255);
+  stroke(0);
   noFill();
   line(0, margin, width, margin);
   line(0, height - margin, width, height - margin);
@@ -108,10 +108,11 @@ function drawField() {
     line(width/2, start, width/2, finish);
   }
 
-  fill(255);
+  
   noStroke();
   textSize(64);
   textAlign(CENTER, CENTER);
+  fill(0);
   text(p1Score, width/2-50, 70);
   text(p2Score, width/2+50, 70);
 }
@@ -155,7 +156,7 @@ function Ball() {
 
   this.display = function() {
     noStroke();
-    fill(255);
+    fill(0);
     rectMode(CORNER);
     rect(this.pos.x, this.pos.y, this.width, this.height);
   }
@@ -198,10 +199,12 @@ function Paddle(num) {
   }
 
   this.display = function() {
-    noStroke();
-    fill(255);
+    stroke(0);
+    strokeWeight(2);
+    noFill();
     rectMode(CORNER);
     rect(this.pos.x, this.pos.y, this.width, this.height);
+    noStroke();
   }
 
   this.move = function(up, down) {
@@ -279,15 +282,16 @@ function keyReleased() {
 function drawScene(whichScene) {
   switch (currentState) {
     case sceneState.INTRO:
-      background(100 + sin(frameCount * 0.05) * 50, 100 + sin(frameCount * 0.06) * 50, 100 + sin(frameCount * 0.07) * 50);
+      background(190 + sin(frameCount * 0.06) * 40, 130, 150 + sin(frameCount * 0.05) * 30);
       fill(255);
       textSize(80);
+      textFont('Courier New');
       textAlign(CENTER, CENTER);
-      text("welcome to the\nPong colliders\n\"game\"", width/2, height/2);
+      text("welcome to the\nPong Colliders\n\"Game\"", width/2, height/2);
       break;
     case sceneState.TUTORIAL:
       if (millis() > tutorialTimer + timeForTutorial) {
-        background(150, 200, 200);
+        background(150, 180, 180);
         fill(0);
         textSize(48);
         textAlign(CENTER, CENTER);
@@ -299,7 +303,7 @@ function drawScene(whichScene) {
         text("Different Collider appears every 3 points\nPlayer who first reaches 15 points will be the WINNER!", width/2, height/2 + 120);
         text("OK now you can hit a key", width/2, height/2 + 190);
       } else {
-        background(150, 200, 250);
+        background(160, 220, 250);
         fill(0);
         textSize(48);
         textAlign(CENTER, CENTER);
@@ -314,6 +318,7 @@ function drawScene(whichScene) {
       break;
     case sceneState.LEVEL01:
     if (keyOn) {
+      
       colliders.push(new Bryan());}
       // var timeLeft = (timeForGame - (millis() - gameTimer))/1000;
       // background(map(timeLeft, 5, 0, 255, 0), 250, 150);
@@ -354,7 +359,7 @@ function drawScene(whichScene) {
       break;
     case sceneState.p1WIN:
 
-    background(10, 10, 10);
+    background(255, 179, 179);
       textSize(64);
       textAlign(CENTER, CENTER);
       fill(100 + sin(frameCount * 0.05) * 50, 100 + sin(frameCount * 0.06) * 50, 100 + sin(frameCount * 0.07) * 50)
@@ -362,10 +367,19 @@ function drawScene(whichScene) {
       fill(0);
       text(p1Score, width/2-50, 70);
       text(p2Score, width/2+50, 70);
+      text(p1Score, width/2-50, 70);
+      text(p2Score, width/2+50, 70);
+      textSize(24);
+      text("Press any key to try again", width/2, height - 100);
+      if(p1Score++){
+        p1Score --;
+      }else if(p2Score++){
+        p2Score--;
+      }
       break;
     case sceneState.p1LOSE:
 
-      background(10, 10, 10);
+      background(255, 179, 179);
       textSize(64);
       textAlign(CENTER, CENTER);
       fill(100 + sin(frameCount * 0.05) * 50, 100 + sin(frameCount * 0.06) * 50, 100 + sin(frameCount * 0.07) * 50)
@@ -489,6 +503,9 @@ function setUpScene(whichScene) {
       break;
   }
 }
+
+
+
 
 
 
