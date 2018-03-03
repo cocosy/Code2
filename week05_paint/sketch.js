@@ -28,20 +28,25 @@ function draw() {
   text("press 'L' to load a json file from your computer.", 50, 630);
 }
 
-function PaintMark(position) {
+function PaintMark(position,size) {
   this.position = position;
+  // this.colors = colors;
+  this.size = size;
 
   this.display = function() {
     noStroke();
-    fill(250,0,250);
-    ellipse(this.position.x, this.position.y, 10, 10);
+    fill(250,5,250);
+    // fill(this.colors.r, this.colors.g, this.colos.b);
+    ellipse(this.position.x, this.position.y, this.size, this,size);
   }
 
 }
 
 function mouseDragged() {
-  paintmarks.push(new PaintMark(createVector(mouseX, mouseY)));
+  paintmarks.push(new PaintMark(createVector(mouseX, mouseY),mouseX%5));
+
 }
+
 
 function keyPressed() {
   if (key === 'S') {
@@ -57,6 +62,7 @@ function savePaintData() {
   for (var i = 0; i < paintmarks.length; i++) {
     positionsToSave.push(
       { 
+        size:paintmarks[i].size,
         x: paintmarks[i].position.x, 
         y: paintmarks[i].position.y 
       }
@@ -74,5 +80,6 @@ function parsePaintData(data) {
 
   for (var i = 0; i < data.length; i++) {
     paintmarks.push(new PaintMark(createVector(data[i].x, data[i].y)));
+    paintmarks.push(new PaintMark(data[i].x - data[i].y));
   }
 }
