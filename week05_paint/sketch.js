@@ -43,7 +43,7 @@ function PaintMark(position,size) {
 }
 
 function mouseDragged() {
-  paintmarks.push(new PaintMark(createVector(mouseX, mouseY),mouseX%5));
+  paintmarks.push(new PaintMark(createVector(mouseX, mouseY)), mouseX%5);
 
 }
 
