@@ -17,34 +17,36 @@ function setup() {
 
 function draw() {
   background(255);
-  for (var i = 0; i < paintmarks.length; i++) {
-    paintmarks[i].display();
-  }
 
   fill(0);
   textSize(24);
   text("drag the mouse across the canvas to draw.", 50, 570);
   text("press 'S' to save a json file with the current paint data.", 50, 600);
   text("press 'L' to load a json file from your computer.", 50, 630);
+
+    for (var i = 0; i < paintmarks.length; i++) {
+    paintmarks[i].display();
+  }
 }
 
-function PaintMark(position,size) {
+function PaintMark(position,size,colors) {
   this.position = position;
-  // this.colors = colors;
+  this.colors = colors;
   this.size = size;
+  
 
   this.display = function() {
-    noStroke();
-    fill(250,5,250);
-    // fill(this.colors.r, this.colors.g, this.colos.b);
-    ellipse(this.position.x, this.position.y, this.size, this,size);
+    // noStroke();
+    // fill(250,5,250);
+    stroke(this.colors.x, this.colors.y, this.colors.z);
+    fill(this.colors.y, this.colors.z, this.colors.x,100);
+    ellipse(this.position.x, this.position.y, this.size, this.size);
   }
 
 }
 
 function mouseDragged() {
-  paintmarks.push(new PaintMark(createVector(mouseX, mouseY)));
-  paintmarks.push(new PaintMark.size(mouseX%7));
+  paintmarks.push(new PaintMark(createVector(mouseX, mouseY),map(mouseX,0,800,1,50),createVector(map(mouseX,0,800,0,255),random(20,255),map(mouseY,0,800,0,255))));
 
 }
 
@@ -63,9 +65,12 @@ function savePaintData() {
   for (var i = 0; i < paintmarks.length; i++) {
     positionsToSave.push(
       { 
-        size:paintmarks[i].size,
         x: paintmarks[i].position.x, 
-        y: paintmarks[i].position.y 
+        y: paintmarks[i].position.y,
+        size:paintmarks[i].size,
+        r:paintmarks[i].colors.x,
+        g:paintmarks[i].colors.y,
+        b:paintmarks[i].colors.z 
       }
     );
   }
@@ -80,7 +85,7 @@ function parsePaintData(data) {
   paintmarks = [];
 
   for (var i = 0; i < data.length; i++) {
-    paintmarks.push(new PaintMark(createVector(data[i].x, data[i].y)));
-    paintmarks.push(new PaintMark(data[i].x%7));
+    paintmarks.push(new PaintMark(createVector(data[i].x, data[i].y),map(mouseX,0,800,1,50),createVector(map(mouseX,0,800,0,255),random(20,255),map(mouseY,0,800,0,255))));
+   
   }
 }
