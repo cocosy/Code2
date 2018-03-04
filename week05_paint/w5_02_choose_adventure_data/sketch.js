@@ -30,7 +30,7 @@ function setup() {
 }
 
 function draw() {
-  background(231, 190, 150);
+  background(255, 190, 190);
   scenes[currentScene].display();
 
   fill(0);
@@ -40,26 +40,40 @@ function draw() {
 
 function CreateScenesFromData(data) {
   for (var i = 0; i < data.length; i++) {
-    scenes.push(new Scene(data[i].sceneText, data[i].options, data[i].nextScenes, data[i].x, data[i].y))
+    scenes.push(new Scene(data[i].sceneText, data[i].options, data[i].nextScenes, data[i].x, data[i].y,data[i].r,data[i].hair));
   }
 }
 
-function Scene(sceneText, options, nextScenes,x,y) {
+function Scene(sceneText, options, nextScenes,x,y,r,hair) {
   this.sceneText = sceneText;
   this.options = options;
   this.nextScenes = nextScenes;
   this.x = x;
   this.y = y;
+  this.r = r;
+  this.hair = hair;
 
   this.display = function() {
     fill(0);
     textSize(32);
-    text(this.sceneText, 100, 100);
+    text(this.sceneText, 50, 50);
 
     for (var i = 0; i < options.length; i++) {
-      text('OPTION ' + (i + 1) + ': ' + this.options[i], 150, 200 + i * 50);
+      text('OPTION ' + (i + 1) + ': ' + this.options[i], 50, 90+ i * 50);
     }
-    ellipse(this.x,this.y,50,50);
+
+    
+    strokeWeight(2);
+    fill(r*20,x/2,y/2);
+;    ellipse(this.x,this.y,350,350);
+    fill(255);
+    ellipse(this.x+65,this.y-50,70,70);
+    ellipse(this.x-65,this.y-50,70,70);
+    arc(this.x,this.y+110, 210, 180,-PI,TWO_PI,HALF_PI);
+    // arc(this.x,this.y+110, 210, 180,-PI,PI*2,HALF_PI);
+    for (var i = 0; i < hair; i++) {
+    line(this.x-80+10*i,this.y-120+i*sin(PI),this.x-110+i*15,this.y-270+i*sin(PI));
+}
   }
 }
 
