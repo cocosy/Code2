@@ -68,7 +68,7 @@ function Scene(sceneText, options, nextScenes,x,y,r,hair) {
     for (var i = 0; i < this.hair; i++) {
     for (var j = 0; j < this.hair; j++) {
    strokeWeight(5);
-    line(this.x-50+i*20+j*155,this.y-50,this.x-70+i*30+j*160,this.y-120);
+    line(this.x-50+i*20+j*155,this.y-60,this.x-70+i*30+j*157,this.y-120);
   }
    strokeWeight(2);
     fill(this.hair*25,this.x/2,this.y/2);
@@ -77,8 +77,8 @@ function Scene(sceneText, options, nextScenes,x,y,r,hair) {
     ellipse(this.x+25+i*152,this.y-20,20,20);
     ellipse(this.x-25+i*152,this.y-20,20,20);
    strokeWeight(2);
-    angleMode(DEGREES);
-    arc(this.x+i*152,this.y+30,110,80,PI-radians(this.r),radians(this.r),PIE);
+  
+    arc(this.x+i*152,this.y+30,80,80,radians(PI)-radians(this.r),radians(this.r),CHORD);
   }
     // arc(this.x,this.y+110, 210, 180,-PI,TWO_PI,HALF_PI);
     //0,PI smile; PI - 0
