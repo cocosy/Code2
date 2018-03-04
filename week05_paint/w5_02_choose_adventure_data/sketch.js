@@ -64,16 +64,22 @@ function Scene(sceneText, options, nextScenes,x,y,r,hair) {
 
     
     strokeWeight(2);
-    fill(r*20,x/2,y/2);
-;    ellipse(this.x,this.y,350,350);
+    fill(this.hair*25,this.x/2,this.y/2);
+    ellipse(this.x,this.y,350,350);
     fill(255);
     ellipse(this.x+65,this.y-50,70,70);
     ellipse(this.x-65,this.y-50,70,70);
-    arc(this.x,this.y+110, 210, 180,-PI,TWO_PI,HALF_PI);
+    strokeWeight(5);
     // arc(this.x,this.y+110, 210, 180,-PI,PI*2,HALF_PI);
-    for (var i = 0; i < hair; i++) {
-    line(this.x-80+10*i,this.y-120+i*sin(PI),this.x-110+i*15,this.y-270+i*sin(PI));
-}
+    for (var i = 0; i < this.hair; i++) {
+    // line(this.x-80+10*i,this.y-120+i*sin(PI),this.x-110+i*15,this.y-270+i*sin(PI));
+    line(this.x-50+i*30,this.y-120,this.x-70+i*50,this.y-270);}
+
+    strokeWeight(2);
+    angleMode(DEGREES);
+    arc(this.x,this.y+110, 210,this.r,0,radians(this.r),PIE);
+    // arc(this.x,this.y+110, 210, 180,-PI,TWO_PI,HALF_PI);
+  
   }
 }
 
