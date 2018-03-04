@@ -63,21 +63,23 @@ function Scene(sceneText, options, nextScenes,x,y,r,hair) {
     }
 
     
-    strokeWeight(2);
-    fill(this.hair*25,this.x/2,this.y/2);
-    ellipse(this.x,this.y,350,350);
-    fill(255);
-    ellipse(this.x+65,this.y-50,70,70);
-    ellipse(this.x-65,this.y-50,70,70);
-    strokeWeight(5);
+    
     // arc(this.x,this.y+110, 210, 180,-PI,PI*2,HALF_PI);
     for (var i = 0; i < this.hair; i++) {
-    // line(this.x-80+10*i,this.y-120+i*sin(PI),this.x-110+i*15,this.y-270+i*sin(PI));
-    line(this.x-50+i*30,this.y-120,this.x-70+i*50,this.y-270);}
-
+    strokeWeight(2);
+    fill(this.hair*25,this.x/2,this.y/2);
+    ellipse(this.x+i*50,this.y,150,150);
+    fill(255);
+    ellipse(this.x+25+i*50,this.y-50,20,20);
+    ellipse(this.x-25+i*50,this.y-50,20,20);
+    for (var j = 0; j < this.hair; j++) {
+    strokeWeight(5);
+    line(this.x-50+j*10+j*20,this.y-120,this.x-70+j*30+j*20,this.y-240);
+  }
     strokeWeight(2);
     angleMode(DEGREES);
-    arc(this.x,this.y+110, 210,this.r,PI-radians(this.r),radians(this.r),PIE);
+    arc(this.x+i*50,this.y+110, 210,this.r,PI-radians(this.r),radians(this.r),PIE);
+  }
     // arc(this.x,this.y+110, 210, 180,-PI,TWO_PI,HALF_PI);
     //0,PI smile; PI - 0
   
