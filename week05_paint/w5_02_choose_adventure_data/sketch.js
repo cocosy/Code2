@@ -77,8 +77,9 @@ function Scene(sceneText, options, nextScenes,x,y,r,hair) {
 
     strokeWeight(2);
     angleMode(DEGREES);
-    arc(this.x,this.y+110, 210,this.r,0,radians(this.r),PIE);
+    arc(this.x,this.y+110, 210,this.r,PI-radians(this.r),radians(this.r),PIE);
     // arc(this.x,this.y+110, 210, 180,-PI,TWO_PI,HALF_PI);
+    //0,PI smile; PI - 0
   
   }
 }
