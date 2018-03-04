@@ -78,7 +78,7 @@ function Scene(sceneText, options, nextScenes,x,y,r,hair) {
     ellipse(this.x-25+i*152,this.y-20,20,20);
    strokeWeight(2);
   
-    arc(this.x+i*152,this.y+30,80,80,radians(PI)-radians(this.r),radians(this.r),CHORD);
+    arc(this.x+i*152,this.y+20,90,60,radians(180)-radians(this.r),radians(this.r),CHORD);
   }
     // arc(this.x,this.y+110, 210, 180,-PI,TWO_PI,HALF_PI);
     //0,PI smile; PI - 0
