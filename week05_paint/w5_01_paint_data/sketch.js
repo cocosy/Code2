@@ -31,10 +31,10 @@ function draw() {
 
 function PaintMark(position,size,r,g,b) {
   this.position = position;
+  this.size = size;
   this.r = r;
   this.g = g;
   this.b = b;
-  this.size = size;
   
 
   this.display = function() {
