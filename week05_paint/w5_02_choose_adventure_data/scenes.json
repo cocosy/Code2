@@ -2,39 +2,39 @@
   "scenes": [
     {
       "sceneText": "This is scene 0",
-      "options": ["go to scene 1"],
+      "options": ["go to next scene"],
       "nextScenes": [1],
       "x": 100,
       "y": 400,
       "r": 180,
-      "hair": 5
+      "hair": 4
     },
     {
       "sceneText": "This is scene 1",
-      "options": ["go to scene 0", "go to scene 2"],
+      "options": ["go to previous scene", "go to next scene"],
       "nextScenes": [0, 2],
       "x": 200,
       "y": 500,
       "r": 150,
-       "hair": 4
+       "hair": 3
     },
     {
       "sceneText": "This is scene 2",
-      "options": ["go to scene 1", "go to scene 3"], 
+      "options": ["go to previous scene", "go to next scene"], 
       "nextScenes": [1, 3],
       "x": 250,
       "y": 400,
       "r": 120,
-       "hair":3
+       "hair":2
     },
     {
       "sceneText": "This is scene 3",
-      "options": ["go to scene 2", "go to scene 4"],
+      "options": ["go to previous scene", "go to next scene"],
       "nextScenes": [2, 4],
       "x": 300,
       "y": 400,
       "r": 60,
-       "hair":2
+       "hair":1
     },
     {
       "sceneText": "This is scene 4",
@@ -43,7 +43,7 @@
       "x": 400,
       "y": 420,
       "r": 0,
-       "hair":1
+       "hair":0
     }
   ]
 }
