@@ -66,19 +66,19 @@ function Scene(sceneText, options, nextScenes,x,y,r,hair) {
     
     // arc(this.x,this.y+110, 210, 180,-PI,PI*2,HALF_PI);
     for (var i = 0; i < this.hair; i++) {
-    strokeWeight(2);
-    fill(this.hair*25,this.x/2,this.y/2);
-    ellipse(this.x+i*50,this.y,150,150);
-    fill(255);
-    ellipse(this.x+25+i*50,this.y-50,20,20);
-    ellipse(this.x-25+i*50,this.y-50,20,20);
     for (var j = 0; j < this.hair; j++) {
-    strokeWeight(5);
-    line(this.x-50+j*10+j*20,this.y-120,this.x-70+j*30+j*20,this.y-240);
+   strokeWeight(5);
+    line(this.x-50+i*20+j*155,this.y-50,this.x-70+i*30+j*160,this.y-120);
   }
-    strokeWeight(2);
+   strokeWeight(2);
+    fill(this.hair*25,this.x/2,this.y/2);
+    ellipse(this.x+i*152,this.y,150,150);
+    fill(255);
+    ellipse(this.x+25+i*152,this.y-20,20,20);
+    ellipse(this.x-25+i*152,this.y-20,20,20);
+   strokeWeight(2);
     angleMode(DEGREES);
-    arc(this.x+i*50,this.y+110, 210,this.r,PI-radians(this.r),radians(this.r),PIE);
+    arc(this.x+i*152,this.y+30,110,80,PI-radians(this.r),radians(this.r),PIE);
   }
     // arc(this.x,this.y+110, 210, 180,-PI,TWO_PI,HALF_PI);
     //0,PI smile; PI - 0
