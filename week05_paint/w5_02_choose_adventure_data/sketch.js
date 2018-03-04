@@ -62,9 +62,6 @@ function Scene(sceneText, options, nextScenes,x,y,r,hair) {
       text('OPTION ' + (i + 1) + ': ' + this.options[i], 50, 90+ i * 50);
     }
 
-    
-    
-    // arc(this.x,this.y+110, 210, 180,-PI,PI*2,HALF_PI);
     for (var i = 0; i < this.hair+1; i++) {
     for (var j = 0; j < this.hair; j++) {
    strokeWeight(5);
@@ -80,8 +77,6 @@ function Scene(sceneText, options, nextScenes,x,y,r,hair) {
   
     arc(this.x+i*152,this.y+30,100,60,radians(180)-radians(this.r),radians(this.r),CHORD);
   }
-    // arc(this.x,this.y+110, 210, 180,-PI,TWO_PI,HALF_PI);
-    //0,PI smile; PI - 0
   
   }
 }
