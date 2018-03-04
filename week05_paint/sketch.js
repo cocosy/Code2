@@ -29,24 +29,27 @@ function draw() {
   }
 }
 
-function PaintMark(position,size,colors) {
+function PaintMark(position,size,r,g,b) {
   this.position = position;
-  this.colors = colors;
+  this.r = r;
+  this.g = g;
+  this.b = b;
   this.size = size;
   
 
   this.display = function() {
     // noStroke();
     // fill(250,5,250);
-    stroke(this.colors.x, this.colors.y, this.colors.z);
-    fill(this.colors.y, this.colors.z, this.colors.x,100);
+    stroke(this.r, this.g, this.b);
+    fill(this.g, this.b, this.r,100+random(0,50));
     ellipse(this.position.x, this.position.y, this.size, this.size);
+    rect(this.position.y,this.position.x,this.size,this.size);
   }
 
 }
 
 function mouseDragged() {
-  paintmarks.push(new PaintMark(createVector(mouseX, mouseY),map(mouseX,0,800,1,50),createVector(map(mouseX,0,800,0,255),random(20,255),map(mouseY,0,800,0,255))));
+  paintmarks.push(new PaintMark(createVector(mouseX, mouseY),map(mouseX,0,800,1,50),map(mouseX,0,800,0,255),random(20,255),map(mouseY,0,800,0,255)));
 
 }
 
@@ -67,10 +70,10 @@ function savePaintData() {
       { 
         x: paintmarks[i].position.x, 
         y: paintmarks[i].position.y,
-        size:paintmarks[i].size,
-        r:paintmarks[i].colors.x,
-        g:paintmarks[i].colors.y,
-        b:paintmarks[i].colors.z 
+        size: paintmarks[i].size,
+        r: paintmarks[i].r,
+        g: paintmarks[i].g,
+        b: paintmarks[i].b
       }
     );
   }
@@ -85,7 +88,7 @@ function parsePaintData(data) {
   paintmarks = [];
 
   for (var i = 0; i < data.length; i++) {
-    paintmarks.push(new PaintMark(createVector(data[i].x, data[i].y),map(mouseX,0,800,1,50),createVector(map(mouseX,0,800,0,255),random(20,255),map(mouseY,0,800,0,255))));
+    paintmarks.push(new PaintMark(createVector(data[i].x, data[i].y),map(mouseX,0,800,1,50),map(mouseX,0,800,0,255),random(20,255),map(mouseY,0,800,0,255)));
    
   }
 }
