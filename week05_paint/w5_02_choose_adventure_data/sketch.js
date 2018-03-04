@@ -40,14 +40,16 @@ function draw() {
 
 function CreateScenesFromData(data) {
   for (var i = 0; i < data.length; i++) {
-    scenes.push(new Scene(data[i].sceneText, data[i].options, data[i].nextScenes))
+    scenes.push(new Scene(data[i].sceneText, data[i].options, data[i].nextScenes, data[i].position.x,data[i].position.y))
   }
 }
 
-function Scene(sceneText, options, nextScenes) {
+function Scene(sceneText, options, nextScenes, position.x,posiiton.y) {
   this.sceneText = sceneText;
   this.options = options;
   this.nextScenes = nextScenes;
+  this.position.x= position.x;
+  this.position.y = position.y;
 
   this.display = function() {
     fill(0);
@@ -57,6 +59,7 @@ function Scene(sceneText, options, nextScenes) {
     for (var i = 0; i < options.length; i++) {
       text('OPTION ' + (i + 1) + ': ' + this.options[i], 150, 200 + i * 50);
     }
+    ellipse(50,50,this.position.x,this.position.y);
   }
 }
 
