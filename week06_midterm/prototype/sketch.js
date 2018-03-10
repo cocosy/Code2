@@ -57,7 +57,7 @@ function Scene(sceneText, options, nextScenes) {
 
     for (var i = 0; i < options.length/5; i++) {
       for(var j =0; j<options.length/3; j++){
-      rect(50+i*50,50+i*50,20,50);}
+      rect(50+i*50,50+j*50,20,50);}
     }
   }
 }
