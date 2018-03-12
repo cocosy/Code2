@@ -1,10 +1,13 @@
 {
 
   "card":[ 
+    "",
+    "",
+    "",
 
     {
       "cardName": "A",
-      "cardText":"ACE：You can let anyone to drink. This card can only be use once. ",
+      "cardText":"ACE：You can let anyone drink. This card can only use once. ",
       "cardNum": [1,2,3,4]
     },
       {

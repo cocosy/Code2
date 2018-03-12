@@ -5,10 +5,6 @@
 // week 6 mid-term
 var sceneState = {
 	TUTORIAL:0,
-	SETUP:1,
-	CHOICE: 2,
-	GAME: 3,
-	END: 4
 };
 
 
@@ -20,14 +16,7 @@ var sceneState = {
 var currentState = sceneState.TUTORIAL;
 
 var keyOn = false;
-// var tutorialTimer;
-// var gameTimer;
-// var gameTimePressed;
-// const timeForTutorial = 3000;
-// const timeForGame = 5000;
-// function preload() {
-//   cards = loadJSON('card.json');
-// }
+
 
 function setup() {
 	createCanvas(800, 700);
