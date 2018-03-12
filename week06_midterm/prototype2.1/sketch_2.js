@@ -6,7 +6,7 @@
 
 
 var sceneData;
-var card;
+// var card;
 var cards = [];
 var r;
 var keyOn = false;
@@ -30,7 +30,7 @@ function draw() {
 
 function CreateScenesFromData(data) {
   for (var i = 0; i < data.length; i++) {
-    cards.push(new Card(data[i]));
+    cards.push(new Card(data[i].card));
   }
 }
 
@@ -41,17 +41,12 @@ function Card(cards){
 	this.cardText = cards;
 	
 
-	this.update = function () {
-		this.cardText = cards[r];
-
-	}
-
 	this.display = function () {
 		rect(100,50,this.width, this.height);
 		fill(255);
 		textSize(28);
 		textAlign(CENTER, CENTER);
-		text(this.cardText,width/2,height/2);
+		text(this.cardText[r],width/2,height/2);
 
 
 	}
