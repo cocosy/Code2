@@ -8,7 +8,7 @@
 var sceneData;
 var card;
 var cards = [];
-
+var r;
 var keyOn = false;
 
 
@@ -42,7 +42,7 @@ function Card(cards){
 	
 
 	this.update = function () {
-		this,cardText = cards[r];
+		this.cardText = cards[r];
 
 	}
 
