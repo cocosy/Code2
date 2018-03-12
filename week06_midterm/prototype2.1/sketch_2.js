@@ -3,17 +3,11 @@
 // spring 2018
 
 // week 6 mid-term
-var sceneState = {
-	TUTORIAL:0,
-};
+
 
 var sceneData;
 var card;
-var cards [];
-
-
-
-var currentState = sceneState.TUTORIAL;
+var cards = [];
 
 var keyOn = false;
 
