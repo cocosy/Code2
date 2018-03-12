@@ -228,6 +228,6 @@ function keyPressed() {
   keyOn = true;
 
   if (key === ' ') {
-  	currentState=0;
+  	currentState = 0;
   }
   }
