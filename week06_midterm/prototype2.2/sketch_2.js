@@ -6,7 +6,7 @@
 
 
 var textData;
- // var card;
+ var r;
  var cardArray = [];
 
 
@@ -29,11 +29,9 @@ function setup() {
  function draw() {
  
 
-    cardArray[4].display();
+    cardArray[5].display();
 }
-// 	Card.display();
 
-// }
 
 // function CreateTextFromData(data) {
 //   for (var i = 0; i < data.length; i++) {
@@ -47,13 +45,17 @@ function Card(cardArray){
 this.text = cardArray;
 
 	
+// this.setup = function(){
+  
+//   r = int(random(0,cardArray.length));
+// 	}
 
  	this.display = function () {
 // rect(100,50,this.width, this.height);
     // r = int(random(0,cardArray.length));
 	fill(255);
 	textSize(15);
-	text(this.text,10,100);
+	text(this.text,width/2,100);
 	}
 }
 
@@ -66,10 +68,9 @@ this.text = cardArray;
 //   }
 // }
 
-// function keyPressed() {
-// 	if (newScene === ' '){
-//   r = int(random(0,cardArray.length));
-//  }
+function keyPressed() {
+	
+ }
 // }
 
 
