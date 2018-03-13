@@ -3,7 +3,7 @@
   "card":[ 
     "1 - ACE：You can let anyone drink. This card can only use once. ",
     "2 - BAR GIRL: You need to drink with anyone who are going to drink until the next Bar girl appear.",
-    "3 - SORTER: You need to name a category. Everyone from your right-hand side needs to name one thing from this catergory. The one fails to name/give the duplicate names drinks.",
+    "3 - SORTER: You need to name a category. Everyone from your right-hand side needs to name one thing from this catergory. The one fails to name or give the duplicate names drinks.",
     "4 - BLANK CARD: Nothing happens.",
     "5 - CAMERA: Whenever you say 'CAMERA', everyone must stop moving. The one moves first drinks.",
     "6 - REPEATER: Whenever you say 'REPEATER', everyone must repeat what they say, did, drink... The first one gives up drinks.",
