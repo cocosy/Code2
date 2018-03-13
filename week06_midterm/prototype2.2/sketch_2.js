@@ -34,7 +34,7 @@ function setup() {
  		textAlign(CENTER, CENTER);
 
  		for (var i = 0; i < textData.card.length; i++) {
-        Card[i].display();
+        Card(i).display();
     }
 // 	Card.display();
 
