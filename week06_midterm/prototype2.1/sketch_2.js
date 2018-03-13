@@ -7,7 +7,7 @@
 
 var textData;
 // var card;
-var cards = [];
+// var cards;
 
 
 function preload() {
@@ -17,18 +17,20 @@ function preload() {
 
 function setup() {
 	createCanvas(800, 700);
-	var cards = textData.card;
-	    fill(255);
-		textSize(20);
- 		textAlign(CENTER, CENTER);
-	 for (var i = 0; i < cards.length; i++) {
-	 text(cards[i],width/2,height/2+20*i);
-	 }
+	  fill(0);
+	  	textSize(20);
 	// CreateTextFromData(textData.card);
 
 }
 
-// function draw() {
+ function draw() {
+
+	    fill(255);
+	
+ 		textAlign(CENTER, CENTER);
+	 for (var i = 0; i < textData.card.length; i++) {
+	 text(textData.card[i],width/2,height/2+20*i);
+	 }
 // 	Card.display();
 
 // }
@@ -37,7 +39,7 @@ function setup() {
 //   for (var i = 0; i < data.length; i++) {
 //     cards.push(new Card(data[i].card)）;
 //   }
-// }
+ }
 
 
 // function Card(cards){
