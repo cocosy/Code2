@@ -18,27 +18,18 @@ function preload() {
 function setup() {
 	createCanvas(800, 700);
 	fill(0);
-	textSize(20);
 	 for (var i = 0; i < textData.card.length; i++) {
-   cardArray.push = new Card(textData.card[i]);
+   var newCard = new Card(textData.card[i]);
+   cardArray.push(newCard);}
 }
 
 	
 	// CreateTextFromData(textData.card);
 
-}
-
-
-
  function draw() {
+ 
 
-	    fill(255);
-	
- 	textAlign(CENTER, CENTER);
- 	 for (var i = 0; i < textData.card.length; i++) {
- 	// r = int(random(0,cardArray.length));
-    cardArray[i].display();
-}
+    cardArray[4].display();
 }
 // 	Card.display();
 
@@ -58,19 +49,13 @@ this.text = cardArray;
 	
 
  	this.display = function () {
-
-// 		rect(100,50,this.width, this.height);
-    r = int(random(0,cardArray.length));
+// rect(100,50,this.width, this.height);
+    // r = int(random(0,cardArray.length));
 	fill(255);
 	textSize(15);
-	textAlign(CENTER, CENTER);
-	text(this.text[r],100,100+30*i);
-
+	text(this.text,10,100);
 	}
 }
-
-
-
 
 
 // function keyPressed() {
@@ -79,6 +64,12 @@ this.text = cardArray;
 //   if (newScene !== undefined) {
 //     currentScene = newScene;
 //   }
+// }
+
+// function keyPressed() {
+// 	if (newScene === ' '){
+//   r = int(random(0,cardArray.length));
+//  }
 // }
 
 
