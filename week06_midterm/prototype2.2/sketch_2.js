@@ -7,7 +7,7 @@
 
 var textData;
 // var card;
-// var cards;
+ var cardArray = [];
 
 
 function preload() {
@@ -19,6 +19,10 @@ function setup() {
 	createCanvas(800, 700);
 	  fill(0);
 	  	textSize(20);
+	 for (var i = 0; i < textData.card.length; i++) {
+	 var newCard = new Card (textData.card[i]);
+	 cardArray.push(newCard);
+	 }
 	// CreateTextFromData(textData.card);
 
 }
@@ -28,9 +32,10 @@ function setup() {
 	    fill(255);
 	
  		textAlign(CENTER, CENTER);
-	 for (var i = 0; i < textData.card.length; i++) {
-	 text(textData.card[i],400,100+20*i);
-	 }
+
+ 		for (var i = 0; i < textData.card.length; i++) {
+        Card[i].display();
+    }
 // 	Card.display();
 
 // }
@@ -42,57 +47,34 @@ function setup() {
  }
 
 
-// function Card(cards){
+function Card(cardArray){
 // 	this.width = width - 100;
 // 	this.height = height - 50;
-// 	this.text = cards;
+this.text = cardArray;
 
 	
 
-// 	this.display = function () {
+ 	this.display = function () {
 
 // 		rect(100,50,this.width, this.height);
-// 		fill(255);
-// 		textSize(28);
-// 		textAlign(CENTER, CENTER);
-// 		for (var j = 0; j < text.length; j++) {
-// 		text(this.text[j],width/2,height/2+15*j);
+		fill(255);
+		textSize(28);
+		textAlign(CENTER, CENTER);
+for (var j = 0; j < text.length; j++) {
+text(this.text[j],width/2,height/2+15*j);
 
-// 	}}
+	}}
+}
+
+
+
+// function keyPressed() {
+//   var numberPressed = parseInt(key);
+//   var newScene = scenes[currentScene].nextScenes[numberPressed - 1];
+//   if (newScene !== undefined) {
+//     currentScene = newScene;
+//   }
 // }
-
-
-
-// function drawScene(whichScene) {
-// 	switch (currentState) {
-// 		case sceneState.TUTORIAL:
-
-// 			background(150, 200, 200);
-// 			fill(0);
-// 			textSize(28);
-// 			textAlign(CENTER, CENTER);
-// 			text("Wecome to play this little drinking game",width/2,height/2-100);
-// 			text("Hope your like it",width/2,height/2);
-
-// 				break;
-// 				default:
-// 					break;
-// 			}
-// 	}
-
-// 	function checkTransition(whichScene) {
-// 		switch (whichScene) {
-// 			case sceneState.TUTORIAL:
-// 				if (keyOn) {
-// 					currentState++;
-// 					setUpScene(currentState);
-// 				}
-				
-// 				break;
-// 			default:
-// 				break;
-// 		}
-// 	}
 
 
 
