@@ -5,66 +5,57 @@
 // week 6 mid-term
 
 
-var sceneData;
+var textData;
 // var card;
 var cards = [];
-var r;
-var keyOn = false;
 
 
 function preload() {
-  sceneData = loadJSON('text.json');
+  textData = loadJSON('text.json');
 }
 
 
 function setup() {
 	createCanvas(800, 700);
-	CreateScenesFromData(sceneData.cards);
+	var cards = textData.cards;
+	 for (var i = 0; i < cards.length; i++) {
+	 text(cards[i],width/2,height/2+15*i);
+	 }
+	// CreateTextFromData(textData.card);
 
 }
 
-function draw() {
-	Card.display();
-	keyOn = false;
-}
+// function draw() {
+// 	Card.display();
 
-function CreateScenesFromData(data) {
-  for (var i = 0; i < data.length; i++) {
-    cards.push(new Card(data[i].card));
-  }
-}
+// }
+
+// function CreateTextFromData(data) {
+//   for (var i = 0; i < data.length; i++) {
+//     cards.push(new Card(data[i].card)）;
+//   }
+// }
 
 
-function Card(cards){
-	this.width = width - 100;
-	this.height = height - 50;
-	this.cardText = cards;
+// function Card(cards){
+// 	this.width = width - 100;
+// 	this.height = height - 50;
+// 	this.text = cards;
+
 	
 
-	this.display = function () {
-		rect(100,50,this.width, this.height);
-		fill(255);
-		textSize(28);
-		textAlign(CENTER, CENTER);
-		text(this.cardText[r],width/2,height/2);
+// 	this.display = function () {
 
+// 		rect(100,50,this.width, this.height);
+// 		fill(255);
+// 		textSize(28);
+// 		textAlign(CENTER, CENTER);
+// 		for (var j = 0; j < text.length; j++) {
+// 		text(this.text[j],width/2,height/2+15*j);
 
-	}
-}
+// 	}}
+// }
 
-function keyPressed() {
-  keyOn = true;
-
-  if (key === ' ') {
-  	r = int(random(0,cards.length));
-  	print(r);
-  }
-}
-
-function keyReleased() {
-keyOn = false;
-
-}
 
 
 // function drawScene(whichScene) {
