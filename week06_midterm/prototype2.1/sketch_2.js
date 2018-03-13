@@ -17,9 +17,12 @@ function preload() {
 
 function setup() {
 	createCanvas(800, 700);
-	var cards = textData.cards;
+	var cards = textData.card;
+	    fill(255);
+		textSize(20);
+ 		textAlign(CENTER, CENTER);
 	 for (var i = 0; i < cards.length; i++) {
-	 text(cards[i],width/2,height/2+15*i);
+	 text(cards[i],width/2,height/2+20*i);
 	 }
 	// CreateTextFromData(textData.card);
 
