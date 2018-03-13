@@ -58,10 +58,10 @@ this.text = cardArray;
 
 // 		rect(100,50,this.width, this.height);
 		fill(255);
-		textSize(28);
+		textSize(15);
 		textAlign(CENTER, CENTER);
 for (var j = 0; j < text.length; j++) {
-text(this.text[j],width/2,height/2+15*j);
+text(this.text[j],100,100+30*j);
 
 	}}
 }
