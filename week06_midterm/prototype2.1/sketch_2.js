@@ -29,7 +29,7 @@ function setup() {
 	
  		textAlign(CENTER, CENTER);
 	 for (var i = 0; i < textData.card.length; i++) {
-	 text(textData.card[i],width/2,height/2+20*i);
+	 text(textData.card[i],400,100+20*i);
 	 }
 // 	Card.display();
 
