@@ -11,7 +11,7 @@ var textData;
 
 
 function preload() {
-  textData = loadJSON('text.json');
+  textData = loadJSON("text.json");
 }
 
 
