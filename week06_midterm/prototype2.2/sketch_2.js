@@ -34,7 +34,7 @@ function setup() {
  		textAlign(CENTER, CENTER);
 
  		for (var i = 0; i < textData.card.length; i++) {
-        Card(i).display();
+        cardArray[i].display();
     }
 // 	Card.display();
 
@@ -65,6 +65,7 @@ text(this.text[j],width/2,height/2+15*j);
 
 	}}
 }
+
 
 
 
