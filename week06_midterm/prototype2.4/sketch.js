@@ -17,6 +17,7 @@ var cardArray = [];
 var currentState = sceneState.TUTORIAL;
 
 var keyOn = false;
+var cardOn = false;
 // var tutorialTimer;
 // var gameTimer;
 // var gameTimePressed;
@@ -33,6 +34,15 @@ function preload() {
 
 function setup() {
 	createCanvas(800, 700);
+	 for(var j= 0; j<4;j++){
+	      	for (var i = 0; i < textData.card.length-1; i++) {
+          	 var newCard = new Card(textData.card[i]);
+        	cardArray.push(newCard);}}
+  			cardArray.push(new Card(textData.card[14]));
+   			cardArray.push(new Card(textData.card[14]));
+   			
+   		r = int(random(0,cardArray.length));
+   	
 	// CreateScenesFromData(card);
 }
 
@@ -134,17 +144,17 @@ function drawScene(whichScene) {
 		rect(50,50,width-100,height-100);
 		fill(255);
 		// text("TEXT",width/2,height/2);
+   		 // noLoop();
+   		 if(cardOn){
+  		cardArray[r].display();
+  	  	cardArray.splice(r,1);
+		print(cardArray.length);
+		cardOn=false;
+	}
+		
+		// cardOn=false;
 
-		if(keyOn){
-		r = int(random(0,cardArray.length));
-  	  	cardArray[r].display();
-   	 	print(cardArray.length);
-    	cardArray.splice(r,1);
-   		 noLoop()
-		}
-
-
-				break;
+		break;
 		case sceneState.END:
 		background(255,180,180);
 		textSize(28);
@@ -189,6 +199,7 @@ function drawScene(whichScene) {
 				case sceneState.GAME:
 
 				if (keyOn) {
+					
 				//	print(int(random(0,13)));
 					currentState++;
 					setUpScene(currentState);
@@ -220,13 +231,7 @@ function drawScene(whichScene) {
 				// tutorialTimer = millis();
 				break;
 			case sceneState.GAME:
-
-	     for(var j= 0; j<4;j++){
-	      	for (var i = 0; i < textData.card.length-1; i++) {
-          	 var newCard = new Card(textData.card[i]);
-        	cardArray.push(newCard);}}
-  			cardArray.push(new Card(textData.card[14]));
-   			cardArray.push(new Card(textData.card[14]));
+			
 				// tutorialTimer = millis();
 				break;
 			case sceneState.END:
@@ -239,26 +244,37 @@ function drawScene(whichScene) {
 
 function Card(cardArray){
 this.text = cardArray;
-this.margin = 10;
-this.width = width;
-this.height = height;
+// this.margin = 10;
 
- this.display = function () {
- fill(255);
+this.display = function () {
+fill(255);
 textSize(15);
-text(this.text,width/2-200,100);
+// textAlign(CENTER, CENTER);
+text(this.text,100,100,600,300);
 }
 	
 }
 
-function keyPressed() {
-  keyOn = true;
 
-  if (key === ' ') {
+
+function keyPressed() {
+	keyOn = true;
+  
+ // if (key === 'A') {
+   	
+ //   }
+if (key === ' ') {
   	currentState = 0;
   }
-  }
+ }
 
 function keyReleased(){
 keyOn = false;
+
  }
+
+ function mousePressed(){
+ cardOn = true;
+ 	// currentState += 1;
+}
+ 
