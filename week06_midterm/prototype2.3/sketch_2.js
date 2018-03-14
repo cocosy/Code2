@@ -6,9 +6,9 @@
 
 
 var textData;
- var r;
- var cardArray = [];
-
+var r;
+var cardArray = [];
+keyOn = false;
 
 function preload() {
   textData = loadJSON("text.json");
@@ -18,18 +18,35 @@ function preload() {
 function setup() {
 	createCanvas(800, 700);
 	fill(0);
-	 for (var i = 0; i < textData.card.length; i++) {
+	for(var j= 0; j<4;j++){
+	 for (var i = 0; i < textData.card.length-1; i++) {
    var newCard = new Card(textData.card[i]);
-   cardArray.push(newCard);}
+   cardArray.push(newCard);}}
+   cardArray.push(new Card(textData.card[14]));
+   cardArray.push(new Card(textData.card[14]));
 }
 
 	
 	// CreateTextFromData(textData.card);
 
  function draw() {
- 
 
-    cardArray[5].display();
+ if(keyOn){
+	r = int(random(0,cardArray.length));
+    cardArray[r].display();
+    print(cardArray.length);
+    cardArray.splice(r,1);
+    noLoop()
+}
+
+ if(keyOn){
+	r = int(random(0,cardArray.length));
+    cardArray[r].display();
+    print(cardArray.length);
+    cardArray.splice(r,1);
+    noLoop()
+}
+
 }
 
 
@@ -43,33 +60,29 @@ function Card(cardArray){
 // 	this.width = width - 100;
 // 	this.height = height - 50;
 this.text = cardArray;
-
+this.margin = 10;
 	
 // this.setup = function(){
   
 //   r = int(random(0,cardArray.length));
 // 	}
 
- 	this.display = function () {
+ this.display = function () {
 // rect(100,50,this.width, this.height);
     // r = int(random(0,cardArray.length));
-	fill(255);
-	textSize(15);
-	text(this.text,width/2,100);
-	}
+fill(255);
+textSize(15);
+text(this.text,width/2,100);
+}
 }
 
 
-// function keyPressed() {
-//   var numberPressed = parseInt(key);
-//   var newScene = scenes[currentScene].nextScenes[numberPressed - 1];
-//   if (newScene !== undefined) {
-//     currentScene = newScene;
-//   }
-// }
-
 function keyPressed() {
-	
+keyOn = true;
+ }
+
+function keyReleased(){
+keyOn = false;
  }
 // }
 
