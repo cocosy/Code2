@@ -11,12 +11,9 @@ var sceneState = {
 	END: 4
 };
 
-
-// var card
-// var cards [];
-
-
-
+var textData;
+var r;
+var cardArray = [];
 var currentState = sceneState.TUTORIAL;
 
 var keyOn = false;
@@ -28,6 +25,11 @@ var keyOn = false;
 // function preload() {
 //   cards = loadJSON('card.json');
 // }
+
+function preload() {
+  textData = loadJSON("text.json");
+}
+
 
 function setup() {
 	createCanvas(800, 700);
@@ -131,9 +133,17 @@ function drawScene(whichScene) {
 		fill(0);
 		rect(50,50,width-100,height-100);
 		fill(255);
-		textSize(28);
-		textAlign(CENTER, CENTER);
-		text("TEXT",width/2,height/2);
+		// text("TEXT",width/2,height/2);
+
+		if(keyOn){
+		r = int(random(0,cardArray.length));
+  	  	cardArray[r].display();
+   	 	print(cardArray.length);
+    	cardArray.splice(r,1);
+   		 noLoop()
+		}
+
+
 				break;
 		case sceneState.END:
 		background(255,180,180);
@@ -210,6 +220,13 @@ function drawScene(whichScene) {
 				// tutorialTimer = millis();
 				break;
 			case sceneState.GAME:
+
+	     for(var j= 0; j<4;j++){
+	      	for (var i = 0; i < textData.card.length-1; i++) {
+          	 var newCard = new Card(textData.card[i]);
+        	cardArray.push(newCard);}}
+  			cardArray.push(new Card(textData.card[14]));
+   			cardArray.push(new Card(textData.card[14]));
 				// tutorialTimer = millis();
 				break;
 			case sceneState.END:
@@ -220,7 +237,17 @@ function drawScene(whichScene) {
 		}
 	}
 
-function cards(){
+function Card(cardArray){
+this.text = cardArray;
+this.margin = 10;
+this.width = width;
+this.height = height;
+
+ this.display = function () {
+ fill(255);
+textSize(15);
+text(this.text,width/2-200,100);
+}
 	
 }
 
@@ -231,3 +258,7 @@ function keyPressed() {
   	currentState = 0;
   }
   }
+
+function keyReleased(){
+keyOn = false;
+ }
