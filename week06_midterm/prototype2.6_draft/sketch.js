@@ -25,6 +25,7 @@ var keyOn = false;
 var cardOn = false;
 var mousePositionX;
 var mousePositionY;
+var title;
 // var tutorialTimer;
 // var gameTimer;
 // var gameTimePressed;
@@ -33,6 +34,7 @@ var mousePositionY;
 
 function preload() {
   textData = loadJSON("text.json");
+  title = loadFont('assets/Neons_demo.otf');
 }
 
 
@@ -61,13 +63,15 @@ function drawScene(whichScene) {
 		case sceneState.TUTORIAL:
 			background(0);
 			noStroke();
-			textSize(32);
+			textSize(30);
+			textFont(title);
 			textAlign(CENTER, CENTER);
 			// fill(200+random(5,55),110-mouseX/10,90-mouseY/10,120);
-			fill(110-mouseX/10,90-mouseY/10,120,200+random(5,55));
-			text("Welcome to play this little drinking game",width/2,height/2-135+mouseX/80-mouseY/10);
+			fill(150-mouseX/10,190-mouseY/10,120,200+random(5,55));
+			text("Welcome to play this little drinking game",width/2,height/2-155+mouseX/80-mouseY/10);
 			fill(255);
-			text("Welcome to play this little drinking game",width/2+10,height/2-120+mouseX/80-mouseY/10);
+			textSize(50);
+			text("GET DRUNK",width/2+10,height/2-120+mouseX/80-mouseY/10);
 			// fill(90-mouseY/10,200+random(5,55),110-mouseX/10,120);
 			// text("Welcome to play this little drinking game",width/2,height/2-127+mouseX/80-mouseY/10);
 			noFill()
@@ -83,6 +87,7 @@ function drawScene(whichScene) {
 
 			fill(255);
 			noStroke();
+			textFont("Bungee Outline");
 			textSize(20);
 			text("*INSTRUCTION*",width/2,height/2);
 			text("Right Arrow Key: Next Step",width/2,height/2+50);
@@ -227,7 +232,7 @@ function drawScene(whichScene) {
 		textAlign(CENTER, CENTER);
 		fill(255);
 		text("["+cardArray.length+" cards left]", width/2,height/2-150);
-		text("Now, Press Right Arrow to Next Person",width/2,height/2);
+		text("Now press Right Arrow to Next Person",width/2,height/2);
 		break;
 
 		//5
