@@ -26,6 +26,7 @@ var cardOn = false;
 var mousePositionX;
 var mousePositionY;
 var title;
+var colorR =0;
 // var tutorialTimer;
 // var gameTimer;
 // var gameTimePressed;
@@ -35,6 +36,7 @@ var title;
 function preload() {
   textData = loadJSON("text.json");
   title = loadFont('assets/Neons_demo.otf');
+  cardText = loadFont('assets/CARDC.ttf');
 }
 
 
@@ -63,19 +65,30 @@ function drawScene(whichScene) {
 		case sceneState.TUTORIAL:
 			background(0);
 			noStroke();
-			textSize(30);
-			textFont(title);
+			textFont(cardText);
 			textAlign(CENTER, CENTER);
-			// fill(200+random(5,55),110-mouseX/10,90-mouseY/10,120);
-			fill(150-mouseX/10,190-mouseY/10,120,200+random(5,55));
-			text("Welcome to play this little drinking game",width/2,height/2-155+mouseX/80-mouseY/10);
-			fill(255);
-			textSize(50);
-			text("GET DRUNK",width/2+10,height/2-120+mouseX/80-mouseY/10);
+			if(currentState == 0){
+			if(colorR<255){
+				colorR ++;
+			}else{keyOn = true;}
+			}
+			 // fill(random(0,255),110-mouseX/10,90-mouseY/10);
+			fill(220-mouseX/10,20-mouseY/10,225,200+random(5,125));
+
+			// text("Welcome to play this little drinking game",width/2,height/2-150+mouseX/80-mouseY/10);
+			// fill(255-random(0,20),102 , 0);
+
+
+			textSize(50+colorR/6);
+			strokeWeight(4);
+
+			stroke(0,200-random(0,60), 255);
+			text("GET DRUNK",width/2+10,height/2-200+mouseX/80-mouseY/30);
 			// fill(90-mouseY/10,200+random(5,55),110-mouseX/10,120);
 			// text("Welcome to play this little drinking game",width/2,height/2-127+mouseX/80-mouseY/10);
 			noFill()
 			stroke(255);
+			strokeWeight(1);
 			//200+random(5,55),110-mouseX/10,90-mouseY/10,180
 			// strokeWeight(1);
 			// rect(width/2-180,height/2-20,390+mouseX/100,120-mouseY/100);
@@ -83,16 +96,20 @@ function drawScene(whichScene) {
 			stroke(255);
 			strokeWeight(2);
 			noFill();
-			rect(width/2-200,height/2-30,400,110);
+			rect(width/2-100,height/2-130,200,270);
 
 			fill(255);
 			noStroke();
-			textFont("Bungee Outline");
+			textFont(cardText);
 			textSize(20);
+			fill(random(0,25),130-mouseX/10,90-mouseY/10);
 			text("*INSTRUCTION*",width/2,height/2);
-			text("Right Arrow Key: Next Step",width/2,height/2+50);
-			fill(110-mouseX/10,90-mouseY/10,120,200+random(5,55));
-			text("Hope you guys enjoy it!",width/2,height/2+150);
+			text("Right Arrow Key: \n Always to Next Step",width/2,height/2+50);
+			textFont(title);
+			fill(200-mouseX/10,20-mouseY/10,77,200+random(5,125));
+		
+			text("Welcome to play this little drinking game",width/2,height/2+150);
+			text("Hope you guys enjoy it!",width/2,height/2+180);
 			break;
 
 		//1
@@ -101,9 +118,10 @@ function drawScene(whichScene) {
 			textSize(28);
 			textAlign(CENTER, CENTER);
 			var space = 35;
-			fill(255);
 			noStroke();
-			text("Choose the number of people...",width/2,height/2-50);
+			// fill(255-random(0,20), 0, 225);pink
+			fill(220-mouseX/10,20-mouseY/10,225,200+random(5,125))
+			text("Choose the number of people:",width/2,height/2-50);
 
 			stroke(255);
 			noFill();
@@ -153,21 +171,25 @@ function drawScene(whichScene) {
 // -------------------------------input() -------------------------------------------------
 		//2
 		case sceneState.CHOICE:
-		background(255);
+		background(0);
+		fill(0);
+		strokeWeight(1);
+		stroke(255,0,0);
+		rect(5,5,width-10,height-10);
 		noStroke();
 		// fill(200+random(5,55),110-mouseX/10,90-mouseY/10,180);
 			for(var i = 0; i <cardX; i++){
 				for(var j = 0; j<cardY; j++){
-				fill(200+random(5,55),110-mouseX/10,90-mouseY/10,180);
+				fill(220-mouseX/10,20-mouseY/10,225,200+random(5,125));
 				rect(i*(width/cardX)+((width-cardX*130)/cardX)/2,j*200+60,130,180);
 				}
 			}
 				
-			
+		textFont(cardText);
 		textAlign(CENTER);
 		textSize(20);
-		fill(0);
-		text("Choose your card by Clicking \n anywhere on the game canvas",mouseX+20,mouseY);
+		fill(255);
+		text("[Choose your card by Clicking \n anywhere on the game canvas]",mouseX+20,mouseY);
 		break;
 // -------------------------------------cards with p5.play -------------------------------------------------
   //          var poker;
@@ -340,6 +362,7 @@ function Card(cardArray){
 this.display = function () {
 fill(255);
 textSize(28);
+textFont("CARDC");
 text(cardArray,100,100,600,300);
 }	
 }
