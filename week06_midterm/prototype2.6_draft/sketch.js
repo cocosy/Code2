@@ -28,6 +28,7 @@ var mousePositionY;
 var title;
 var colorR =0;
 var cocktail;
+var end;
 // var tutorialTimer;
 // var gameTimer;
 // var gameTimePressed;
@@ -38,7 +39,8 @@ function preload() {
   textData = loadJSON("text.json");
   title = loadFont('assets/Neons_demo.otf');
   cardText = loadFont('assets/CARDC.ttf');
-  cocktail = loadImage('assets/cocktail.png');
+  cocktail = loadImage("assets/cocktail.png");
+  end = loadImage("assets/end.png");
 }
 
 
@@ -68,53 +70,49 @@ function drawScene(whichScene) {
 		//0
 		case sceneState.TUTORIAL:
 			background(0);
-			image(cocktail,width/2,height/2，400，200)
-			noStroke();
-			textFont(cardText);
+			textFont(title);
 			textAlign(CENTER, CENTER);
 			if(currentState == 0){
 			if(colorR<255){
 				colorR ++;
-			}else{keyOn = true;}
-			}
+			}else{colorR =255;
+			}}
 			 // fill(random(0,255),110-mouseX/10,90-mouseY/10);
-			fill(220-mouseX/10,20-mouseY/10,225,200+random(5,125));
+			fill(200+random(5,55),40,90-mouseY/10,180);
 
 			// text("Welcome to play this little drinking game",width/2,height/2-150+mouseX/80-mouseY/10);
 			// fill(255-random(0,20),102 , 0)；
 
 
 			textSize(50+colorR/6);
-			strokeWeight(4);
+			strokeWeight(3);
 
-			stroke(0,200-random(0,60), 255);
+			// stroke(240);
 			text("GET DRUNK",width/2+10,height/2-200+mouseX/80-mouseY/30);
 			// fill(90-mouseY/10,200+random(5,55),110-mouseX/10,120);
 			// text("Welcome to play this little drinking game",width/2,height/2-127+mouseX/80-mouseY/10);
-			noFill()
-			stroke(255);
-			strokeWeight(1);
 			//200+random(5,55),110-mouseX/10,90-mouseY/10,180
 			// strokeWeight(1);
 			// rect(width/2-180,height/2-20,390+mouseX/100,120-mouseY/100);
 
 			stroke(255);
 			strokeWeight(2);
-			noFill();
-			rect(width/2-100,height/2-130,200,270);
-
-			fill(255);
+			fill(220-mouseX/10,20-mouseY/10,225,200+random(5,125));
+			rect(width/2-100,height/2-colorR/3+mouseY/10,200,130);
+			image(cocktail,width/2-110,height/2-140);
 			noStroke();
+
+	
 			textFont(cardText);
 			textSize(20);
-			fill(random(0,25),130-mouseX/10,90-mouseY/10);
-			text("*INSTRUCTION*",width/2,height/2);
-			text("Right Arrow Key: \n Always to Next Step",width/2,height/2+50);
+			fill(255);
+			text("*INSTRUCTION*",width/2+200,height/2);
+			text("Right Arrow Key: \n Always to Next Step",width/2+200,height/2+60);
 			textFont(title);
 			fill(200-mouseX/10,20-mouseY/10,77,200+random(5,125));
 		
-			text("Welcome to play this little drinking game",width/2,height/2+150);
-			text("Hope you guys enjoy it!",width/2,height/2+180);
+			text("Welcome to play this little drinking game",width/2,height/2+220);
+			text("Hope you guys enjoy it!",width/2,height/2+250);
 			break;
 
 		//1
@@ -185,8 +183,9 @@ function drawScene(whichScene) {
 		// fill(200+random(5,55),110-mouseX/10,90-mouseY/10,180);
 			for(var i = 0; i <cardX; i++){
 				for(var j = 0; j<cardY; j++){
-				fill(220-mouseX/10,20-mouseY/10,225,200+random(5,125));
+				fill(220-mouseX/10,20-mouseY/10,225,100+random(i,125));
 				rect(i*(width/cardX)+((width-cardX*130)/cardX)/2,j*200+60,130,180);
+				image(cocktail,i*(width/cardX)+((width-cardX*130)/cardX)/2,j*200+60,130,180);
 				}
 			}
 				
@@ -260,6 +259,9 @@ function drawScene(whichScene) {
 		fill(255);
 		text("["+cardArray.length+" cards left]", width/2,height/2-150);
 		text("Now press Right Arrow to Next Person",width/2,height/2);
+		image(cocktail,width/2-65,height/2+50,150,200);
+
+
 		break;
 
 		//5
@@ -268,7 +270,9 @@ function drawScene(whichScene) {
 		textSize(28);
 		textAlign(CENTER, CENTER);
 		fill(255);
-		text("This round is over. \n Take a break then refresh to Restart",width/2,height/2);
+		textFont(cardText);
+		text("[This round is over] \n Feels GOOD? then refresh to Restart.",width/2,height/2-150);
+		image(end,width/2-50,height/2-50);
 		break;
 
 				
@@ -375,14 +379,16 @@ text(cardArray,100,100,600,300);
 
 
 function keyPressed() {
+
 if(keyCode === RIGHT_ARROW){
-	if(cardArray.length>0){
+	if(cardArray.length>0 && currentState!==2 && currentState!==3){
 	keyOn = true;
-}else{
+}else if (cardArray.length<=0){
 	currentState = 5;
-	}
+	}else{keyOn = false;}}
 }
-}
+
+
   
 // if(keyCode === DOWN_ARROW){
 	
