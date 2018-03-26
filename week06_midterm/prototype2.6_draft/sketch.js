@@ -27,6 +27,7 @@ var mousePositionX;
 var mousePositionY;
 var title;
 var colorR =0;
+var cocktail;
 // var tutorialTimer;
 // var gameTimer;
 // var gameTimePressed;
@@ -37,6 +38,7 @@ function preload() {
   textData = loadJSON("text.json");
   title = loadFont('assets/Neons_demo.otf');
   cardText = loadFont('assets/CARDC.ttf');
+  cocktail = loadImage('assets/cocktail.png');
 }
 
 
@@ -49,6 +51,8 @@ function setup() {
   			cardArray.push(new Card(textData.card[13]));
    			cardArray.push(new Card(textData.card[13]));
 	// CreateScenesFromData(card);
+
+
 }
 
 
@@ -64,6 +68,7 @@ function drawScene(whichScene) {
 		//0
 		case sceneState.TUTORIAL:
 			background(0);
+			image(cocktail,width/2,height/2，400，200)
 			noStroke();
 			textFont(cardText);
 			textAlign(CENTER, CENTER);
@@ -76,7 +81,7 @@ function drawScene(whichScene) {
 			fill(220-mouseX/10,20-mouseY/10,225,200+random(5,125));
 
 			// text("Welcome to play this little drinking game",width/2,height/2-150+mouseX/80-mouseY/10);
-			// fill(255-random(0,20),102 , 0);
+			// fill(255-random(0,20),102 , 0)；
 
 
 			textSize(50+colorR/6);
