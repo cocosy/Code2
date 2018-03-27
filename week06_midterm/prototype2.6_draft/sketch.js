@@ -29,11 +29,8 @@ var title;
 var colorR =0;
 var cocktail;
 var end;
-// var tutorialTimer;
-// var gameTimer;
-// var gameTimePressed;
-// const timeForTutorial = 3000;
-// const timeForGame = 5000;
+var start;
+
 
 function preload() {
   textData = loadJSON("text.json");
@@ -94,9 +91,9 @@ function drawScene(whichScene) {
 			textFont(cardText);
 			textSize(20);
 			fill(255);
-			text("*INSTRUCTION*",width/2+200,height/2);
-			text("Choose your card and follow the rule.",width/2+200,height/2+60);
-			text("Right Arrow Key: \n Always to Next Step",width/2+200,height/2+120);
+			text("THE DRINKING GAME\n*INSTRUCTION*",width/2-150,height/2+60);
+			text("Choose your card \n and follow the rule.",width/2+170,height/2+60);
+			text("Press Right Arrow Key: \n(always) to Next Step",width/2+195,height/2+130);
 			textFont(title);
 			fill(200-mouseX/10,20-mouseY/10,77,200+random(5,125));
 		
@@ -128,39 +125,10 @@ function drawScene(whichScene) {
 			text("6-9",width/4*2+space,height/2+20);
 			text(">9",width/4*3+space,height/2+20);
 			// noFill();
-
-
-		
-
-
-
 			break;
-// -------------------------------input() -------------------------------------------------
-		// background(255);
 
-		// input = createInput();
-		// input.position(width / 2, height / 2);
 
-		// button = createButton('confirm');
-		// button.position(input.x + input.width+20, height / 2);
-		// button.mousePressed(greet);
 
-		// greeting = createElement('h2', 'Enter the number');
-  // 		greeting.position(width/2, height/2-100);
-
-  // 		textAlign(CENTER);
-  // 		textSize(50);
-  // 		noStroke();
-
-		// function greet() {
-		// 	var person = input.value();
-		// 	greeting.html('welcome');
-
-		// 	for (var i = 0; i < person; i++) {
-		// 	ellipse(width / 2 + i * 30, 300, 25, 25);
-		// }}
-
-// -------------------------------input() -------------------------------------------------
 		//2
 		case sceneState.CHOICE:
 		background(0);
@@ -168,8 +136,9 @@ function drawScene(whichScene) {
 		strokeWeight(1);
 		stroke(255,0,0);
 		rect(5,5,width-10,height-10);
+		fill(220-mouseX/10,20-mouseY/10,225,200+random(5,125))
 		noStroke();
-		// fill(200+random(5,55),110-mouseX/10,90-mouseY/10,180);
+		text("The game start with "+start,width/2,35);
 			for(var i = 0; i <cardX; i++){
 				for(var j = 0; j<cardY; j++){
 				fill(220-mouseX/10,20-mouseY/10,225,100+random(i,125));
@@ -184,30 +153,7 @@ function drawScene(whichScene) {
 		fill(255);
 		text("[Choose your card by Clicking \n anywhere on the game canvas]",mouseX+20,mouseY);
 		break;
-// -------------------------------------cards with p5.play -------------------------------------------------
-  //          var poker;
-		 	
-		// fill(150, 200, 200);
-		// 	for(var i = 0; i <5; i++){
-		// 		for(var j = 0; j<3; j++){
-		// 	poker = createSprite(i*150+40,j*200+60,130,180);
-		// poker.onMouseOver = funtciton(){
-		// 		this.scale=2;
-		// 		}
-		// 	poker.onMouseOut = function(){
-		// 			this.scale =1;
-		// 		}
-		// 	}
-		// 	}
-		     
-		
-		// fill(150, 200, 200);
-		// 	for(var i = 0; i <5; i++){
-		// 		for(var j = 0; j<3; j++){
-		// 		rect(i*150+40,j*200+60,130,180);
-		// 		}
-		// 	}
-// -------------------------------------cards with p5.play -------------------------------------------------
+
 		//3
 		case sceneState.GAME:
 		background(255,0,0);
@@ -220,7 +166,6 @@ function drawScene(whichScene) {
 		textSize(18);
 		fill(255);
 		text("Okay",width-115,height-90);
-		// return floor(random(0,cardArray.length));
 		if(cardOn){
 
 		var r = floor(map((mousePositionX+mousePositionY)/2,0,(width+height)/2,0,cardArray.length));
@@ -230,14 +175,6 @@ function drawScene(whichScene) {
 		break;
 		
 		
-   		 // noLoop();
-   	//  if(cardOn){
-   	// 	cardArray.push(new Card());
-  	//  r = int(random(cardArray.length));
-  	//  cardArray[r].display();
-  	// 	 cardArray.splice(r,1);
-		// print(cardArray.length);
-		// cardOn=false;
 	
 		
 		//4
@@ -406,14 +343,18 @@ if(currentState == 1){
 	if(mousePressedX>width/4 && mousePressedX<width/4+70 && mousePressedY>height/2 && mousePressedY<height/2+40){
 		keyOn = true;
 		cardX =3;
+		start = "The youngest person."
+
 	}
 	if(mousePressedX>width/4*2 && mousePressedX<width/4*2+70 && mousePressedY>height/2 && mousePressedY<height/2+40){
 		keyOn = true;
 		cardX =4;
+		start = "The person who just click the button."
 	}
 	if(mousePressedX>width/4*3 && mousePressedX<width/4*3+70 && mousePressedY>height/2 && mousePressedY<height/2+40){
 		keyOn = true;
 		cardX =5;
+		start = "The oldest person."
 	}
 }
 
