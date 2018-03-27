@@ -77,23 +77,11 @@ function drawScene(whichScene) {
 				colorR ++;
 			}else{colorR =255;
 			}}
-			 // fill(random(0,255),110-mouseX/10,90-mouseY/10);
+
 			fill(200+random(5,55),40,90-mouseY/10,180);
-
-			// text("Welcome to play this little drinking game",width/2,height/2-150+mouseX/80-mouseY/10);
-			// fill(255-random(0,20),102 , 0)；
-
-
 			textSize(50+colorR/6);
 			strokeWeight(3);
-
-			// stroke(240);
 			text("GET DRUNK",width/2+10,height/2-200+mouseX/80-mouseY/30);
-			// fill(90-mouseY/10,200+random(5,55),110-mouseX/10,120);
-			// text("Welcome to play this little drinking game",width/2,height/2-127+mouseX/80-mouseY/10);
-			//200+random(5,55),110-mouseX/10,90-mouseY/10,180
-			// strokeWeight(1);
-			// rect(width/2-180,height/2-20,390+mouseX/100,120-mouseY/100);
 
 			stroke(255);
 			strokeWeight(2);
@@ -107,7 +95,8 @@ function drawScene(whichScene) {
 			textSize(20);
 			fill(255);
 			text("*INSTRUCTION*",width/2+200,height/2);
-			text("Right Arrow Key: \n Always to Next Step",width/2+200,height/2+60);
+			text("Choose your card and follow the rule.",width/2+200,height/2+60);
+			text("Right Arrow Key: \n Always to Next Step",width/2+200,height/2+120);
 			textFont(title);
 			fill(200-mouseX/10,20-mouseY/10,77,200+random(5,125));
 		
@@ -383,7 +372,7 @@ function keyPressed() {
 if(keyCode === RIGHT_ARROW){
 	if(cardArray.length>0 && currentState!==2 && currentState!==3){
 	keyOn = true;
-}else if (cardArray.length<=0){
+}else if (cardArray.length<=52){
 	currentState = 5;
 	}else{keyOn = false;}}
 }
