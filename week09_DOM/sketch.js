@@ -29,10 +29,10 @@ function setup() {
   var url = api+query+apiKey+appId+calories;
   loadJSON(url, gotAllRecipes);
 
-  createElement('h1', 'Welcome to Random Tranlation!');
-  createElement('h3', 'Type the word and see it in other random languages.');
+  createElement('h1', 'Welcome to Healthy Recipe Generator!');
+  createElement('h3', 'Choose the food and check out the recipes.');
 
-  buttonElement = createButton('show me the doggo');
+  buttonElement = createButton('show me the recipe');
   buttonElement.mousePressed(onButtonPressed);
 
   recipeSelectElement = createSelect();
