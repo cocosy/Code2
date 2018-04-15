@@ -67,5 +67,5 @@ function onButtonPressed() {
 // callback for line 58, when the API request is completed, display the new image and delete the old one.
 function onGotData(data) {
 	PElement.remove();
-	createP(data.hits.recipe.label);
+	createP(allRecipes[i].recipe.label);
  }
