@@ -12,7 +12,7 @@
 
 // this example uses https://dog.ceo/dog-api/
 
-var api = "https://api.edamam.com/search？";
+var api = "https://api.edamam.com/search?";
 var apiKey ="&app_key=185129e1e195d4eb5fca31442908a81a";
 var appId ="&app_id=0981de26";
 var calories= "&calories=500-800";
@@ -26,7 +26,7 @@ var selectedRecipe; // variable storing the string to the currently selected bre
 
 function setup() {
   noCanvas();
-  var url = api+query+apiKey+appId+calories;
+  var url = api+appId+apiKey+query;
   loadJSON(url, gotAllRecipes);
 
   createElement('h1', 'Welcome to Healthy Recipe Generator!');
@@ -67,5 +67,5 @@ function onButtonPressed() {
 // callback for line 58, when the API request is completed, display the new image and delete the old one.
 function onGotData(data) {
 	PElement.remove();
-	createP(data.message);
-}
+	createP(data.hits.recipe.label);
+ }
