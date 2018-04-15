@@ -45,9 +45,9 @@ function setup() {
 // callback for loading the initial data of all the breeds.
 // sets up the select element and its options.
 function gotAllRecipes(data) {
-	allRecipes = Object.keys(data.hits.recipe.label);
+	allRecipes = Object.keys(data.hits);
 	for (var i = 0; i < allRecipes.length; i++) {
-		recipeSelectElement.option(allRecipes[i]);
+		recipeSelectElement.option(allRecipes[i].recipe.label);
 	}
 	selectedRecipe = recipeSelectElement.value();
 	recipeSelectElement.changed(selectEvent);
