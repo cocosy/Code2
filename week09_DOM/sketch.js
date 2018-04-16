@@ -1,32 +1,25 @@
-// code 2
-// section a
-// bfa dt
-// spring 2018
-// bryan ma
-
-// week 8
+// week 9
 // using p5.js DOM functionality with an API
-// note this particular API doesn't require an API key
-// this code creates ALL html elements in the p5js code. 
-// you can do static stuff yourself in the index.html file if you wish.
 
-// this example uses https://dog.ceo/dog-api/
+// this example uses https://api.edamam.com/search?&q=sushi&app_id=0981de26&app_key=185129e1e195d4eb5fca31442908a81a
+// it's an api categorizes under food&drinks, it provides recipe and dish names
+// this example also uses giphy api for memes
 
 var api = "https://api.edamam.com/search?";
 var apiKey ="&app_key=185129e1e195d4eb5fca31442908a81a";
 var appId ="&app_id=0981de26";
-var calories= "&calories=500-800";
+// var calories= "&calories=500-800";
 var query = "&q=sushi";
-var limitFrom = "&from=0";
-var limitTo = "&to=3";
+// var limitFrom = "&from=0";
+// var limitTo = "&to=3";
 
 var picapi = "https://api.giphy.com/v1/gifs/search?";
 var picapiKey ="&api_key=5n6MRuAtrByEc8M5piZdv66Y1Jvc4Igr";
-var picquery = "&q="+selectedRecipe;
+var picquery = "&q=";
 var piclimit = "&limit=4";
 
 
-var link = [];
+var h3 ;
 var allRecipes = [];	// used to store all the breeds data from the API request
 var recipeSelectElement; // gives the user an option to select a breed
 var buttonElement; // gives the user a button to press after selecting the breed 
@@ -38,15 +31,34 @@ function setup() {
   var url = api+appId+apiKey+query;
   loadJSON(url, gotAllRecipes);
 
-  createElement('h1', 'Welcome to Sushi Giphy Bar!');
-  createElement('h3', 'Choose the sushi you love.');
+  h3 = select('#subtitle');
+  h3.mouseOver(changeBackground);
 
   recipeSelectElement = createSelect();
+
+  recipeSelectElement.style('margin-left','0px');
+  recipeSelectElement.style('margin-right','50px');
+  recipeSelectElement.style('padding','20px');
+  recipeSelectElement.style('font-family','Beirut');
+  recipeSelectElement.style('font-size','18px');
+  recipeSelectElement.style('color','white');
+  recipeSelectElement.style('background-color','black');
+  recipeSelectElement.style('border','4px solid black');
+
+
     
   createElement('br');
 
-  buttonElement = createButton('show me the meme');
+  buttonElement = createButton('show me the memes');
   buttonElement.mousePressed(onButtonPressed);
+  buttonElement.style('margin-top','30px');
+  buttonElement.style('margin-bottom','20px');
+  buttonElement.style('padding','5px');
+  buttonElement.style('font-family','Beirut');
+  buttonElement.style('font-size','18px');
+  buttonElement.style('color','white');
+  buttonElement.style('background-color','red');
+  buttonElement.style('border','4px solid white');
 
   createElement('br');
   createElement('br');
@@ -55,8 +67,11 @@ function setup() {
 
 }
 
-// callback for loading the initial data of all the breeds.
-// sets up the select element and its options.
+function changeBackground(){
+	h3.style('background-color','white');
+}
+
+
 function gotAllRecipes(data) {
 	allRecipes = Object.keys(data.hits);
 	 for (var i = 0; i < allRecipes.length; i++) {
@@ -68,26 +83,24 @@ function gotAllRecipes(data) {
 	 recipeSelectElement.changed(selectEvent);
 }
 
-// callback for changing the select element, on line 46
+
 function selectEvent() {
 	selectedRecipe = recipeSelectElement.value();
 	console.log(selectedRecipe);
 }
 
-// callback for pressing the button, and sending a request to the API to give back a picture of the selected breed
+
 function onButtonPressed() {
+	var picquery = "&q="+selectedRecipe;
     loadJSON(picapi+picapiKey+picquery+piclimit,onGotData);
 
 }
 
-// callback for line 58, when the API request is completed, display the new image and delete the old one.
+
+
 function onGotData(giphy) {
-	for (var i = 0;i<giphy.data.length;i++){
-	imgElement.remove();
-}
 	 for (var i = 0;i<giphy.data.length;i++){
- imgElement= createImg(giphy.data[i].images.original.url);
-}
-// link = selectedRecipe.replace(label,);
-// createElement("")
+	 	 imgElement.remove();
+   imgElement= createImg(giphy.data[i].images.original.url);
+	}
  }
