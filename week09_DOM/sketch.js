@@ -20,7 +20,13 @@ var query = "&q=sushi";
 var limitFrom = "&from=0";
 var limitTo = "&to=3";
 
-var link;
+var picapi = "https://api.giphy.com/v1/gifs/search?";
+var picapiKey ="&api_key=5n6MRuAtrByEc8M5piZdv66Y1Jvc4Igr";
+var picquery = "&q="+selectedRecipe;
+var piclimit = "&limit=4";
+
+
+var link = [];
 var allRecipes = [];	// used to store all the breeds data from the API request
 var recipeSelectElement; // gives the user an option to select a breed
 var buttonElement; // gives the user a button to press after selecting the breed 
@@ -32,18 +38,20 @@ function setup() {
   var url = api+appId+apiKey+query;
   loadJSON(url, gotAllRecipes);
 
-  createElement('h1', 'Welcome to Healthy Recipe Generator!');
-  createElement('h3', 'Choose the food and check out the recipes.');
-
-  buttonElement = createButton('show me the recipe');
-  buttonElement.mousePressed(onButtonPressed);
+  createElement('h1', 'Welcome to Sushi Giphy Bar!');
+  createElement('h3', 'Choose the sushi you love.');
 
   recipeSelectElement = createSelect();
+    
+  createElement('br');
+
+  buttonElement = createButton('show me the meme');
+  buttonElement.mousePressed(onButtonPressed);
 
   createElement('br');
-   createElement('br');
-    createElement('br');
-    imgElement = createImg('https://www.edamam.com/web-img/a70/a7084bca278a91a19c1372e80c6f87fc.jpg');
+  createElement('br');
+    
+  imgElement = createImg('https://www.edamam.com/web-img/a70/a7084bca278a91a19c1372e80c6f87fc.jpg');
 
 }
 
@@ -51,11 +59,11 @@ function setup() {
 // sets up the select element and its options.
 function gotAllRecipes(data) {
 	allRecipes = Object.keys(data.hits);
-	// allRecipes = Object.keys(data.hits);
 	 for (var i = 0; i < allRecipes.length; i++) {
 	  	recipeSelectElement.option(data.hits[i].recipe.label);
-	  	link = data.hits[i].recipe.label.url;
+
 	 }
+
 	  selectedRecipe = recipeSelectElement.value();
 	 recipeSelectElement.changed(selectEvent);
 }
@@ -68,12 +76,18 @@ function selectEvent() {
 
 // callback for pressing the button, and sending a request to the API to give back a picture of the selected breed
 function onButtonPressed() {
-	// loadJSON(url+selectedRecipe, onGotData);
-	createP(link);
+    loadJSON(picapi+picapiKey+picquery+piclimit,onGotData);
+
 }
 
 // callback for line 58, when the API request is completed, display the new image and delete the old one.
-function onGotData(data) {
+function onGotData(giphy) {
+	for (var i = 0;i<giphy.data.length;i++){
 	imgElement.remove();
-	
+}
+	 for (var i = 0;i<giphy.data.length;i++){
+ imgElement= createImg(giphy.data[i].images.original.url);
+}
+// link = selectedRecipe.replace(label,);
+// createElement("")
  }
