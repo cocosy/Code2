@@ -17,7 +17,10 @@ var apiKey ="&app_key=185129e1e195d4eb5fca31442908a81a";
 var appId ="&app_id=0981de26";
 var calories= "&calories=500-800";
 var query = "&q=sushi";
+var limitFrom = "&from=0";
+var limitTo = "&to=3";
 
+var link;
 var allRecipes = [];	// used to store all the breeds data from the API request
 var recipeSelectElement; // gives the user an option to select a breed
 var buttonElement; // gives the user a button to press after selecting the breed 
@@ -38,6 +41,8 @@ function setup() {
   recipeSelectElement = createSelect();
 
   createElement('br');
+   createElement('br');
+    createElement('br');
     imgElement = createImg('https://www.edamam.com/web-img/a70/a7084bca278a91a19c1372e80c6f87fc.jpg');
 
 }
@@ -46,11 +51,13 @@ function setup() {
 // sets up the select element and its options.
 function gotAllRecipes(data) {
 	allRecipes = Object.keys(data.hits);
-	for (var i = 0; i < allRecipes.length; i++) {
-		recipeSelectElement.option(allRecipes[i].recipe.label);
-	}
-	selectedRecipe = recipeSelectElement.value();
-	recipeSelectElement.changed(selectEvent);
+	// allRecipes = Object.keys(data.hits);
+	 for (var i = 0; i < allRecipes.length; i++) {
+	  	recipeSelectElement.option(data.hits[i].recipe.label);
+	  	link = data.hits[i].recipe.label.url;
+	 }
+	  selectedRecipe = recipeSelectElement.value();
+	 recipeSelectElement.changed(selectEvent);
 }
 
 // callback for changing the select element, on line 46
@@ -61,11 +68,12 @@ function selectEvent() {
 
 // callback for pressing the button, and sending a request to the API to give back a picture of the selected breed
 function onButtonPressed() {
-	loadJSON(url+selectedRecipe, onGotData);
+	// loadJSON(url+selectedRecipe, onGotData);
+	createP(link);
 }
 
 // callback for line 58, when the API request is completed, display the new image and delete the old one.
 function onGotData(data) {
-	PElement.remove();
-	createP(allRecipes[i].recipe.label);
+	imgElement.remove();
+	
  }
