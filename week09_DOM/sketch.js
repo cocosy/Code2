@@ -13,6 +13,9 @@ var query = "&q=sushi";
 // var limitFrom = "&from=0";
 // var limitTo = "&to=3";
 
+
+var myData = [];
+
 var picapi = "https://api.giphy.com/v1/gifs/search?";
 var picapiKey ="&api_key=5n6MRuAtrByEc8M5piZdv66Y1Jvc4Igr";
 var picquery = "&q=";
@@ -25,6 +28,10 @@ var recipeSelectElement; // gives the user an option to select a breed
 var buttonElement; // gives the user a button to press after selecting the breed 
 var imgElement;	// the reference to the image element we'll be using to show the doggo
 var selectedRecipe; // variable storing the string to the currently selected breed
+
+var targetLink;
+var targetText;
+var recipeImg;
 
 function setup() {
   noCanvas();
@@ -63,6 +70,11 @@ function setup() {
   createElement('br');
   createElement('br');
     
+  targetLink = "";
+  targetText = "";
+
+  theLink = createA(targetLink, targetText);
+
   imgElement = createImg('https://www.edamam.com/web-img/a70/a7084bca278a91a19c1372e80c6f87fc.jpg');
 
 }
@@ -76,9 +88,14 @@ function gotAllRecipes(data) {
 	allRecipes = Object.keys(data.hits);
 	 for (var i = 0; i < allRecipes.length; i++) {
 	  	recipeSelectElement.option(data.hits[i].recipe.label);
+      
+      myData.push({
+        label : data.hits[i].recipe.label ,
+        url : data.hits[i].recipe.url,
+        img : data.hits[i].recipe.image
+      });
 
 	 }
-
 	  selectedRecipe = recipeSelectElement.value();
 	 recipeSelectElement.changed(selectEvent);
 }
@@ -87,20 +104,28 @@ function gotAllRecipes(data) {
 function selectEvent() {
 	selectedRecipe = recipeSelectElement.value();
 	console.log(selectedRecipe);
+
 }
 
 
 function onButtonPressed() {
-	var picquery = "&q="+selectedRecipe;
-    loadJSON(picapi+picapiKey+picquery+piclimit,onGotData);
+ imgElement.remove();
+   for (var i = 0; i < myData.length; i++){
+    if (selectedRecipe === myData[i].label) {
+      theLink.elt.innerHTML = myData[i].label;
+      theLink.elt.href = myData[i].url;
+      createElement('br');  
+     recipeImg = createImg (myData[i].img);
+    }
+  }
 
+   // createImg (recipeImg);
+	// var picquery = "&q="+selectedRecipe;
+    // loadJSON(picapi+picapiKey+picquery+piclimit,onGotData);
 }
 
 
 
-function onGotData(giphy) {
-	 for (var i = 0;i<giphy.data.length;i++){
-	 	 imgElement.remove();
-   imgElement= createImg(giphy.data[i].images.original.url);
-	}
- }
+// function onGotData(giphy) {
+//   imgElement.remove();
+//  }
