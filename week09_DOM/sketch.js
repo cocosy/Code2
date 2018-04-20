@@ -56,7 +56,7 @@ function setup() {
     
   createElement('br');
 
-  buttonElement = createButton('show me the memes');
+  buttonElement = createButton('show me the recipe');
   buttonElement.mousePressed(onButtonPressed);
   buttonElement.style('margin-top','30px');
   buttonElement.style('margin-bottom','20px');
