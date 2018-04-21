@@ -16,7 +16,7 @@ var c;
 
 
 //-------------- ------------- ------------- ------------- map-------------- ------------- ------------- ----------
-
+var stretchy;
 var bg;
 var frame;
 //the scene is twice the size of the canvas
@@ -197,25 +197,32 @@ function draw() {
       // recipeImg = img(myData[i].img,width/2-100,this.height/2);
    }
    };
+    // for (var i = 0; i < myData.length; i++){
+    //   fill(255);
+    //   theLink.elt.innerHTML = myData[i].label;
+    //   theLink.elt.href = myData[i].url;
+    //    // text(myData[i].label,this.width/2-300,this.height/2+10*i);
+    //    // createElement('link','myData[i].url');
+    // };
+  //mouse trailer, the speed is inversely proportional to the mouse distance
+  stretchy.velocity.x = (camera.mouseX-stretchy.position.x)/10;
+  stretchy.velocity.y = (camera.mouseY-stretchy.position.y)/10;
+
+  camera.position.x = stretchy.position.x;
+  camera.position.y = stretchy.position.y;
   
-  stretchy.velocity.x = (mouseX-stretchy.position.x)/10;
-  stretchy.velocity.y = (mouseY-stretchy.position.y)/10;
+    if(stretchy.position.x < 0)
+    stretchy.position.x = 0;
+  if(stretchy.position.y < 0)
+    stretchy.position.y = 0;
+  if(stretchy.position.x > SCENE_W)
+    stretchy.position.x = SCENE_W;
+  if(stretchy.position.y > SCENE_H)
+    stretchy.position.y = SCENE_H;
 
-  // camera.position.x = stretchy.position.x;
-  // camera.position.y = stretchy.position.y;
-  
-    if(stretchy.position.x < 20)
-    stretchy.position.x = 20;
-  if(stretchy.position.y < 20)
-    stretchy.position.y = 20;
-  if(stretchy.position.x > width-20)
-    stretchy.position.x = width-20;
-  if(stretchy.position.y > height-20)
-    stretchy.position.y = height-20;
+  drawSprites(bg);
 
-   // drawSprites(bg);
-
-   drawSprites();
+   drawSprites(stretchy);
 
 }
 
