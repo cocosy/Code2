@@ -1,7 +1,3 @@
-//Dynamically drawn sprites
-//sprite with a custom drawing function follows the mouse
-//and changes shape according to its speed
-
 
 //-------------- ------------- ------------- ------------- mouse -------------- ------------- ------------- ----------
 
