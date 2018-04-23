@@ -8,13 +8,11 @@
 var stretchy;
 var face;
 var sushi;
-var c;
-
 
 
 //-------------- ------------- ------------- ------------- mouse -------------- ------------- ------------- ----------
 
-
+var box,circle,triangle;
 //-------------- ------------- ------------- ------------- map-------------- ------------- ------------- ----------
 
 var bg;
@@ -22,7 +20,8 @@ var frame;
 //the scene is twice the size of the canvas
 var SCENE_W = 1600;
 var SCENE_H = 800;
-
+var gliche;
+var bingo;
 
 //-------------- ------------- ------------- ------------- map -------------- ------------- ------------- ----------
 
@@ -42,7 +41,7 @@ var myData = [];
 var picapi = "https://api.giphy.com/v1/gifs/search?";
 var picapiKey ="&api_key=5n6MRuAtrByEc8M5piZdv66Y1Jvc4Igr";
 var picquery = "&q=";
-var piclimit = "&limit=4";
+var piclimit = "&limit=3";
 
 
 var h3 ;
@@ -58,36 +57,36 @@ var recipeImg;
 
 //-------------- ------------- ------------- ------------- API -------------- ------------- ------------- ----
 
+// function preload(){
+
+ 
+//   gliche = loadAnimation('assets/sushi.png','assets/sushi.png');
+//   bingo = loadAnimation("assets/asterisk_circle0006.png","assets/asterisk_circle0008.png");
+// }
+
 
 function setup() {
-  var c = createCanvas(800, 300);
-
-  face = loadImage('assets/face.png');
+createCanvas(800, 300);
+ face = loadImage('assets/face.png');
   sushi = loadImage('assets/sushi.png');
 
+  circle = createSprite(500, 250);
+  triangle = createSprite(300, 150);
+  box = createSprite(150, 150);
 
-  bg = new Group();
-  for(var i=0; i<80; i++)
-  {
-  //create a sprite and add the 3 animations
-  var rock = createSprite(random(-width, SCENE_W+width), random(-height, SCENE_H+height));
-  //cycles through rocks 0 1 2
-  rock.addAnimation("normal", "assets/rocks"+i%3+".png");
-  bg.add(rock);
-  }
-  
-frame = loadImage("assets/frame.png");
+
+
+
 //-------------------------------------------------------------- option
 
 
   // noCanvas();
-  var url = api+appId+apiKey+query;
+  var url = api+appId+apiKey+query+piclimit;
   loadJSON(url, gotAllRecipes);
   // h3 = select('#subtitle');
   // h3.mouseOver(changeBackground);
 
   recipeSelectElement = createSelect();
-
   recipeSelectElement.style('margin-left','0px');
   recipeSelectElement.style('margin-right','50px');
   recipeSelectElement.style('padding','20px');
@@ -124,51 +123,27 @@ frame = loadImage("assets/frame.png");
 
 
 
-
 //----------------------------------------------------------------------- option
 
 
+  stretchy = createSprite(200, 200);
+  stretchy.addAnimation("hi",'assets/sushi.png','assets/sushi01.png');
+ stretchy.addAnimation("round","assets/asterisk_circle0006.png","assets/asterisk_circle0008.png");
 
-
-
-
-
-
-
-  //Sometimes image sequences are not enough and you may want to
-  //use p5's drawing function while retaining the built-in features of the
-  //sprite class
-  stretchy = createSprite(400, 200, 10, 10);
-
-  //To do so you can override (overwrite) the draw() function of the sprite
-  //and make it display anything you want in its current position.
-  //In javascript function and methods can be assigned like variables
 
   stretchy.draw = function() {
 
-    //the center of the sprite will be point 0,0
-    //"this" in this function will reference the sprite itself
-    fill(255,179,179);
-    //make the ellipse stretch in the sprite direction
-    //proportionally to its speed
+
     push();
-    rotate(radians(this.getDirection()));
-    // ellipse(0, 0, 50+this.getSpeed()/10, 50this.getSpeed()/10);
+    // rotate(radians(this.getDirection()));
+
+     ellipse(0, 0, 80+this.getSpeed()/10, 80+this.getSpeed()/10);
     pop();
-
-    //this.deltaX and this.deltaY are the position increment
-    //since the last frame, move the face image toward the direction
-    image(sushi, this.deltaX*2+this.getSpeed()/5, this.deltaY*2-this.getSpeed()/8);
-    image(face, this.deltaX*2+2, this.deltaY*2+25);
-    image(face, this.deltaX*2-18, this.deltaY*2-10);
-    // console.log(myData);
-
-
-     //  createElement('br');  
-     // recipeImg = createImg (myData[i].img);
-
-  };
-
+   
+    image(face, this.deltaX*2+2+this.getSpeed()/5, this.deltaY*2+25-this.getSpeed()/8);
+    image(face, this.deltaX*2-18+this.getSpeed()/5, this.deltaY*2-10-this.getSpeed()/8);
+  }
+ 
   stretchy.maxSpeed = 10;
 }
 
@@ -181,9 +156,9 @@ frame = loadImage("assets/frame.png");
 
 
 
-
-
 function draw() {
+
+
  background(255,179,179);
    for (var i = 0; i < myData.length; i++){
   if (selectedRecipe === myData[i].label) {
@@ -198,13 +173,16 @@ function draw() {
    }
    };
   
+   // stretchy.position.x = mouseX;
+   // stretchy.position.y = mouseY;
+
   stretchy.velocity.x = (mouseX-stretchy.position.x)/10;
   stretchy.velocity.y = (mouseY-stretchy.position.y)/10;
 
   // camera.position.x = stretchy.position.x;
   // camera.position.y = stretchy.position.y;
   
-    if(stretchy.position.x < 20)
+  if(stretchy.position.x < 20)
     stretchy.position.x = 20;
   if(stretchy.position.y < 20)
     stretchy.position.y = 20;
@@ -215,7 +193,23 @@ function draw() {
 
    // drawSprites(bg);
 
+    // if(stretchy.overlap(box))
+    //   stretchy.changeAnimation("round");
+    // else
+    //   stretchy.changeAnimation("normal");
+    
+// console.log(stretchy.overlap(box));
+box.debug = mouseIsPressed;
+stretchy.debug = mouseIsPressed;
+
    drawSprites();
+
+    if(stretchy.overlap(box))
+    stretchy.changeAnimation("round");
+  else
+    stretchy.changeAnimation("hi");
+
+
 
 }
 
@@ -243,13 +237,11 @@ function gotAllRecipes(data) {
    recipeSelectElement.changed(selectEvent);
 }
 
-
 function selectEvent() {
   selectedRecipe = recipeSelectElement.value();
   console.log(selectedRecipe);
 
 }
-
 
 function onButtonPressed() {
  imgElement.remove();
