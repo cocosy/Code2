@@ -280,31 +280,31 @@ function Waterfall(){
   		push();
   		n = 1;
   		fill(255);
-  		translate(0, n*20);
+  		translate(0, n*10);
   		text("Fall!", this.pos.x, this.pos.y);	
 
 		push();
 		n = 2;
   		fill(255);
-  		translate(0, n*20);
+  		translate(0, n*12);
   		text("Fall!", this.pos.x, this.pos.y);	
   		
   		push();
   		n = 3;
   		fill(255);
-  		translate(0, n*20);
+  		translate(0, n*14);
   		text("Fall!", this.pos.x, this.pos.y);	
   		
   		push();
   		n = 4;
   		fill(255);
-  		translate(0, n*20);
+  		translate(0, n*16);
   		text("Fall!",this.pos.x, this.pos.y);	
   		
   		push();
   		n = 5;
   		fill(255);
-  		translate(0, n*20);
+  		translate(0, n*18);
   		text("Fall!",this.pos.x, this.pos.y);	
   		
   		push();
@@ -316,13 +316,13 @@ function Waterfall(){
   		push();
   		n = 7;
   		fill(255);
-  		translate(0, n*20);
+  		translate(0, n*22);
   		text("Fall!", this.pos.x, this.pos.y);	
   		
   		push();
   		n = 8;
   		fill(255);
-  		translate(0, n*20);
+  		translate(0, n*24);
   		text("Fall!",this.pos.x, this.pos.y);	
 
 
