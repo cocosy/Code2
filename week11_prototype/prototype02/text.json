@@ -1,0 +1,19 @@
+{
+
+  "card":[ 
+    "1 - ACE：You can let anyone drink. This card can only use once. ",
+    "2 - BAR GIRL: You need to drink with anyone who are going to drink until the next Bar girl appear.",
+    "3 - SORTER: You need to name a category. Everyone from your right-hand side needs to name one thing from this catergory. The one fails to name or give the duplicate names drinks.",
+    "4 - BLANK CARD: Nothing happens.",
+    "5 - CAMERA: Whenever you say 'CAMERA', everyone must stop moving. The one moves first drinks.",
+    "6 - REPEATER: Whenever you say 'REPEATER', everyone must repeat what they say, did, drink... The first one gives up drinks.",
+    "7 - MATH CARD: You start with a random number. Everyone from you right-hand side follows you to count. Clap when it's 7,17,27,37...107...",
+    "8 - TOILET CARD: You have the right to go to restroom. Or you can trade it to other with any conditions you like.",
+    "9 - NOSE TOUCHER: You can touch your nose at any time. The last one follows you to touch nose drinks.",
+    "10 - FREAK CARD: No one is allowed to talk to you. If someone accidentally talks to you, S/he drinks.",
+    "J - The one on your left drinks.",
+    "Q - The one on your right drinks.",
+    "K - The first king decides how many glasses the rest of the kings need to drink.",
+    "Jocker - You can use it to offset any penalties for once."
+]
+}
