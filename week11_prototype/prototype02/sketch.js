@@ -32,6 +32,12 @@ var end;
 var start;
 var j;
 
+var myAngle = 30;
+var myColor = '#eeee00';
+
+var gui;
+
+
 function preload() {
  
 }
@@ -40,6 +46,12 @@ function preload() {
 function setup() {
  createCanvas(800, 700);
  waterfall = new Waterfall();
+  sliderRange(0, 90, 1);
+  gui = createGui('p5.gui');
+  gui.addGlobals('myColor', 'myAngle');
+
+  // Only call draw when then gui is changed
+  noLoop();
 
   // for(var j= 0; j<4;j++){
 	 //      	for (var i = 0; i < textData.card.length-1; i++) {
@@ -72,14 +84,10 @@ function drawScene(whichScene) {
 
 		//1
 		case sceneState.SETUP:
-			background(0);
-			
-
-			stroke(255);
-			noFill();
-			rect(width/4,height/2,70,40);
-			rect(width/4*2,height/2,70,40);
-			rect(width/4*3,height/2,70,40);
+		background(0);
+  fill(myColor);
+  angleMode(DEGREES);
+  arc(width/2, height/2, 100, 100, myAngle/2, 360 - myAngle/2, PIE);
 
 			// fill(255);
 			// noStroke();
