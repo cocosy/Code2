@@ -12,24 +12,28 @@ var sceneState = {
 	END:5
 };
 
-cardX =5;
-cardY = 3;
 
-var textData;
+
+
+// var xspacing = 30;   // 波を描画している点の間隔調整
+// var w;              //描画幅指定　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 of entire wav
+
+// var theta = 0.0;
+// var amplitude = 70.0;  // 波の高さを調整
+// var period = 1200.0;  // 波の数を調整
+// var dx;
+// var yvalues = [];
+var pitch = 0;
+var i = 0;
+
+
 var r;
-var cardArray = [];
 // var cards;
 var currentState = sceneState.TUTORIAL;
 
 var keyOn = false;
-var cardOn = false;
 var mousePositionX;
 var mousePositionY;
-var title;
-var colorR =0;
-var cocktail;
-var end;
-var start;
 var j;
 
 function preload() {
@@ -40,7 +44,7 @@ function preload() {
 function setup() {
  createCanvas(800, 700);
  waterfall = new Waterfall();
-
+smooth(4); 
   // for(var j= 0; j<4;j++){
 	 //      	for (var i = 0; i < textData.card.length-1; i++) {
   //         	 var newCard = new Card(textData.card[i]);
@@ -53,6 +57,7 @@ function setup() {
 
 
 function draw() {
+	setUpScene(currentState)
 	drawScene(currentState);
 	checkTransition(currentState);
 	keyOn = false;
@@ -72,22 +77,33 @@ function drawScene(whichScene) {
 
 		//1
 		case sceneState.SETUP:
-			background(0);
-			
+		 // background(0);
+		 fill(0,0,0, 180);
+			if(i%5 == 0){
+			rect(-10, -10, windowWidth, windowHeight);
+		}
+		noFill();
+	  	// stroke( 184, 250, 211);
+	  	 // frameRate(20);
+	  	noStroke();
+ 	 	var x = 0;
+		beginShape();
+			noStroke();
+  	 	while(x < width){
+    		var y = height * noise(x/2500,pitch); //2D noise
+			vertex(x, y);
+			fill( 184, 250, 211);
+			 textSize(9);
+			 text("hi", x,y);
+			 noFill();
+    //point(x ,y);
+     		x = x +15;  //x座標の描画間隔
+   		}
+		endShape();
+  		pitch = pitch + 0.2; //y座標の描画間隔微調整
+  		i++;
+  			  	noStroke();
 
-			stroke(255);
-			noFill();
-			rect(width/4,height/2,70,40);
-			rect(width/4*2,height/2,70,40);
-			rect(width/4*3,height/2,70,40);
-
-			// fill(255);
-			// noStroke();
-			// textSize(22);
-			// text("<6",width/4+space,height/2+20);
-			// text("6-9",width/4*2+space,height/2+20);
-			// text(">9",width/4*3+space,height/2+20);
-			// // noFill();
 			break;
 
 
@@ -114,12 +130,7 @@ function drawScene(whichScene) {
 		textSize(18);
 		fill(255);
 		text("Okay",width-115,height-90);
-		// if(cardOn){
 
-		// var r = floor(map((mousePositionX+mousePositionY)/2,0,(width+height)/2,0,cardArray.length));
-		// cardArray[r].display();
-  // 	   }
-		// print(cardArray.length);
 		break;
 		
 		
@@ -128,12 +139,8 @@ function drawScene(whichScene) {
 		//4
 		case sceneState.NEXT:
 		background(0);
-		textSize(28);
-		textAlign(CENTER, CENTER);
-		fill(255);
-		text("["+cardArray.length+" cards left]", width/2,height/2-150);
-		text("Now press Right Arrow to Next Person",width/2,height/2);
-		image(cocktail,width/2-65,height/2+50,150,200);
+	
+
 
 
 		break;
@@ -146,7 +153,7 @@ function drawScene(whichScene) {
 		fill(255);
 		textFont(cardText);
 		text("[This round is over] \n Feels GOOD? then refresh to Restart.",width/2,height/2-150);
-		image(end,width/2-50,height/2-50);
+
 		break;
 
 				
@@ -215,7 +222,7 @@ function drawScene(whichScene) {
 				break;
 			case sceneState.SETUP:
 				// tutorialTimer = millis();
-				background(255);
+				// background(0);
 				break;
 			case sceneState.CHOICE:
 				// tutorialTimer = millis();
@@ -339,6 +346,32 @@ for (var i = 1; i <= 12; i++) {
 }
 
 
+//  function Yvalues(){
+//  	   var w = width+ 320;
+//  			var dx = (TWO_PI / period) * xspacing;
+//  			var x;
+
+// this.update = function(){			
+//   			var x = 0.01;
+//   			for (var i = 0; i < yvalues.length; i++) {
+//   			  yvalues[i] = sin(x)*amplitude;
+// 			 x +=dx;
+// 			 }
+// 			}
+
+
+// this.display = function () {
+//   			 noStroke();
+//   			for (var x = 0; x < yvalues.length; x++) {
+//     		ellipse(x*xspacing, height/2+yvalues[x], 11 , 11 );
+//     		fill(255);
+//     		ellipse(x*xspacing + (-300), height/2+yvalues[x], 15 , 15 );
+//    		 	fill(255);
+//  		 	}
+
+//  }
+// }
+
 
 
 
@@ -356,15 +389,3 @@ function keyReleased(){
 keyOn = false;
  }
 
-
- function mousePressed(){
- 	cardOn = true;
- 	keyOn = true;
-}
- 
-
-  function mouseReleased(){
- cardOn = false;
- keyOn = false;
-  // keyOn = true;
-}
