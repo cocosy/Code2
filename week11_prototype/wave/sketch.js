@@ -377,7 +377,7 @@ function Drop(x, y, sp) {
     textSize(10);
     textLeading(9);
     text("o\nm\ng",x1, y1);
-    stroke(255);
+    stroke(100);
     line(x1,y1,x2,y2);
 
     if (y1 >= windowHeight - 100) {
