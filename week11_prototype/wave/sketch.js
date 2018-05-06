@@ -25,6 +25,7 @@ var sceneState = {
 // var yvalues = [];
 var pitch = 0;
 var i = 0;
+var d = [];
 
 
 var r;
@@ -45,6 +46,9 @@ function setup() {
  createCanvas(800, 700);
  waterfall = new Waterfall();
 smooth(4); 
+for (var i = 0; i < 100; i++) {
+    d.push(new Drop(random(0, windowWidth), random(0, windowHeight), random(2, 4)));
+  }
   // for(var j= 0; j<4;j++){
 	 //      	for (var i = 0; i < textData.card.length-1; i++) {
   //         	 var newCard = new Card(textData.card[i]);
@@ -69,53 +73,58 @@ function drawScene(whichScene) {
 		case sceneState.TUTORIAL:
 			background(0);
 			fill(0, 255, 0);
+			textSize(10);
 		waterfall.update();
 		waterfall.display();
-
-
 			break;
 
 		//1
 		case sceneState.SETUP:
 		 // background(0);
-		 fill(0,0,0, 180);
-			if(i%5 == 0){
-			rect(-10, -10, windowWidth, windowHeight);
-		}
-		noFill();
+		 fill(0,120);
+			// if(i%5 == 0){
+		rect(-10, -10, windowWidth, windowHeight);
+		//}
+		
 	  	// stroke( 184, 250, 211);
 	  	 // frameRate(20);
-	  	noStroke();
- 	 	var x = 0;
-		beginShape();
+	 	 	noStroke();
+ 	 		var x = 0;
+			beginShape();
+			noFill();
 			noStroke();
-  	 	while(x < width){
-    		var y = height * noise(x/2500,pitch); //2D noise
+  	 		while(x < width){
+    		var y = height * noise(x/2500,pitch/4+mouseX/10); //2D noise
+    		console.log(pitch);
 			vertex(x, y);
 			fill( 184, 250, 211);
 			 textSize(9);
 			 text("hi", x,y);
 			 noFill();
-    //point(x ,y);
+  		  //point(x ,y);
      		x = x +15;  //x座標の描画間隔
-   		}
-		endShape();
-  		pitch = pitch + 0.2; //y座標の描画間隔微調整
-  		i++;
+   			}
+			endShape();
+  			pitch = pitch + 0.2; //y座標の描画間隔微調整
+  			i++;
   			  	noStroke();
 
 			break;
 
-
-
 		//2
 		case sceneState.CHOICE:
 		background(0);
-		fill(0);
-		textAlign(CENTER);
-		textSize(28);
-		fill(255);
-		text("Me",mouseX+20,mouseY);
+		// fill(0);
+		// textAlign(CENTER);
+		// textSize(28);
+		// fill(255);
+		// text("Me",mouseX+20,mouseY);
+		fill(0, 25);
+ 		rect(-5, -5, windowWidth, windowHeight);
+  			for (var i = 0; i < d.length; i++) {
+   		 d[i].displ();
+  		}
+
 		break;
 
 		//3
@@ -151,7 +160,7 @@ function drawScene(whichScene) {
 		textSize(28);
 		textAlign(CENTER, CENTER);
 		fill(255);
-		textFont(cardText);
+		// textFont(cardText);
 		text("[This round is over] \n Feels GOOD? then refresh to Restart.",width/2,height/2-150);
 
 		break;
@@ -342,6 +351,43 @@ for (var i = 1; i <= 12; i++) {
 	pop();
 }
 	}
+
+}
+
+
+function Drop(x, y, sp) {
+  var x1 = x;
+  var y1 = y;
+  var x2;
+  var y2;
+  var s = sp;
+  var vel;
+
+  this.displ = function() {
+    var mx = mouseX / 100;
+    if (mx <= 0) {
+      mx = 0.05;
+    }
+    y1 = y1 + s * mx;
+    x2 = x1;
+    y2 = y1 + 25;
+
+    fill(200);
+    noStroke();
+    textSize(10);
+    textLeading(9);
+    text("o\nm\ng",x1, y1);
+    stroke(255);
+    line(x1,y1,x2,y2);
+
+    if (y1 >= windowHeight - 100) {
+      noFill();
+      stroke(200);
+      ellipse(x1, windowHeight - random(50, 70), random(25, 100), 10);
+      x1 = random(0, windowWidth);
+      y1 = -120;
+    }
+  }
 
 }
 
