@@ -344,7 +344,7 @@ function Waterfall(){
   		n = 12;
   		fill(255);
   		translate(0, n*15);
-  		text("Fall!",this.pos.x, this.pos.y);	
+  		text("right Arrow to next page!",this.pos.x, this.pos.y);	
 
 
 for (var i = 1; i <= 12; i++) {
