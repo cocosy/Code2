@@ -45,6 +45,11 @@ var rainSprites = [];
 var player;
 
 
+//keys
+var Up =false;
+var Right = false;
+var Down = false;
+var Left = false;
 
 var r;
 // var cards;
@@ -188,22 +193,49 @@ function drawScene(whichScene) {
 		case sceneState.NEXT:
 		background(255);
 
-   		player.velocity.x = 
+		// if(Up){
+		// player.velocity.x = 0;
+		// player.velocity.y -= 1;
+		// }else if(Down){
+		// player.velocity.x = 0;
+		// player.velocity.y += 1;
+		// }else if(Right){
+		// player.velocity.x +=1;
+		// player.velocity.y =0;
+		// }else if(Left){
+		// player.velocity.x -=1;
+		// player.velocity.y =0;
+		// }
+
+  
+     	var s = new TextSprite(random(0,windowWidth), 0);
+		rainSprites.push(s);
+
+ 
+    	
+  		for (var i = 0; i < rainSprites.length; i++) {
+      		rainSprites[i].display();
+      		rainSprites[i].collision();
+
+      		if (rainSprites[i].y > windowHeight ||
+       			rainSprites[i].y < 0) {
+      			rainSprites[i].remove();
+      		// player.collide(rainSprites[i]);
+  		}
+
+  		}
+
+
+  		player.velocity.x = 
     	(mouseX-player.position.x)*0.1;
   		player.velocity.y = 
     	(mouseY-player.position.y)*0.1;
 
-    	drawSprites();
-  		for (var i = 0; i < rainSprites.length; i++) {
-      		rainSprites[i].display();
-      		rainSprites[i].collision();
-      		// player.collide(rainSprites[i]);
-  		}
 
   		// player.collide(rainSprites);
   		// rainSprites.debug = mouseIsPressed;
   		player.debug = mouseIsPressed;
-  		
+  		drawSprites();
 		// textFont(cardText);
 		text("[This round is over] \n Feels GOOD? then refresh to Restart.",width/2,height/2-150);
 		break;
@@ -449,12 +481,14 @@ function TextSprite(x, y) {
     this.sprite.velocity.x = 0;
     this.sprite.velocity.y = random(1,15);
     this.sprite.visible = false;
+    this.sprite.debug = mouseIsPressed;
+
     this.display = function() {
         text(this.text, this.sprite.position.x-5, this.sprite.position.y-12);
     }
 
     this.collision = function(){player.collide(this.sprite);}
-    this.sprite.debug = mouseIsPressed;
+  
 }
 
 
@@ -473,18 +507,21 @@ function mousePressed() {
 
 function keyPressed() {
 
+
 if(keyCode === RIGHT_ARROW){
 	keyOn = true;
 }if (key === 'W') {
 		Up = true;
 	}
 	if (key === 'S') {
+
 	    Down = true;
 	}
 	if (key === 'D') {
 		Right = true;
 	}if (key === 'A') {
 		Left = true;
+
 	}
 
 }
