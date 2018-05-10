@@ -34,6 +34,9 @@ var angle;
 var step =22;
 var arcEnd;
 
+//json
+var Words = [];
+var textData;
 
 var rainSprites = [];
 // var str = "Bowties are cool";
@@ -52,6 +55,7 @@ var Down = false;
 var Left = false;
 
 var r;
+
 // var cards;
 var currentState = sceneState.TUTORIAL;
 
@@ -61,7 +65,7 @@ var mousePositionY;
 var j;
 
 function preload() {
- 
+  textData = loadJSON('text.json');
 }
 
 
@@ -69,6 +73,12 @@ function setup() {
  createCanvas(800, 700);
  waterfall = new Waterfall();
 smooth(4); 
+
+// for (var i = 0; i < textData.length-1; i++) {
+//           	 var newCard = new Card(textData.card[i]);
+//         	cardArray.push(newCard);}
+
+
 for (var i = 0; i < 100; i++) {
     d.push(new Drop(random(0, windowWidth), random(0, windowHeight), random(2, 4)));
   }
@@ -156,10 +166,16 @@ function drawScene(whichScene) {
 		// text("Me",mouseX+20,mouseY);
 		// fill(0, 25);
  	// 	rect(-5, -5, windowWidth, windowHeight);
+		player.velocity.x = 
+    	(mouseX-player.position.x)*0.1;
+  		player.velocity.y = 
+    	(mouseY-player.position.y)*0.1;
+
   			for (var i = 0; i < d.length; i++) {
    		 d[i].displ();
   		}
-
+  		player.shapeColor = color(255);
+  		drawSprites();
 
 
 		break;
@@ -186,6 +202,7 @@ function drawScene(whichScene) {
   		// colorMode(RGB);
   		// resetMatrix();
   		theta += .0323;
+
 		break;
 		
 
@@ -207,29 +224,33 @@ function drawScene(whichScene) {
 		// player.velocity.y =0;
 		// }
 
-  
+  for(var i = 0; i < 2; i++){
      	var s = new TextSprite(random(0,windowWidth), 0);
-		rainSprites.push(s);
+		rainSprites.push(s);}
 
  
     	
   		for (var i = 0; i < rainSprites.length; i++) {
       		rainSprites[i].display();
       		rainSprites[i].collision();
+      		if (rainSprites[i].sprite.position.y > windowHeight-100) {
+      			rainSprites[i].sprite.position.y = windowHeight+20;
+      			noFill();
+      			stroke(100);
+      			ellipse(rainSprites[i].sprite.position.x, windowHeight - random(50, 70), random(25, 100), 10);
+      			noStroke();
+      			fill(0);
+      				rainSprites.splice(i,1);
+      			console.log(rainSprites.length);
 
-      		if (rainSprites[i].y > windowHeight ||
-       			rainSprites[i].y < 0) {
-      			rainSprites[i].remove();
-      		// player.collide(rainSprites[i]);
+   		
   		}
 
   		}
 
 
-  		player.velocity.x = 
-    	(mouseX-player.position.x)*0.1;
-  		player.velocity.y = 
-    	(mouseY-player.position.y)*0.1;
+  		player.velocity.x = (mouseX-player.position.x)*0.1;
+  		player.velocity.y = (mouseY-player.position.y)*0.1;
 
 
   		// player.collide(rainSprites);
@@ -474,7 +495,7 @@ function Drop(x, y, sp) {
 // }
 
 function TextSprite(x, y) {
-    this.text = "o\nm\ng";
+    this.text = "\u4f60\n\u597d\n\u554a";
  	player.shapeColor = color(0);
 
     this.sprite = createSprite(x, y, 16, 50);
@@ -485,7 +506,14 @@ function TextSprite(x, y) {
 
     this.display = function() {
         text(this.text, this.sprite.position.x-5, this.sprite.position.y-12);
+
     }
+    this.away = function(){
+   	   this.sprite.y = windowHeight+10;
+   
+   
+    }
+    
 
     this.collision = function(){player.collide(this.sprite);}
   
