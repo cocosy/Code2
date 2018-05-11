@@ -35,10 +35,12 @@ var step =22;
 var arcEnd;
 
 //json
-var Words = [];
+var words = [];
 var textData;
 
 var rainSprites = [];
+var newText;
+var a;
 // var str = "Bowties are cool";
 // var w = 40;
 // var h = 40;
@@ -46,6 +48,8 @@ var rainSprites = [];
 
 
 var player;
+var x;
+var y;
 
 
 //keys
@@ -69,14 +73,20 @@ function preload() {
 }
 
 
+
 function setup() {
  createCanvas(800, 700);
  waterfall = new Waterfall();
 smooth(4); 
 
-// for (var i = 0; i < textData.length-1; i++) {
-//           	 var newCard = new Card(textData.card[i]);
-//         	cardArray.push(newCard);}
+// for (var i = 0; i < textData.length; i++) {
+// 	var newText = new TextSprite(textData[i].text);
+//     Words.push(new TextSprite(textData[i].text));
+// }
+for(var i = 0 ; i < textData.text.length; i++) {
+	words.push(textData.text[i]);
+
+}
 
 
 for (var i = 0; i < 100; i++) {
@@ -112,6 +122,7 @@ function drawScene(whichScene) {
 			textSize(10);
 		waterfall.update();
 		waterfall.display();
+		console.log(words);
 			break;
 
 		//1
@@ -184,7 +195,6 @@ function drawScene(whichScene) {
 		case sceneState.GAME:
 
 		var arcEnd;
-
 		background(20);
 		strokeWeight(5);
  		translate(width/2, height/2);
@@ -202,7 +212,7 @@ function drawScene(whichScene) {
   		// colorMode(RGB);
   		// resetMatrix();
   		theta += .0323;
-
+		
 		break;
 		
 
@@ -223,13 +233,17 @@ function drawScene(whichScene) {
 		// player.velocity.x -=1;
 		// player.velocity.y =0;
 		// }
+   a = random(0,13);
+   var i = parseInt(a);
 
-  for(var i = 0; i < 2; i++){
-     	var s = new TextSprite(random(0,windowWidth), 0);
-		rainSprites.push(s);}
+  console.log(i);
+		
+ // for(var i = 0 ; i <words.length; i++){
+ 	var s = new TextSprite(random(0,windowWidth),0,words[i]);
+		rainSprites.push(s);
+    	//}
 
- 
-    	
+
   		for (var i = 0; i < rainSprites.length; i++) {
       		rainSprites[i].display();
       		rainSprites[i].collision();
@@ -241,19 +255,15 @@ function drawScene(whichScene) {
       			noStroke();
       			fill(0);
       				rainSprites.splice(i,1);
-      			console.log(rainSprites.length);
-
-   		
+      			// console.log(rainSprites.length);
+      		}
   		}
 
-  		}
-
-
+  	
+  		player.shapeColor = color(0);
   		player.velocity.x = (mouseX-player.position.x)*0.1;
   		player.velocity.y = (mouseY-player.position.y)*0.1;
-
-
-  		// player.collide(rainSprites);
+	// player.collide(rainSprites);
   		// rainSprites.debug = mouseIsPressed;
   		player.debug = mouseIsPressed;
   		drawSprites();
@@ -494,11 +504,11 @@ function Drop(x, y, sp) {
 //  }
 // }
 
-function TextSprite(x, y) {
-    this.text = "\u4f60\n\u597d\n\u554a";
- 	player.shapeColor = color(0);
-
-    this.sprite = createSprite(x, y, 16, 50);
+function TextSprite(x,y,words) {
+    this.text = words;
+    // this.x = random(0,windowWidth);
+    // this.y = 0;
+    this.sprite = createSprite(x,y, 16, 50);
     this.sprite.velocity.x = 0;
     this.sprite.velocity.y = random(1,15);
     this.sprite.visible = false;
@@ -506,7 +516,6 @@ function TextSprite(x, y) {
 
     this.display = function() {
         text(this.text, this.sprite.position.x-5, this.sprite.position.y-12);
-
     }
     this.away = function(){
    	   this.sprite.y = windowHeight+10;
@@ -521,15 +530,15 @@ function TextSprite(x, y) {
 
 
 
-function mousePressed() {
-  var s = new TextSprite(random(0,windowWidth), 0);
-   var d = new TextSprite(random(0,windowWidth), 0);
-      var f = new TextSprite(random(0,windowWidth), 0);
-  rainSprites.push(s);
-  rainSprites.push(d);
-  rainSprites.push(f);
-  // rainSprites.debug = mouseIsPressed;
-}
+// function mousePressed() {
+//   var s = new TextSprite(random(0,windowWidth), 0,"hi");
+//    // var d = new TextSprite(random(0,windowWidth), 0);
+//    //    var f = new TextSprite(random(0,windowWidth), 0);
+//   rainSprites.push(s);
+//   // rainSprites.push(d);
+//   // rainSprites.push(f);
+//   // rainSprites.debug = mouseIsPressed;
+// }
 
 
 
