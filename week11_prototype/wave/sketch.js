@@ -2,7 +2,7 @@
 // bfa dt
 // spring 2018
 
-// week 6 mid-term
+// week 6 final
 var sceneState = {
 	TUTORIAL:0,
 	SETUP:1,
@@ -35,22 +35,31 @@ var step =22;
 var arcEnd;
 
 //json
+var fall = [];
 var words = [];
-// var fall = []
 var textData;
 
 var rainSprites = [];
 var newText;
 var a;
+var score=0;
 // var str = "Bowties are cool";
 // var w = 40;
 // var h = 40;
 // var r = 100;
-
+var brickX = [];
+var brickY = [];
+var brick = false;
+var brickSprite =[];
+var v = 0;
 
 var player;
 var x;
 var y;
+var millisecond;
+
+//
+var buttonTrigger =false;
 
 
 //keys
@@ -76,34 +85,42 @@ function preload() {
 
 
 function setup() {
- createCanvas(800, 700);
- waterfall = new Waterfall();
-smooth(4); 
+ 	createCanvas(800, 700);
+
+ 	for(var i = 0 ; i < textData.fall.length; i++){
+		fall.push(textData.fall[i]);
+	}
+
+	for(var i = 0 ; i < textData.Text.length; i++) {
+		words.push(textData.Text[i]);
+	}
+
+	for(var i = 0 ; i < textData.x.length; i++){
+		brickX.push(textData.x[i]);
+		brickY.push(textData.y[i]);
+	}
+
+	for (var i = 0; i < 100; i++) {
+    	d.push(new Drop(random(0, windowWidth), random(0, windowHeight), random(2, 4)));
+  	}
+
+ 	waterfall = new Waterfall();
+	smooth(4); 
 
 // for (var i = 0; i < textData.length; i++) {
 // 	var newText = new TextSprite(textData[i].text);
 //     Words.push(new TextSprite(textData[i].text));
 // }
-for(var i = 0 ; i < textData.Text.length; i++) {
-	words.push(textData.Text[i]);
-
+    brick = new Group();
+ 	for (var i = 1; i < 6; i++) {
+   		var b = createSprite(random(width/2-100, width/2+100), (height/6)*i, 60, 10);
+    	brick.add(b);
 }
 
-
-for (var i = 0; i < 100; i++) {
-    d.push(new Drop(random(0, windowWidth), random(0, windowHeight), random(2, 4)));
-  }
-
- player = createSprite(100, 100, 40, 40);
+ player = createSprite(width/2, height-40, 40, 40);
  player.shapeColor = color(0);
 
-  // for(var j= 0; j<4;j++){
-	 //      	for (var i = 0; i < textData.card.length-1; i++) {
-  //         	 var newCard = new Card(textData.card[i]);
-  //       	cardArray.push(newCard);}}
-  // 			cardArray.push(new Card(textData.card[13]));
-  //  			cardArray.push(new Card(textData.card[13]));
-	// CreateScenesFromData(card);
+
 }
 
 
@@ -123,7 +140,8 @@ function drawScene(whichScene) {
 				textSize(10);
 				waterfall.update();
 				waterfall.display();
-				console.log(words);
+				millisecond = millis();
+
 		break;
 
 		//1
@@ -131,19 +149,15 @@ function drawScene(whichScene) {
 			 	// background(0);
 			fill(0,15);
 			rect(-10, -10, windowWidth, windowHeight);
-		
 	  	// frameRate(20);
 			beginShape();
-			
-			 noStroke();
-			
+			noStroke();
 			//  noStroke();
 			// stroke(102, 163, 255);
 
 
-			if(millis()<3000){
+			if(millis()-millisecond <3000){
 			beginShape();
-			
 			noStroke();
 			var x = 0;
   	 		while(x < width){
@@ -168,6 +182,11 @@ function drawScene(whichScene) {
    			}
    			endShape();
    		}else{	
+   				player.shapeColor = color(255,200);
+
+			player.collide(brick);
+			
+  			drawSprites();
    			beginShape();
 			
 			noStroke();
@@ -186,12 +205,9 @@ function drawScene(whichScene) {
 			text("hi", x,y-2);
 			fill(0, 51, 128,20);
 			x = x +10;
-		
    			}
-   			 endShape();
-
-   			 var z = width/2+120;
-
+   			endShape();
+   			var z = width/2+120;
    			while(z < width && z>width/2){
    			beginShape();
     		var y = height * noise(z/2500,pitch); //2D noise
@@ -211,38 +227,19 @@ function drawScene(whichScene) {
    			}
    			endShape();
    		}
-			
+					
+
+
   			pitch = pitch + 0.02; //y座標の描画間隔微調整
   			i++;
   			noStroke();
+
+		
 			break;
 
-		//2
+		
 		case sceneState.CHOICE:
-				background(0);
-				// fill(0);
-				// textAlign(CENTER);
-				// textSize(28);
-				// fill(255);
-				// text("Me",mouseX+20,mouseY);
-				// fill(0, 25);
-		 		//rect(-5, -5, windowWidth, windowHeight);
-
-				player.velocity.x = 
-		    	(mouseX-player.position.x)*0.1;
-		  		player.velocity.y = 
-		    	(mouseY-player.position.y)*0.1;
-
-		  			for (var i = 0; i < d.length; i++) {
-		   		 d[i].displ();
-		  		}
-		  		player.shapeColor = color(255);
-		  		drawSprites();
-		break;
-
-
-		//3
-		case sceneState.GAME:	
+		// clear(brick);	
 				background(255);
 				// if(Up){
 				// player.velocity.x = 0;
@@ -257,6 +254,7 @@ function drawScene(whichScene) {
 				// player.velocity.x -=1;
 				// player.velocity.y =0;
 				// }
+
 		   		a = random(0,13);
 		   		var i = parseInt(a);
 		  		console.log(i);
@@ -270,6 +268,7 @@ function drawScene(whichScene) {
 		  		for (var i = 0; i < rainSprites.length; i++) {
 		      		rainSprites[i].display();
 		      		rainSprites[i].collision();
+		      		rainSprites[i].TextOverlap();
 		      		if (rainSprites[i].sprite.position.y > windowHeight-100) {
 		      			rainSprites[i].sprite.position.y = windowHeight+20;
 		      			noFill();
@@ -282,16 +281,62 @@ function drawScene(whichScene) {
 		      		}
 		  		}
 
-		  	
 		  		player.shapeColor = color(0);
 		  		player.velocity.x = (mouseX-player.position.x)*0.1;
 		  		player.velocity.y = (mouseY-player.position.y)*0.1;
+		  		console.log(score);
 				// player.collide(rainSprites);
 		  		// rainSprites.debug = mouseIsPressed;
 		  		player.debug = mouseIsPressed;
 		  		drawSprites();
 				// textFont(cardText);
-				text("[This round is over] \n Feels GOOD? then refresh to Restart.",width/2,height/2-150);
+				text("[This round is over] "+score+ "\n Feels GOOD? then refresh to Restart.",width/2,height/2-150);
+		break;
+
+
+		//3
+		case sceneState.GAME:
+				background(0);
+				
+	
+		 		fill(255);
+				textAlign(CENTER);
+				textSize(28);
+				text("End",width/2,height/2);
+				rect(width/2+25,height/2-8,10,10);
+			 	mousePositionX=mouseX;
+				mousePositionY=mouseY;
+				// drawSprites();
+				if(buttonTrigger){
+				fill(0);
+				text(".",width/2+30,height/2);
+				}
+				else{fill(255);
+				text(".",mousePositionX+20,mousePositionY);}
+
+				// fill(0, 25);
+		 		//rect(-5, -5, windowWidth, windowHeight);
+
+
+// 		// brick =true;
+// 		for (var i = 0 ; i < 3; i++){
+// 	var brickSprite = createSprite(brickX[i],brickY[i], 40, 5);
+// 	// brick.add(brickSprite);
+// }
+	
+		// console.log(brickX.length);
+	
+		// 		player.velocity.x = 
+		//     	(mouseX-player.position.x)*0.1;
+		//   		player.velocity.y = 
+		//     	(mouseY-player.position.y)*0.1;
+
+		//   		// 	for (var i = 0; i < d.length; i++) {
+		//    	// 	 d[i].displ();
+		//   		// }
+		//   		player.shapeColor = color(255);
+		//   		drawSprites();
+				
 		break;
 		
 
@@ -337,17 +382,18 @@ function drawScene(whichScene) {
 				
 				break;
 			case sceneState.SETUP:
-
-				if (keyOn) {
+				if (player.collide(brick)||keyOn) {
+					// console.log(player.collide(brick));
 					currentState++;
 					setUpScene(currentState);
 				}
 			
 				break;
 				case sceneState.CHOICE:
-				if (keyOn) {
+				if (keyOn||score>300) {
 					currentState++;
 					setUpScene(currentState);
+
 
 				}
 
@@ -356,11 +402,11 @@ function drawScene(whichScene) {
 				if (keyOn) {				
 					currentState++;
 					setUpScene(currentState);
+
 				}
 
 				break;
 				case sceneState.NEXT:
-				cardOn = false;	
 				if (keyOn) {							
 				//	print(int(random(0,13)));
 					currentState++;
@@ -390,9 +436,14 @@ function drawScene(whichScene) {
 				// background(0);
 				break;
 			case sceneState.CHOICE:
+			for (var i = 0; i < brick.length; i++) {
+					brick[i].remove();
+				}
 				// tutorialTimer = millis();
+				
 				break;
 			case sceneState.GAME:
+				
 				// tutorialTimer = millis();
 				break;
 			case sceneState.NEXT:
@@ -407,11 +458,12 @@ function drawScene(whichScene) {
 		}
 	}
 
-function Waterfall(fall){
+function Waterfall(){
 	this.pos = createVector(width / 2, 50);
 	this.vel = createVector(0, 0);
 	var speed = 2.5;
 	this.vel.y = this.pos.y/6 * speed;
+
 
 
 	this.update = function () {
@@ -426,62 +478,21 @@ function Waterfall(fall){
 	this.display = function () {
 		fill(255);
   		textAlign(CENTER, CENTER);
-		text("Fall!",this.pos.x, this.pos.y);
-
-  		push();
-  		n = 1;
-  		fill(255);
-  		translate(0, n*12);
-  		text("Fall!", this.pos.x, this.pos.y);	
-
-		push();
-		n = 2;
-  		fill(255);
-  		translate(0, n*13);
-  		text("Fall!", this.pos.x, this.pos.y);	
-  		
-  		push();
-  		n = 3;
-  		fill(255);
-  		translate(0, n*14);
-  		text("Fall!", this.pos.x, this.pos.y);	
-  		
-  		push();
-  		n = 4;
-  		fill(255);
-  		translate(0, n*15);
-  		text("Fall!",this.pos.x, this.pos.y);	
-  		
-  		push();
-  		n = 5;
-  		fill(255);
-  		translate(0, n*15);
-  		text("Fall!",this.pos.x, this.pos.y);	
-  		
-  		push();
-  		n = 6;
-  		fill(255);
-  		translate(0, n*15);
-  		text("Fall!",this.pos.x, this.pos.y);	
-  		
-  		push();
-  		n = 7;
-  		fill(255);
-  		translate(0, n*15);
-  		text("Fall!", this.pos.x, this.pos.y);	
-  		
-  		push();
-  		n = 8;
-  		fill(255);
-  		translate(0, n*15);
-  		text("Right Arrow to next page!!",this.pos.x, this.pos.y);	
+		text("fall",this.pos.x, this.pos.y);
 
 
-
-for (var i = 1; i <= n; i++) {
-	pop();
+  		
+//  		n = 1;
+  		for (var i = 1; i <= 8; i++) {
+  		push();
+  		fill(255);
+  		translate(0, i*12+(random(1,3)));
+  		text(fall[i],this.pos.x, this.pos.y);	
 }
-}
+		for (var i = 1; i <= 8; i++) {
+		pop();
+		}
+		}
 
 }
 
@@ -527,7 +538,6 @@ function Drop(x, y, sp) {
 
 }
 
-
 //  function Yvalues(){
 //  	   var w = width+ 320;
 //  			var dx = (TWO_PI / period) * xspacing;
@@ -564,20 +574,31 @@ function TextSprite(x,y,words) {
     this.display = function() {
         text(this.text, this.sprite.position.x-5, this.sprite.position.y-12);
     }
-    this.away = function(){
-   	   this.sprite.y = windowHeight+10;
-   
-   
-    }
     
 
     this.collision = function(){player.collide(this.sprite);}
+
+    this.TextOverlap = function() {
+    	if (player.overlap(this.sprite)) {
+    this.sprite.visible = true;
+    this.sprite.remove();
+    score += 1;
+  }
   
 }
 
+}
 
+ function mousePressed() {
+ 	if(currentState == 3){
+	mousePressedX = mouseX;
+	mousePressedY = mouseY;
+	if(mousePressedX>width/2+25 && mousePressedX<width/2+25+10 && mousePressedY>height/2-8 && mousePressedY<height/2+2){
+		buttonTrigger = true;
 
-// function mousePressed() {
+	}
+}
+
 //   var s = new TextSprite(random(0,windowWidth), 0,"hi");
 //    // var d = new TextSprite(random(0,windowWidth), 0);
 //    //    var f = new TextSprite(random(0,windowWidth), 0);
@@ -585,7 +606,7 @@ function TextSprite(x,y,words) {
 //   // rainSprites.push(d);
 //   // rainSprites.push(f);
 //   // rainSprites.debug = mouseIsPressed;
-// }
+}
 
 
 
@@ -596,15 +617,22 @@ if(keyCode === RIGHT_ARROW){
 	keyOn = true;
 }if (key === 'W') {
 		Up = true;
+		player.setSpeed(1.5,270);
 	}
 	if (key === 'S') {
 
 	    Down = true;
+	    player.setSpeed(1.5,90);
+
 	}
 	if (key === 'D') {
 		Right = true;
+		player.setSpeed(1.5,0);
+
 	}if (key === 'A') {
 		Left = true;
+		player.setSpeed(1.5,180);
+
 
 	}
 

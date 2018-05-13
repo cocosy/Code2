@@ -1,25 +1,39 @@
 {
 "fall":[
-    "fall",
+    "dddd",
     "down",
     "drop",
     "fly",
-    "free"],
+    "free",
+    "free",
+    "free",
+    "free",
+"dddd"],
+
+"x":[
+    "300",
+    "200",
+    "250"],
+"y":[
+    "200",
+    "400",
+    "500"
+],
 
   "Text":[ 
-    "hello",
-    "good",
-    "what",
-    "fine",
-    "like",
-    "you",
-    "no",
-    "yea",
-    "uhm",
-    "ok",
-    "good",
-    "bye",
-    "me",
-    "hi"
+    "\u4f60\n\u597d\n\u554a",
+    "\u4e0d\n\u9519\n\u554a",
+    "w\nh\na\nt",
+    "f\ni\nn\ne",
+    "l\ni\nk\ne",
+    "y\no\nu",
+    "n\no",
+    "y\ne\na",
+    "u\nh\nm",
+    "o\nk",
+    "g\no\no\nd",
+    "b\ny\ne",
+    "\u563b\n\u563b",
+    "h\ni"
 ]
 }
