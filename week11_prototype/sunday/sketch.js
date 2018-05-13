@@ -53,6 +53,7 @@ var brick = false;
 var brickSprite =[];
 var v = 0;
 
+
 var player;
 var x;
 var y;
@@ -60,6 +61,7 @@ var millisecond;
 
 //
 var buttonTrigger =false;
+var buttonGame =false;
 
 
 //keys
@@ -95,16 +97,17 @@ function setup() {
 		words.push(textData.Text[i]);
 	}
 
-	for(var i = 0 ; i < textData.x.length; i++){
-		brickX.push(textData.x[i]);
-		brickY.push(textData.y[i]);
-	}
+	// for(var i = 0 ; i < textData.x.length; i++){
+	// 	brickX.push(textData.x[i]);
+	// 	brickY.push(textData.y[i]);
+	// }
 
 	for (var i = 0; i < 100; i++) {
     	d.push(new Drop(random(0, windowWidth), random(0, windowHeight), random(2, 4)));
   	}
 
  	waterfall = new Waterfall();
+ 	// walls = new wall();
 	smooth(4); 
 
 // for (var i = 0; i < textData.length; i++) {
@@ -113,7 +116,7 @@ function setup() {
 // }
     brick = new Group();
  	for (var i = 1; i < 6; i++) {
-   		var b = createSprite(random(width/2-100, width/2+100), (height/6)*i, 60, 10);
+   		var b = createSprite(random(width/2-80, width/2+100), (height/6)*i, 80, 10);
     	brick.add(b);
 }
 
@@ -148,15 +151,22 @@ function drawScene(whichScene) {
 		case sceneState.SETUP:
 			 	// background(0);
 			fill(0,15);
+
 			rect(-10, -10, windowWidth, windowHeight);
 	  	// frameRate(20);
-			beginShape();
+			// beginShape();
 			noStroke();
 			//  noStroke();
 			// stroke(102, 163, 255);
+	
 
 
-			if(millis()-millisecond <3000){
+			if(millis()-millisecond <3000 && buttonGame == false){
+			fill(255);
+		    rect(width/2-20, height-60, 40, 40);
+		    textSize(50);
+			fill(0);
+		    text(".",width/2,height-40);
 			beginShape();
 			noStroke();
 			var x = 0;
@@ -182,11 +192,26 @@ function drawScene(whichScene) {
    			}
    			endShape();
    		}else{	
-   				player.shapeColor = color(255,200);
+   			player.shapeColor = color(255,200);
 
 			player.collide(brick);
-			
+		
+				if(player.position.x>width/2+100 || player.position.x<width/2-80){
+			player.velocity.x*= -1;
+			}else if(player.position.y>height || player.position.y<0){
+			player.velocity.y*= -1;
+			}
+		// console.log(brick[5].position.x);
+
   			drawSprites();
+			// textSize(50);
+			// fill(0);
+			// text(".",player.position.x,player.position.y);
+			textSize(50);
+			fill(0);
+			text(".",brick[0].position.x,brick[0].position.y+2);
+			text(".",brick[3].position.x,brick[3].position.y+5);
+  	
    			beginShape();
 			
 			noStroke();
@@ -386,6 +411,7 @@ function drawScene(whichScene) {
 					// console.log(player.collide(brick));
 					currentState++;
 					setUpScene(currentState);
+
 				}
 			
 				break;
@@ -393,6 +419,7 @@ function drawScene(whichScene) {
 				if (keyOn||score>300) {
 					currentState++;
 					setUpScene(currentState);
+					buttonGame = false;
 
 
 				}
@@ -478,6 +505,7 @@ function Waterfall(){
 	this.display = function () {
 		fill(255);
   		textAlign(CENTER, CENTER);
+  		textSize(18);
 		text("fall",this.pos.x, this.pos.y);
 
 
@@ -561,6 +589,20 @@ function Drop(x, y, sp) {
 //  }
 // }
 
+// function wall(){
+// 	noFill();
+// 	noStroke();
+// 	rect(0,0,width/2-100,height);
+// 	rect(width/2+100,0,width/2-200,height);
+
+// 	this.collision = function(){
+	
+
+
+// }
+		
+
+
 function TextSprite(x,y,words) {
     this.text = words;
     // this.x = random(0,windowWidth);
@@ -595,6 +637,15 @@ function TextSprite(x,y,words) {
 	mousePressedY = mouseY;
 	if(mousePressedX>width/2+25 && mousePressedX<width/2+25+10 && mousePressedY>height/2-8 && mousePressedY<height/2+2){
 		buttonTrigger = true;
+
+	}
+}
+
+if(currentState == 1){
+		mousePressedX = mouseX;
+	mousePressedY = mouseY;
+	if(mousePressedX>width/2-20 && mousePressedX<width/2+20 && mousePressedY>height-60 && mousePressedY<height-20){
+		buttonGame = true;
 
 	}
 }
