@@ -36,6 +36,7 @@ var arcEnd;
 
 //json
 var words = [];
+// var fall = []
 var textData;
 
 var rainSprites = [];
@@ -83,8 +84,8 @@ smooth(4);
 // 	var newText = new TextSprite(textData[i].text);
 //     Words.push(new TextSprite(textData[i].text));
 // }
-for(var i = 0 ; i < textData.text.length; i++) {
-	words.push(textData.text[i]);
+for(var i = 0 ; i < textData.Text.length; i++) {
+	words.push(textData.Text[i]);
 
 }
 
@@ -117,30 +118,34 @@ function draw() {
 function drawScene(whichScene) {
 	switch (currentState) {
 		case sceneState.TUTORIAL:
-			background(0);
-			fill(0, 255, 0);
-			textSize(10);
-		waterfall.update();
-		waterfall.display();
-		console.log(words);
-			break;
+				background(0);
+				fill(0, 255, 0);
+				textSize(10);
+				waterfall.update();
+				waterfall.display();
+				console.log(words);
+		break;
 
 		//1
 		case sceneState.SETUP:
-		 // background(0);
-		 	fill(0,15);
-			// if(i%5 == 0){
+			 	// background(0);
+			fill(0,15);
 			rect(-10, -10, windowWidth, windowHeight);
-		//}
 		
-	  	// stroke( 184, 250, 211);
 	  	// frameRate(20);
-	 	 	noStroke();
- 	 		var x = 0;
 			beginShape();
 			
 			 noStroke();
+			
+			//  noStroke();
 			// stroke(102, 163, 255);
+
+
+			if(millis()<3000){
+			beginShape();
+			
+			noStroke();
+			var x = 0;
   	 		while(x < width){
     		var y = height * noise(x/2500,pitch); //2D noise
     		// console.log(pitch);
@@ -154,14 +159,59 @@ function drawScene(whichScene) {
 			textSize(9);
 			text("hi", x,y-2);
 			fill(0, 51, 128,20);
-		
+			x = x +10;
 			// rect(-10, y+20, windowWidth, windowHeight-y);
 			// stroke(102, 163, 255);
 			// noFill();
   		  //point(x ,y);
-     		x = x +10;  //x座標の描画間隔
+     		 //x座標の描画間隔
    			}
-			endShape();
+   			endShape();
+   		}else{	
+   			beginShape();
+			
+			noStroke();
+   			var x = 0;
+   			while(x < width/2-100){
+    		var y = height * noise(x/2500,pitch); //2D noise
+    		// console.log(pitch);
+			vertex(width/2-100, y);
+			vertex(0, y);
+			// vertex(windowWidth,0);
+			vertex(0, windowHeight);
+			vertex(width/2-100,windowHeight);
+			fill(102, 163, 255);
+			// noStroke();
+			textSize(9);
+			text("hi", x,y-2);
+			fill(0, 51, 128,20);
+			x = x +10;
+		
+   			}
+   			 endShape();
+
+   			 var z = width/2+120;
+
+   			while(z < width && z>width/2){
+   			beginShape();
+    		var y = height * noise(z/2500,pitch); //2D noise
+    		// console.log(pitch);
+			vertex(z, y);
+			// vertex(0, 0);
+			vertex(width/2+120,y);
+			vertex(width/2+120, windowHeight);
+			vertex(windowWidth,windowHeight);
+			fill(102, 163, 255);
+			// noStroke();
+			textSize(9);
+			text("hi",z,y-2);
+			fill(0, 51, 128,20);
+			z = z +10;
+
+   			}
+   			endShape();
+   		}
+			
   			pitch = pitch + 0.02; //y座標の描画間隔微調整
   			i++;
   			noStroke();
@@ -169,111 +219,109 @@ function drawScene(whichScene) {
 
 		//2
 		case sceneState.CHOICE:
-		background(0);
-		// fill(0);
-		// textAlign(CENTER);
-		// textSize(28);
-		// fill(255);
-		// text("Me",mouseX+20,mouseY);
-		// fill(0, 25);
- 	// 	rect(-5, -5, windowWidth, windowHeight);
-		player.velocity.x = 
-    	(mouseX-player.position.x)*0.1;
-  		player.velocity.y = 
-    	(mouseY-player.position.y)*0.1;
+				background(0);
+				// fill(0);
+				// textAlign(CENTER);
+				// textSize(28);
+				// fill(255);
+				// text("Me",mouseX+20,mouseY);
+				// fill(0, 25);
+		 		//rect(-5, -5, windowWidth, windowHeight);
 
-  			for (var i = 0; i < d.length; i++) {
-   		 d[i].displ();
-  		}
-  		player.shapeColor = color(255);
-  		drawSprites();
+				player.velocity.x = 
+		    	(mouseX-player.position.x)*0.1;
+		  		player.velocity.y = 
+		    	(mouseY-player.position.y)*0.1;
 
-
+		  			for (var i = 0; i < d.length; i++) {
+		   		 d[i].displ();
+		  		}
+		  		player.shapeColor = color(255);
+		  		drawSprites();
 		break;
 
-		//3
-		case sceneState.GAME:
 
-		var arcEnd;
-		background(20);
-		strokeWeight(5);
- 		translate(width/2, height/2);
-  		var angle=0;
- 	 	for (var i=0; i<20; i+=2) {
-   	 	noFill();
-    	var sz = i*step;
-    	var offSet = TWO_PI/20*i;
-    	var arcEnd = map(sin(theta+offSet),-1,1, PI, TWO_PI);
-    	stroke(255);
-    	arc(0, 0, sz, sz, PI, arcEnd);
-    	 // console.log(sz);
-  		}
-		// console.log(arcEND);
-  		// colorMode(RGB);
-  		// resetMatrix();
-  		theta += .0323;
-		
+		//3
+		case sceneState.GAME:	
+				background(255);
+				// if(Up){
+				// player.velocity.x = 0;
+				// player.velocity.y -= 1;
+				// }else if(Down){
+				// player.velocity.x = 0;
+				// player.velocity.y += 1;
+				// }else if(Right){
+				// player.velocity.x +=1;
+				// player.velocity.y =0;
+				// }else if(Left){
+				// player.velocity.x -=1;
+				// player.velocity.y =0;
+				// }
+		   		a = random(0,13);
+		   		var i = parseInt(a);
+		  		console.log(i);
+				
+		 		// for(var i = 0 ; i <words.length; i++){
+		 		var s = new TextSprite(random(0,windowWidth),0,words[i]);
+				rainSprites.push(s);
+		    	//}
+
+
+		  		for (var i = 0; i < rainSprites.length; i++) {
+		      		rainSprites[i].display();
+		      		rainSprites[i].collision();
+		      		if (rainSprites[i].sprite.position.y > windowHeight-100) {
+		      			rainSprites[i].sprite.position.y = windowHeight+20;
+		      			noFill();
+		      			stroke(100);
+		      			ellipse(rainSprites[i].sprite.position.x, windowHeight - random(50, 70), random(25, 100), 10);
+		      			noStroke();
+		      			fill(0);
+		      				rainSprites.splice(i,1);
+		      			// console.log(rainSprites.length);
+		      		}
+		  		}
+
+		  	
+		  		player.shapeColor = color(0);
+		  		player.velocity.x = (mouseX-player.position.x)*0.1;
+		  		player.velocity.y = (mouseY-player.position.y)*0.1;
+				// player.collide(rainSprites);
+		  		// rainSprites.debug = mouseIsPressed;
+		  		player.debug = mouseIsPressed;
+		  		drawSprites();
+				// textFont(cardText);
+				text("[This round is over] \n Feels GOOD? then refresh to Restart.",width/2,height/2-150);
 		break;
 		
 
 		//4
 		case sceneState.NEXT:
-		background(255);
-
-		// if(Up){
-		// player.velocity.x = 0;
-		// player.velocity.y -= 1;
-		// }else if(Down){
-		// player.velocity.x = 0;
-		// player.velocity.y += 1;
-		// }else if(Right){
-		// player.velocity.x +=1;
-		// player.velocity.y =0;
-		// }else if(Left){
-		// player.velocity.x -=1;
-		// player.velocity.y =0;
-		// }
-   a = random(0,13);
-   var i = parseInt(a);
-
-  console.log(i);
-		
- // for(var i = 0 ; i <words.length; i++){
- 	var s = new TextSprite(random(0,windowWidth),0,words[i]);
-		rainSprites.push(s);
-    	//}
-
-
-  		for (var i = 0; i < rainSprites.length; i++) {
-      		rainSprites[i].display();
-      		rainSprites[i].collision();
-      		if (rainSprites[i].sprite.position.y > windowHeight-100) {
-      			rainSprites[i].sprite.position.y = windowHeight+20;
-      			noFill();
-      			stroke(100);
-      			ellipse(rainSprites[i].sprite.position.x, windowHeight - random(50, 70), random(25, 100), 10);
-      			noStroke();
-      			fill(0);
-      				rainSprites.splice(i,1);
-      			// console.log(rainSprites.length);
-      		}
-  		}
-
-  	
-  		player.shapeColor = color(0);
-  		player.velocity.x = (mouseX-player.position.x)*0.1;
-  		player.velocity.y = (mouseY-player.position.y)*0.1;
-	// player.collide(rainSprites);
-  		// rainSprites.debug = mouseIsPressed;
-  		player.debug = mouseIsPressed;
-  		drawSprites();
-		// textFont(cardText);
-		text("[This round is over] \n Feels GOOD? then refresh to Restart.",width/2,height/2-150);
+				var arcEnd;
+				background(20);
+				strokeWeight(5);
+		 		translate(width/2, height/2);
+		  		var angle=0;
+		 	 	for (var i=0; i<20; i+=2) {
+		   	 	noFill();
+		    	var sz = i*step;
+		    	var offSet = TWO_PI/20*i;
+		    	var arcEnd = map(sin(theta+offSet),-1,1, PI, TWO_PI);
+		    	stroke(255);
+		    	arc(0, 0, sz, sz, PI, arcEnd);
+		    	 // console.log(sz);
+		  		}
+				// console.log(arcEND);
+		  		// colorMode(RGB);
+		  		// resetMatrix();
+		  		theta += .0323;
+				
 		break;
 
 
+		//5
 		case sceneState.END:
-		text("end",width/2,height/2-150);	
+				text("end",width/2,height/2-150);	
 		default:
 		break;
 			}
@@ -359,7 +407,7 @@ function drawScene(whichScene) {
 		}
 	}
 
-function Waterfall(){
+function Waterfall(fall){
 	this.pos = createVector(width / 2, 50);
 	this.vel = createVector(0, 0);
 	var speed = 2.5;
@@ -372,7 +420,6 @@ function Waterfall(){
 			this.pos.add(this.vel);
 		}else{
 			this.pos = createVector(width / 2, 100);
-		
 		}
 	}
 
@@ -434,7 +481,7 @@ function Waterfall(){
 for (var i = 1; i <= n; i++) {
 	pop();
 }
-	}
+}
 
 }
 
