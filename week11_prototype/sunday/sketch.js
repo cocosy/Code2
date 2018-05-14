@@ -393,7 +393,7 @@ fill(255,20);
 		  		player.debug = mouseIsPressed;
 		  		drawSprites();
 				// textFont(cardText);
-				text("[It's text storm]\nWe'd better find somewhere to hide.\nAvoid the textDrops",width/2,height/2-150);
+				text("[It's text storm]\nWe'd better find somewhere to hide.\nAvoid the textDrops"+score +"\ntime "+millis()+"\ntime "+ millisecond,width/2,height/2-150);
 		break;
 		
 
@@ -432,7 +432,12 @@ fill(255,20);
 
 		//5
 		case sceneState.END:
-				text("end",width/2,height/2-150);	
+				background(0);
+				textAlign(CENTER);
+				fill(255);
+				textSize(size);
+				text("RIP\n Here lies .\nA free period",width/2,height/2);
+				text("Hit KEY T try again",width/2,height/2-20);
 		default:
 		break;
 			}
@@ -466,12 +471,14 @@ fill(255,20);
 
 				break;
 				case sceneState.GAME:
-				if ((millis()-millisecond)>5000 && score <100) {				
+				if (millis()- millisecond>7000 && score <20) {				
 					currentState++;
 					setUpScene(currentState);
 					buttonGame = false;
 					size = 20;
 
+				}else{
+					currentState +=2;
 				}
 
 				break;
@@ -737,6 +744,8 @@ if(keyCode === RIGHT_ARROW){
 		player.setSpeed(1.5,180);
 
 
+	}if(key ==='T'){
+		currentState == 3;
 	}
 
 }
