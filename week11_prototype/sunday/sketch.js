@@ -53,11 +53,13 @@ var brick = false;
 var brickSprite =[];
 var v = 0;
 
+//rotation
+var message;
 
 var player;
 var x;
 var y;
-var millisecond;
+var millisecond=0;
 
 //
 var buttonTrigger =false;
@@ -78,10 +80,14 @@ var currentState = sceneState.TUTORIAL;
 var keyOn = false;
 var mousePositionX;
 var mousePositionY;
+var velocityX;
+var velocityY;
 var j;
+var sea;
 
 function preload() {
   textData = loadJSON('text.json');
+  // sea = loadImage('assets/sea2.png');
 }
 
 
@@ -116,12 +122,14 @@ function setup() {
 // }
     brick = new Group();
  	for (var i = 1; i < 6; i++) {
-   		var b = createSprite(random(width/2-80, width/2+100), (height/6)*i, 80, 10);
+   		var b = createSprite(random(width/2-80, width/2+100), (height/6)*i);
+   		b.addImage(loadImage('assets/sea'+i+'.png'));
     	brick.add(b);
 }
 
- player = createSprite(width/2, height-40, 40, 40);
+ player = createSprite(width/2, height-40, 20, 20);
  player.shapeColor = color(0);
+ message = "WHERE ARE WE GOING";
 
 
 }
@@ -140,33 +148,42 @@ function drawScene(whichScene) {
 		case sceneState.TUTORIAL:
 				background(0);
 				fill(0, 255, 0);
-				textSize(10);
+				// frameRate(40);
+				textSize(12);
 				waterfall.update();
 				waterfall.display();
+				if(waterfall.rec.y >=800){
+					console.log("hi");
+					currentState =1;
+				};
 				millisecond = millis();
+
 
 		break;
 
 		//1
 		case sceneState.SETUP:
-			 	// background(0);
+			// background(0);
 			fill(0,15);
-
 			rect(-10, -10, windowWidth, windowHeight);
-	  	// frameRate(20);
+	  		// frameRate(20);
 			// beginShape();
 			noStroke();
 			//  noStroke();
 			// stroke(102, 163, 255);
-	
-
-
-			if(millis()-millisecond <3000 && buttonGame == false){
+			fill(255);
+			textSize(20)
+			text(".",random(0,width),random(0,height/2));
+			if(millis()-millisecond <5000 && buttonGame == false){
+			fill(255);
+ 			textSize(12);
+  			text("I’m an escaping period \n Getting tired of staying in that book \nI'm trying to find a new home.",
+    		mouseX+20, mouseY, 200, 200);
 			fill(255);
 		    rect(width/2-20, height-60, 40, 40);
 		    textSize(50);
 			fill(0);
-		    text(".",width/2,height-40);
+		    text(".",width/2-15,height-30);
 			beginShape();
 			noStroke();
 			var x = 0;
@@ -202,15 +219,25 @@ function drawScene(whichScene) {
 			player.velocity.y*= -1;
 			}
 		// console.log(brick[5].position.x);
-
+			fill(255);
+ 			textSize(12);
+  			text("Use WSAD KEYS to find out who hides up the exit\n and get out of the sea!!",
+    		mouseX+20, mouseY, 200, 200);
   			drawSprites();
 			// textSize(50);
 			// fill(0);
 			// text(".",player.position.x,player.position.y);
-			textSize(50);
-			fill(0);
-			text(".",brick[0].position.x,brick[0].position.y+2);
-			text(".",brick[3].position.x,brick[3].position.y+5);
+			textSize(10);
+			fill(0,204,0);
+			text("seagrass",brick[0].position.x-8,brick[0].position.y+32);
+			fill(153, 221, 255);
+			text("shrimp",brick[1].position.x+9,brick[1].position.y+2);
+			fill(255, 204, 102);
+			text("fish",brick[2].position.x-13,brick[2].position.y+2);
+			fill(255, 255, 204);
+			text("shell",brick[3].position.x-10,brick[3].position.y+2);
+			fill(255, 80, 80);
+			text("crab",brick[4].position.x-7,brick[4].position.y-20);
   	
    			beginShape();
 			
@@ -264,7 +291,55 @@ function drawScene(whichScene) {
 
 		
 		case sceneState.CHOICE:
-		// clear(brick);	
+
+
+
+
+	fill(255,20);
+  rect(0,0,width/height);
+ 
+  fill(250,250,250,50);
+  textSize(30);  
+  translate(width/2,height/2);  
+  rotate(theta);               
+  textAlign(CENTER);            
+  text(message,0,0);            
+  theta += 0.05;               
+
+  fill(200,200,200,50);
+  textSize(45);
+  translate(30,50);
+  rotate(theta);                          
+  text(message,0,0);            
+  theta += 0.005;                
+  
+  fill(150,150,150,50);            
+  textSize(60);
+  translate(60,100); 
+  rotate(theta);                     
+  text(message,0,0);            
+  theta += 0.0005;            
+  
+  fill(100,100,100,50);
+  textSize(75);  
+  translate(90,150); 
+  rotate(theta);                     
+  text(message,0,0);            
+  theta += 0.00005;              
+  
+  fill(250,250,250,50);  
+  textSize(90);  
+  translate(90,150);  
+  rotate(theta);                       
+  text(message,0,0);            
+  theta += 0.00005;   
+		
+		break;
+
+
+		//3
+		case sceneState.GAME:
+// clear(brick);	
 				background(255);
 				// if(Up){
 				// player.velocity.x = 0;
@@ -317,11 +392,13 @@ function drawScene(whichScene) {
 				// textFont(cardText);
 				text("[This round is over] "+score+ "\n Feels GOOD? then refresh to Restart.",width/2,height/2-150);
 		break;
+		
 
-
-		//3
-		case sceneState.GAME:
-				background(0);
+		//4
+		case sceneState.NEXT:
+		   
+	
+			background(0);
 				
 	
 		 		fill(255);
@@ -338,54 +415,7 @@ function drawScene(whichScene) {
 				}
 				else{fill(255);
 				text(".",mousePositionX+20,mousePositionY);}
-
-				// fill(0, 25);
-		 		//rect(-5, -5, windowWidth, windowHeight);
-
-
-// 		// brick =true;
-// 		for (var i = 0 ; i < 3; i++){
-// 	var brickSprite = createSprite(brickX[i],brickY[i], 40, 5);
-// 	// brick.add(brickSprite);
-// }
-	
-		// console.log(brickX.length);
-	
-		// 		player.velocity.x = 
-		//     	(mouseX-player.position.x)*0.1;
-		//   		player.velocity.y = 
-		//     	(mouseY-player.position.y)*0.1;
-
-		//   		// 	for (var i = 0; i < d.length; i++) {
-		//    	// 	 d[i].displ();
-		//   		// }
-		//   		player.shapeColor = color(255);
-		//   		drawSprites();
-				
-		break;
 		
-
-		//4
-		case sceneState.NEXT:
-				var arcEnd;
-				background(20);
-				strokeWeight(5);
-		 		translate(width/2, height/2);
-		  		var angle=0;
-		 	 	for (var i=0; i<20; i+=2) {
-		   	 	noFill();
-		    	var sz = i*step;
-		    	var offSet = TWO_PI/20*i;
-		    	var arcEnd = map(sin(theta+offSet),-1,1, PI, TWO_PI);
-		    	stroke(255);
-		    	arc(0, 0, sz, sz, PI, arcEnd);
-		    	 // console.log(sz);
-		  		}
-				// console.log(arcEND);
-		  		// colorMode(RGB);
-		  		// resetMatrix();
-		  		theta += .0323;
-				
 		break;
 
 
@@ -416,19 +446,20 @@ function drawScene(whichScene) {
 			
 				break;
 				case sceneState.CHOICE:
-				if (keyOn||score>300) {
+				if (keyOn) {
 					currentState++;
 					setUpScene(currentState);
-					buttonGame = false;
+					
 
 
 				}
 
 				break;
 				case sceneState.GAME:
-				if (keyOn) {				
+				if (keyOn||score>300) {				
 					currentState++;
 					setUpScene(currentState);
+					buttonGame = false;
 
 				}
 
@@ -487,40 +518,46 @@ function drawScene(whichScene) {
 
 function Waterfall(){
 	this.pos = createVector(width / 2, 50);
+	this.rec = createVector(width / 2, 50);
 	this.vel = createVector(0, 0);
-	var speed = 2.5;
-	this.vel.y = this.pos.y/6 * speed;
+	this.recvel = createVector(0, 0);
+	var speed = 1.5;
+	this.vel.y = this.pos.y/3 * speed;
+	this.recvel.y = this.rec.y/3 * speed/3;
 
 
 
 	this.update = function () {
 	
-		if(this.pos.y <= 400){
+		if(this.pos.y <= 800){
 			this.pos.add(this.vel);
+			this.rec.add(this.recvel);
 		}else{
-			this.pos = createVector(width / 2, 100);
+			this.pos = createVector(width / 2, 50);
 		}
 	}
 
 	this.display = function () {
-		fill(255);
-  		textAlign(CENTER, CENTER);
-  		textSize(18);
-		text("fall",this.pos.x, this.pos.y);
 
-
-  		
-//  		n = 1;
-  		for (var i = 1; i <= 8; i++) {
+        fill(255);
+        rect(this.rec.x-20, this.rec.y+10,40,40);
+  		for (var i = 0; i <= 10; i++) {
   		push();
   		fill(255);
-  		translate(0, i*12+(random(1,3)));
-  		text(fall[i],this.pos.x, this.pos.y);	
+  		textAlign(CENTER, CENTER);
+  		translate(0, (i+1)*12+(random(1,3)));
+  		text(fall[10-i],this.pos.x, this.pos.y-20);
+  		text(fall[i],this.pos.x, this.pos.y-600);
+  		text(".",this.pos.x-200-15*i, this.pos.y+20);
+  		text(".",this.pos.x+200+15*i, this.pos.y+20);
+  		text(".",this.pos.x-200-15*i, this.pos.y+20-600);
+  		text(".",this.pos.x+200+15*i, this.pos.y+20-600);
 }
-		for (var i = 1; i <= 8; i++) {
+		for (var i = 0; i <= 10; i++) {
 		pop();
 		}
-		}
+		
+	}
 
 }
 
@@ -632,7 +669,7 @@ function TextSprite(x,y,words) {
 }
 
  function mousePressed() {
- 	if(currentState == 3){
+ 	if(currentState == 4){
 	mousePressedX = mouseX;
 	mousePressedY = mouseY;
 	if(mousePressedX>width/2+25 && mousePressedX<width/2+25+10 && mousePressedY>height/2-8 && mousePressedY<height/2+2){
