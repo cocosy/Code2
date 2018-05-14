@@ -60,6 +60,7 @@ var player;
 var x;
 var y;
 var millisecond=0;
+var size;
 
 //
 var buttonTrigger =false;
@@ -80,8 +81,6 @@ var currentState = sceneState.TUTORIAL;
 var keyOn = false;
 var mousePositionX;
 var mousePositionY;
-var velocityX;
-var velocityY;
 var j;
 var sea;
 
@@ -127,7 +126,7 @@ function setup() {
     	brick.add(b);
 }
 
- player = createSprite(width/2, height-40, 20, 20);
+ player = createSprite(width/2, height-30, 20, 20);
  player.shapeColor = color(0);
  message = "WHERE ARE WE GOING";
 
@@ -153,7 +152,6 @@ function drawScene(whichScene) {
 				waterfall.update();
 				waterfall.display();
 				if(waterfall.rec.y >=800){
-					console.log("hi");
 					currentState =1;
 				};
 				millisecond = millis();
@@ -177,13 +175,13 @@ function drawScene(whichScene) {
 			if(millis()-millisecond <5000 && buttonGame == false){
 			fill(255);
  			textSize(12);
-  			text("I’m an escaping period \n Getting tired of staying in that book \nI'm trying to find a new home.",
+  			text("I’m an escaping period \nGetting tired of that book \nI'm trying to find a new home.",
     		mouseX+20, mouseY, 200, 200);
 			fill(255);
-		    rect(width/2-20, height-60, 40, 40);
-		    textSize(50);
+		    rect(width/2, height-30, 20, 20);
+		    textSize(40);
 			fill(0);
-		    text(".",width/2-15,height-30);
+		    text(".",width/2,height-30);
 			beginShape();
 			noStroke();
 			var x = 0;
@@ -221,7 +219,7 @@ function drawScene(whichScene) {
 		// console.log(brick[5].position.x);
 			fill(255);
  			textSize(12);
-  			text("Use WSAD KEYS to find out who hides up the exit\n and get out of the sea!!",
+  			text("Use WSAD KEYS to find out who hides up the exit\nand get out of the sea!!",
     		mouseX+20, mouseY, 200, 200);
   			drawSprites();
 			// textSize(50);
@@ -293,9 +291,10 @@ function drawScene(whichScene) {
 		case sceneState.CHOICE:
 
 
+if(millis()-millisecond>7000){
+	currentState++;}
 
-
-	fill(255,20);
+fill(255,20);
   rect(0,0,width/height);
  
   fill(250,250,250,50);
@@ -402,19 +401,25 @@ function drawScene(whichScene) {
 				
 	
 		 		fill(255);
-				textAlign(CENTER);
-				textSize(28);
-				text("End",width/2,height/2);
+				textAlign(RIGHT);
+				textSize(size);
+				text("End",width/2+25,height/2);
 				rect(width/2+25,height/2-8,10,10);
 			 	mousePositionX=mouseX;
 				mousePositionY=mouseY;
 				// drawSprites();
 				if(buttonTrigger){
 				fill(0);
+				textAlign(CENTER);
 				text(".",width/2+30,height/2);
+				if(size<40){
+					size++;
+				}
 				}
 				else{fill(255);
-				text(".",mousePositionX+20,mousePositionY);}
+				text(".",mousePositionX+20,mousePositionY);
+
+			}
 		
 		break;
 
@@ -441,6 +446,7 @@ function drawScene(whichScene) {
 					// console.log(player.collide(brick));
 					currentState++;
 					setUpScene(currentState);
+					millisecond =millis();
 
 				}
 			
@@ -460,6 +466,7 @@ function drawScene(whichScene) {
 					currentState++;
 					setUpScene(currentState);
 					buttonGame = false;
+					size = 28;
 
 				}
 
@@ -498,7 +505,6 @@ function drawScene(whichScene) {
 					brick[i].remove();
 				}
 				// tutorialTimer = millis();
-				
 				break;
 			case sceneState.GAME:
 				
@@ -539,13 +545,17 @@ function Waterfall(){
 
 	this.display = function () {
 
+        fill(0);
+        textSize(18);
+        text(".",this.rec.x, this.rec.y+10);
         fill(255);
-        rect(this.rec.x-20, this.rec.y+10,40,40);
+        rect(this.rec.x, this.rec.y+10,40,40);
   		for (var i = 0; i <= 10; i++) {
   		push();
   		fill(255);
   		textAlign(CENTER, CENTER);
   		translate(0, (i+1)*12+(random(1,3)));
+  		textSize(12);
   		text(fall[10-i],this.pos.x, this.pos.y-20);
   		text(fall[i],this.pos.x, this.pos.y-600);
   		text(".",this.pos.x-200-15*i, this.pos.y+20);
