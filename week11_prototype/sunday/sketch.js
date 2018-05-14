@@ -126,9 +126,9 @@ function setup() {
     	brick.add(b);
 }
 
- player = createSprite(width/2, height-30, 20, 20);
+ player = createSprite(width/2, height-20, 20, 20);
  player.shapeColor = color(0);
- message = "WHERE ARE WE GOING";
+ message = "where are we going";
 
 
 }
@@ -173,15 +173,16 @@ function drawScene(whichScene) {
 			textSize(20)
 			text(".",random(0,width),random(0,height/2));
 			if(millis()-millisecond <5000 && buttonGame == false){
+
 			fill(255);
  			textSize(12);
   			text("I’m an escaping period \nGetting tired of that book \nI'm trying to find a new home.",
     		mouseX+20, mouseY, 200, 200);
-			fill(255);
-		    rect(width/2, height-30, 20, 20);
-		    textSize(40);
+		    rect(width/2-10, height-30, 20, 20);
+			textSize(28);
 			fill(0);
-		    text(".",width/2,height-30);
+		    text(".",width/2-8,height-13);
+
 			beginShape();
 			noStroke();
 			var x = 0;
@@ -222,9 +223,9 @@ function drawScene(whichScene) {
   			text("Use WSAD KEYS to find out who hides up the exit\nand get out of the sea!!",
     		mouseX+20, mouseY, 200, 200);
   			drawSprites();
-			// textSize(50);
-			// fill(0);
-			// text(".",player.position.x,player.position.y);
+			textSize(30);
+			fill(0);
+			text(".",player.position.x-8,player.position.y+6);
 			textSize(10);
 			fill(0,204,0);
 			text("seagrass",brick[0].position.x-8,brick[0].position.y+32);
@@ -297,7 +298,7 @@ if(millis()-millisecond>7000){
 fill(255,20);
   rect(0,0,width/height);
  
-  fill(250,250,250,50);
+  fill(250,250,250,150);
   textSize(30);  
   translate(width/2,height/2);  
   rotate(theta);               
@@ -305,14 +306,14 @@ fill(255,20);
   text(message,0,0);            
   theta += 0.05;               
 
-  fill(200,200,200,50);
+  fill(200,200,200,125);
   textSize(45);
   translate(30,50);
   rotate(theta);                          
   text(message,0,0);            
   theta += 0.005;                
   
-  fill(150,150,150,50);            
+  fill(150,150,150,100);            
   textSize(60);
   translate(60,100); 
   rotate(theta);                     
@@ -389,7 +390,7 @@ fill(255,20);
 		  		player.debug = mouseIsPressed;
 		  		drawSprites();
 				// textFont(cardText);
-				text("[This round is over] "+score+ "\n Feels GOOD? then refresh to Restart.",width/2,height/2-150);
+				text("[It's text storm] "+score+ "\nWe'd better find somewhere to hide.",width/2,height/2-150);
 		break;
 		
 
@@ -403,7 +404,7 @@ fill(255,20);
 		 		fill(255);
 				textAlign(RIGHT);
 				textSize(size);
-				text("End",width/2+25,height/2);
+				text("This seems to be a good place to hide",width/2+25,height/2);
 				rect(width/2+25,height/2-8,10,10);
 			 	mousePositionX=mouseX;
 				mousePositionY=mouseY;
@@ -544,12 +545,11 @@ function Waterfall(){
 	}
 
 	this.display = function () {
-
-        fill(0);
-        textSize(18);
-        text(".",this.rec.x, this.rec.y+10);
         fill(255);
-        rect(this.rec.x, this.rec.y+10,40,40);
+        rect(this.rec.x-20, this.rec.y+10,40,40);
+        textSize(50);
+        fill(0);
+        text(".",this.rec.x-15, this.rec.y+45);
   		for (var i = 0; i <= 10; i++) {
   		push();
   		fill(255);
@@ -670,7 +670,7 @@ function TextSprite(x,y,words) {
     this.TextOverlap = function() {
     	if (player.overlap(this.sprite)) {
     this.sprite.visible = true;
-    this.sprite.remove();
+    // this.sprite.remove();
     score += 1;
   }
   
@@ -688,10 +688,12 @@ function TextSprite(x,y,words) {
 	}
 }
 
+
+
 if(currentState == 1){
 		mousePressedX = mouseX;
 	mousePressedY = mouseY;
-	if(mousePressedX>width/2-20 && mousePressedX<width/2+20 && mousePressedY>height-60 && mousePressedY<height-20){
+	if(mousePressedX>width/2-10 && mousePressedX<width/2+10 && mousePressedY>height-30 && mousePressedY<height-10){
 		buttonGame = true;
 
 	}
