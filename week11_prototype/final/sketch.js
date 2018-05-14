@@ -2,7 +2,7 @@
 // bfa dt
 // spring 2018
 
-// week 6 final
+// week 12 final
 var sceneState = {
 	TUTORIAL:0,
 	SETUP:1,
@@ -403,7 +403,7 @@ fill(255,20);
 		  		text(".",player.position.x-8,player.position.y+8);
 		  		textSize(12);
 		  		fill(0);
-		  		var num = 40 -score;
+		  		var num = 50 -score;
 		  		var time = millis()-millisecond;
 		  		time = parseInt(time);
 
