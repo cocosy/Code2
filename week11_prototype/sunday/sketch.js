@@ -61,6 +61,7 @@ var x;
 var y;
 var millisecond=0;
 var size;
+var end;
 
 //
 var buttonTrigger =false;
@@ -129,7 +130,7 @@ function setup() {
  player = createSprite(width/2, height-20, 20, 20);
  player.shapeColor = color(0);
  message = "where are we going";
-
+ end = "This seems to be a good place to hide";
 
 }
 
@@ -293,7 +294,9 @@ function drawScene(whichScene) {
 
 
 if(millis()-millisecond>7000){
-	currentState++;}
+	currentState++;
+	millisecond =millis();
+}
 
 fill(255,20);
   rect(0,0,width/height);
@@ -390,7 +393,7 @@ fill(255,20);
 		  		player.debug = mouseIsPressed;
 		  		drawSprites();
 				// textFont(cardText);
-				text("[It's text storm] "+score+ "\nWe'd better find somewhere to hide.",width/2,height/2-150);
+				text("[It's text storm]\nWe'd better find somewhere to hide.\nAvoid the textDrops",width/2,height/2-150);
 		break;
 		
 
@@ -404,17 +407,19 @@ fill(255,20);
 		 		fill(255);
 				textAlign(RIGHT);
 				textSize(size);
-				text("This seems to be a good place to hide",width/2+25,height/2);
-				rect(width/2+25,height/2-8,10,10);
+				text(end,width/2+175,height/2);
+				rect(width/2+176,height/2-8,10,10);
 			 	mousePositionX=mouseX;
 				mousePositionY=mouseY;
 				// drawSprites();
 				if(buttonTrigger){
 				fill(0);
 				textAlign(CENTER);
-				text(".",width/2+30,height/2);
-				if(size<40){
+				end = "END";
+				text(".",width/2+180,height/2);
+				if(size<30){
 					size++;
+
 				}
 				}
 				else{fill(255);
@@ -456,18 +461,16 @@ fill(255,20);
 				if (keyOn) {
 					currentState++;
 					setUpScene(currentState);
-					
-
-
+					millisecond =millis();
 				}
 
 				break;
 				case sceneState.GAME:
-				if (keyOn||score>300) {				
+				if ((millis()-millisecond)>5000 && score <100) {				
 					currentState++;
 					setUpScene(currentState);
 					buttonGame = false;
-					size = 28;
+					size = 20;
 
 				}
 
@@ -682,7 +685,7 @@ function TextSprite(x,y,words) {
  	if(currentState == 4){
 	mousePressedX = mouseX;
 	mousePressedY = mouseY;
-	if(mousePressedX>width/2+25 && mousePressedX<width/2+25+10 && mousePressedY>height/2-8 && mousePressedY<height/2+2){
+	if(mousePressedX>width/2+176 && mousePressedX<width/2+176+10 && mousePressedY>height/2-8 && mousePressedY<height/2+2){
 		buttonTrigger = true;
 
 	}
