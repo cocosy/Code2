@@ -301,36 +301,41 @@ if(millis()-millisecond>7000){
 fill(255,20);
   rect(0,0,width/height);
  
-  fill(250,250,250,150);
+  fill(250,250,250,100);
   textSize(30);  
   translate(width/2,height/2);  
   rotate(theta);               
   textAlign(CENTER);            
-  text(message,0,0);            
+  text(message,0,0);
+  fill(0);
+  rect(0,0,20,20); 
+  textSize(28);
+  fill(255);
+  text(".",5,5);   
   theta += 0.05;               
 
-  fill(200,200,200,125);
+  fill(200,200,200,100);
   textSize(45);
   translate(30,50);
   rotate(theta);                          
   text(message,0,0);            
   theta += 0.005;                
   
-  fill(150,150,150,100);            
+  fill(150,150,150,150);            
   textSize(60);
   translate(60,100); 
   rotate(theta);                     
   text(message,0,0);            
   theta += 0.0005;            
   
-  fill(100,100,100,50);
+  fill(100,100,100,170);
   textSize(75);  
   translate(90,150); 
   rotate(theta);                     
   text(message,0,0);            
   theta += 0.00005;              
   
-  fill(250,250,250,50);  
+  fill(250,250,250,200);  
   textSize(90);  
   translate(90,150);  
   rotate(theta);                       
@@ -388,10 +393,16 @@ fill(255,20);
 		  		player.velocity.x = (mouseX-player.position.x)*0.1;
 		  		player.velocity.y = (mouseY-player.position.y)*0.1;
 		  		console.log(score);
+		  
 				// player.collide(rainSprites);
 		  		// rainSprites.debug = mouseIsPressed;
 		  		player.debug = mouseIsPressed;
 		  		drawSprites();
+		  		fill(255);
+		  		textSize(28);
+		  		text(".",player.position.x-8,player.position.y+8);
+		  		textSize(12);
+		  		fill(0);
 				// textFont(cardText);
 				text("[It's text storm]\nWe'd better find somewhere to hide.\nAvoid the textDrops"+score +"\ntime "+millis()+"\ntime "+ millisecond,width/2,height/2-150);
 		break;
@@ -434,10 +445,12 @@ fill(255,20);
 		case sceneState.END:
 				background(0);
 				textAlign(CENTER);
-				fill(255);
-				textSize(size);
-				text("RIP\n Here lies .\nA free period",width/2,height/2);
-				text("Hit KEY T try again",width/2,height/2-20);
+				fill(255);	
+				if(size<25){
+					textSize(size+10);
+				}else{textSize(size);}
+				text("RIP\n Here lies .\nA free period",width/2,height/2-50);
+				text("Hit KEY T to try again",width/2,height/2+50);
 		default:
 		break;
 			}
@@ -471,13 +484,13 @@ fill(255,20);
 
 				break;
 				case sceneState.GAME:
-				if (millis()- millisecond>7000 && score <20) {				
+				if (millis()- millisecond>7000 && score <40) {				
 					currentState++;
 					setUpScene(currentState);
 					buttonGame = false;
 					size = 20;
 
-				}else{
+				}else if (score >40){
 					currentState +=2;
 				}
 
@@ -745,7 +758,9 @@ if(keyCode === RIGHT_ARROW){
 
 
 	}if(key ==='T'){
-		currentState == 3;
+		currentState =3;
+		score =0;
+		millisecond =millis();
 	}
 
 }
