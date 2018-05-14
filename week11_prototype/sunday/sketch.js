@@ -198,9 +198,9 @@ function drawScene(whichScene) {
 			fill(102, 163, 255);
 			// noStroke();
 			textSize(9);
-			text("hi", x,y-2);
+			text("wave", x,y-2);
 			fill(0, 51, 128,20);
-			x = x +10;
+			x = x +25;
 			// rect(-10, y+20, windowWidth, windowHeight-y);
 			// stroke(102, 163, 255);
 			// noFill();
@@ -254,9 +254,9 @@ function drawScene(whichScene) {
 			fill(102, 163, 255);
 			// noStroke();
 			textSize(9);
-			text("hi", x,y-2);
+			text("wave", x,y-2);
 			fill(0, 51, 128,20);
-			x = x +10;
+			x = x +25;
    			}
    			endShape();
    			var z = width/2+120;
@@ -403,8 +403,12 @@ fill(255,20);
 		  		text(".",player.position.x-8,player.position.y+8);
 		  		textSize(12);
 		  		fill(0);
+		  		var num = 40 -score;
+		  		var time = millis()-millisecond;
+		  		time = parseInt(time);
+
 				// textFont(cardText);
-				text("[It's text storm]\nWe'd better find somewhere to hide.\nAvoid the textDrops"+score +"\ntime "+millis()+"\ntime "+ millisecond,width/2,height/2-150);
+				text("[It's text storm]\nWe'd better find somewhere to hide.\nAvoid collide with the textDrops"+"\nLIFE: "+num+"/50"+"\nTIME: "+time+"/7000",width/2,height/2-150);
 		break;
 		
 
@@ -417,6 +421,8 @@ fill(255,20);
 	
 		 		fill(255);
 				textAlign(RIGHT);
+				textSize(20)
+				text("You survived from the storm!",width/2+175,height/2-50);
 				textSize(size);
 				text(end,width/2+175,height/2);
 				rect(width/2+176,height/2-8,10,10);
@@ -484,13 +490,13 @@ fill(255,20);
 
 				break;
 				case sceneState.GAME:
-				if (millis()- millisecond>7000 && score <40) {				
+				if (millis()- millisecond>7000 && score <50) {				
 					currentState++;
 					setUpScene(currentState);
 					buttonGame = false;
 					size = 20;
 
-				}else if (score >40){
+				}else if (score >50){
 					currentState +=2;
 				}
 
