@@ -435,7 +435,9 @@ fill(255,20);
 				end = "END";
 				text(".",width/2+180,height/2);
 				fill(150);
+				textSize(20);
 				text("Refresh the page to restart.",width-150,height-100);
+				textSize(size);
 				if(size<30){
 					size++;
 
