@@ -490,13 +490,13 @@ fill(255,20);
 
 				break;
 				case sceneState.GAME:
-				if (millis()- millisecond>7000 && score <50) {				
+				if (millis()- millisecond>7000 && score>0) {				
 					currentState++;
 					setUpScene(currentState);
 					buttonGame = false;
 					size = 20;
 
-				}else if (score >50){
+				}else if (score <0){
 					currentState +=2;
 				}
 
