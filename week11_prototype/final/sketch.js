@@ -434,6 +434,8 @@ fill(255,20);
 				textAlign(CENTER);
 				end = "END";
 				text(".",width/2+180,height/2);
+				fill(150);
+				text("Refresh the page to restart.",width-150,height-100);
 				if(size<30){
 					size++;
 
@@ -490,7 +492,7 @@ fill(255,20);
 
 				break;
 				case sceneState.GAME:
-				if (millis()- millisecond>7000 && score>0) {				
+				if (millis()- millisecond>7000 && score>0 ) {				
 					currentState++;
 					setUpScene(currentState);
 					buttonGame = false;
